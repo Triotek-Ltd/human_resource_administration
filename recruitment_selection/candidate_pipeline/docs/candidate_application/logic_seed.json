@@ -1,0 +1,130 @@
+{
+  "doc_id": "candidate_application",
+  "doc_title": "Candidate Application",
+  "archetype": "workflow_case",
+  "doc_kind": "workflow_case",
+  "actions": [
+    "create",
+    "review",
+    "shortlist",
+    "reject",
+    "progress",
+    "close",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "open",
+    "states": [
+      "open",
+      "under_review",
+      "shortlisted",
+      "rejected",
+      "closed",
+      "archived"
+    ],
+    "terminal_states": [
+      "closed",
+      "archived"
+    ]
+  },
+  "related_doc_count": 5,
+  "fetch_rule_count": 0,
+  "action_handler_count": 7,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "case_flow",
+      "supports_assignment": true,
+      "supports_escalation": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": false
+    },
+    "integration_profile": {
+      "external_sync_enabled": false
+    },
+    "lifecycle_states": [
+      "open",
+      "under_review",
+      "shortlisted",
+      "rejected",
+      "closed",
+      "archived"
+    ],
+    "is_transactional": false
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "candidate": "party_reference",
+      "application_date": "schedule_marker",
+      "screening_status": "status_flag",
+      "shortlist_status": "status_flag"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "application_no",
+      "candidate",
+      "vacancy"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "workflow_state",
+      "modified"
+    ],
+    "initial_state": "open",
+    "lifecycle_states": [
+      "open",
+      "under_review",
+      "shortlisted",
+      "rejected",
+      "closed",
+      "archived"
+    ],
+    "terminal_states": [
+      "closed",
+      "archived"
+    ],
+    "action_targets": {
+      "create": null,
+      "review": null,
+      "progress": null,
+      "reject": "rejected",
+      "close": "closed",
+      "archive": "archived",
+      "shortlist": "shortlisted"
+    }
+  },
+  "workflow_hints": {
+    "business_objective": "Track each candidate through screening, interview, offer, and hiring decision stages.",
+    "actors": [
+      "HR officer",
+      "recruiter",
+      "hiring manager"
+    ],
+    "primary_transitions": [
+      "candidate_application: open -> under_review -> shortlisted or rejected -> closed -> archived"
+    ]
+  },
+  "related_docs": [
+    "candidate_profile",
+    "job_vacancy",
+    "interview_schedule",
+    "interview_evaluation",
+    "job_offer"
+  ],
+  "borrowed_fields": [
+    "candidate details from candidate_profile",
+    "vacancy details from job_vacancy"
+  ]
+}

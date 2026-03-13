@@ -1,0 +1,13 @@
+{
+  "id": "payroll_outputs",
+  "entity": "submodule",
+  "children": {
+    "docs_registry": "docs.json"
+  },
+  "supports": [
+    "doc",
+    "workflow",
+    "report",
+    "print"
+  ]
+}

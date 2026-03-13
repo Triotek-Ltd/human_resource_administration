@@ -1,0 +1,11 @@
+{
+  "docs": [
+    "job_vacancy",
+    "job_description",
+    "candidate_profile",
+    "candidate_application",
+    "interview_schedule",
+    "interview_evaluation",
+    "job_offer"
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "doc_id": "job_offer",
+  "doc_title": "Job Offer",
+  "archetype": "transaction",
+  "doc_kind": "transaction",
+  "actions": [
+    "create",
+    "issue",
+    "confirm",
+    "cancel",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "draft",
+    "states": [
+      "draft",
+      "issued",
+      "accepted",
+      "declined",
+      "cancelled",
+      "archived"
+    ],
+    "terminal_states": [
+      "archived"
+    ]
+  },
+  "related_doc_count": 1,
+  "fetch_rule_count": 1,
+  "action_handler_count": 5,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "transaction_flow",
+      "supports_submission": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": true
+    },
+    "integration_profile": {
+      "external_sync_enabled": true,
+      "tracks_external_refs": true
+    },
+    "lifecycle_states": [
+      "draft",
+      "issued",
+      "accepted",
+      "declined",
+      "cancelled",
+      "archived"
+    ],
+    "is_transactional": true
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "transaction_date"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "transaction_date": "transaction_date",
+      "party": "party_reference",
+      "currency": "currency_code",
+      "total_amount": "total_amount",
+      "start_date": "schedule_marker",
+      "expiry_date": "schedule_marker"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "offer_no",
+      "application",
+      "offered_role"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "transaction_date",
+      "party",
+      "total_amount",
+      "workflow_state"
+    ],
+    "initial_state": "draft",
+    "lifecycle_states": [
+      "draft",
+      "issued",
+      "accepted",
+      "declined",
+      "cancelled",
+      "archived"
+    ],
+    "terminal_states": [
+      "archived"
+    ],
+    "action_targets": {
+      "issue": "issued",
+      "create": null,
+      "archive": "archived",
+      "confirm": null,
+      "cancel": null
+    }
+  },
+  "workflow_hints": {
+    "business_objective": "Issue and track employment offers against selected candidate applications.",
+    "actors": [
+      "HR officer",
+      "approver",
+      "candidate"
+    ],
+    "primary_transitions": [
+      "job_offer: draft -> issued -> accepted or declined or cancelled -> archived"
+    ]
+  },
+  "related_docs": [
+    "candidate_application"
+  ],
+  "borrowed_fields": [
+    "candidate and vacancy context from candidate_application"
+  ]
+}

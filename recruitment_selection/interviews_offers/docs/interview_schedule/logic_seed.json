@@ -1,0 +1,109 @@
+{
+  "doc_id": "interview_schedule",
+  "doc_title": "Interview Schedule",
+  "archetype": "event",
+  "doc_kind": "event",
+  "actions": [
+    "create",
+    "confirm",
+    "cancel",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "scheduled",
+    "states": [
+      "scheduled",
+      "completed",
+      "cancelled",
+      "archived"
+    ],
+    "terminal_states": [
+      "archived"
+    ]
+  },
+  "related_doc_count": 1,
+  "fetch_rule_count": 0,
+  "action_handler_count": 4,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "event_schedule",
+      "supports_timing": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": false
+    },
+    "integration_profile": {
+      "external_sync_enabled": false
+    },
+    "lifecycle_states": [
+      "scheduled",
+      "completed",
+      "cancelled",
+      "archived"
+    ],
+    "is_transactional": false
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "start_at": "schedule_marker",
+      "end_at": "schedule_marker",
+      "date_time": "event_datetime"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "interview_no",
+      "application",
+      "date_time"
+    ],
+    "list_columns": [
+      "title",
+      "start_at",
+      "end_at",
+      "workflow_state"
+    ],
+    "initial_state": "scheduled",
+    "lifecycle_states": [
+      "scheduled",
+      "completed",
+      "cancelled",
+      "archived"
+    ],
+    "terminal_states": [
+      "archived"
+    ],
+    "action_targets": {
+      "confirm": "completed",
+      "create": null,
+      "archive": "archived",
+      "cancel": null
+    }
+  },
+  "workflow_hints": {
+    "business_objective": "Schedule and track recruitment interviews against candidate applications.",
+    "actors": [
+      "HR officer",
+      "hiring manager",
+      "panel"
+    ],
+    "primary_transitions": [
+      "interview_schedule: scheduled -> completed or cancelled -> archived"
+    ]
+  },
+  "related_docs": [
+    "candidate_application"
+  ],
+  "borrowed_fields": [
+    "candidate and vacancy context from candidate_application"
+  ]
+}

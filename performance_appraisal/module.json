@@ -1,0 +1,8 @@
+{
+  "id": "performance_appraisal",
+  "title": "Performance Appraisal",
+  "app_id": "human_resource_administration",
+  "type": "module",
+  "status": "draft",
+  "supports_submodules": true
+}

@@ -1,0 +1,130 @@
+{
+  "doc_id": "onboarding_case",
+  "doc_title": "Onboarding Case",
+  "archetype": "workflow_case",
+  "doc_kind": "workflow_case",
+  "actions": [
+    "create",
+    "assign",
+    "track",
+    "confirm",
+    "close"
+  ],
+  "lifecycle": {
+    "initial_state": "open",
+    "states": [
+      "open",
+      "in_progress",
+      "completed",
+      "closed"
+    ],
+    "terminal_states": [
+      "closed"
+    ]
+  },
+  "related_doc_count": 1,
+  "fetch_rule_count": 0,
+  "action_handler_count": 5,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "case_flow",
+      "supports_assignment": true,
+      "supports_escalation": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": false
+    },
+    "integration_profile": {
+      "external_sync_enabled": false
+    },
+    "lifecycle_states": [
+      "open",
+      "in_progress",
+      "completed",
+      "closed"
+    ],
+    "is_transactional": false
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "employee": "party_reference",
+      "start_date": "schedule_marker",
+      "owner": "actor_reference"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "case_no",
+      "employee",
+      "start_date"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "workflow_state",
+      "modified"
+    ],
+    "initial_state": "open",
+    "lifecycle_states": [
+      "open",
+      "in_progress",
+      "completed",
+      "closed"
+    ],
+    "terminal_states": [
+      "closed"
+    ],
+    "action_targets": {
+      "confirm": "completed",
+      "create": null,
+      "assign": "in_progress",
+      "close": "closed",
+      "track": null
+    }
+  },
+  "workflow_hints": {
+    "business_objective": "Track onboarding work, ownership, and completion for each new employee.",
+    "actors": [
+      "HR officer",
+      "hiring manager",
+      "IT/admin support"
+    ],
+    "start_condition": "An employee has been accepted and onboarding work must be coordinated.",
+    "ordered_steps": [
+      "Open the onboarding case for the employee.",
+      "Assign tasks and owners across HR, payroll, and admin teams.",
+      "Track progress against the onboarding checklist.",
+      "Confirm completion and close the case."
+    ],
+    "primary_actions": [
+      "create",
+      "assign",
+      "track",
+      "confirm",
+      "close"
+    ],
+    "primary_transitions": [
+      "onboarding_case: open -> in_progress -> completed -> closed"
+    ],
+    "downstream_effects": [
+      "Onboarding status becomes visible to managers and support teams.",
+      "Related setup actions can be coordinated and audited."
+    ]
+  },
+  "related_docs": [
+    "employee_record"
+  ],
+  "borrowed_fields": [
+    "employee profile details from employee_record"
+  ]
+}

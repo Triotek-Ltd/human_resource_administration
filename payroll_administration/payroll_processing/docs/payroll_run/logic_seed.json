@@ -1,0 +1,126 @@
+{
+  "doc_id": "payroll_run",
+  "doc_title": "Payroll Run",
+  "archetype": "transaction",
+  "doc_kind": "transaction",
+  "actions": [
+    "create",
+    "review",
+    "approve",
+    "issue",
+    "close",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "draft",
+    "states": [
+      "draft",
+      "approved",
+      "processed",
+      "closed",
+      "archived"
+    ],
+    "terminal_states": [
+      "closed",
+      "archived"
+    ]
+  },
+  "related_doc_count": 4,
+  "fetch_rule_count": 0,
+  "action_handler_count": 6,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "transaction_flow",
+      "supports_submission": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": true
+    },
+    "integration_profile": {
+      "external_sync_enabled": true,
+      "tracks_external_refs": true
+    },
+    "lifecycle_states": [
+      "draft",
+      "approved",
+      "processed",
+      "closed",
+      "archived"
+    ],
+    "is_transactional": true
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "transaction_date"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "transaction_date": "transaction_date",
+      "party": "party_reference",
+      "currency": "currency_code",
+      "total_amount": "total_amount",
+      "run_date": "schedule_marker",
+      "gross_total": "monetary_value",
+      "net_total": "monetary_value"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "run_no",
+      "pay_period",
+      "run_date"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "transaction_date",
+      "party",
+      "total_amount",
+      "workflow_state"
+    ],
+    "initial_state": "draft",
+    "lifecycle_states": [
+      "draft",
+      "approved",
+      "processed",
+      "closed",
+      "archived"
+    ],
+    "terminal_states": [
+      "closed",
+      "archived"
+    ],
+    "action_targets": {
+      "create": null,
+      "issue": null,
+      "review": null,
+      "close": "closed",
+      "approve": "approved",
+      "archive": "archived"
+    }
+  },
+  "workflow_hints": {
+    "business_objective": "Anchor each payroll cycle and drive lines, payslips, and finance postings.",
+    "actors": [
+      "payroll officer",
+      "approver"
+    ],
+    "primary_transitions": [
+      "payroll_run: draft -> approved -> processed -> closed -> archived"
+    ]
+  },
+  "related_docs": [
+    "attendance_record",
+    "payroll_line",
+    "payslip",
+    "payroll_transaction"
+  ],
+  "borrowed_fields": []
+}

@@ -1,0 +1,8 @@
+{
+  "id": "training_development",
+  "title": "Training Development",
+  "app_id": "human_resource_administration",
+  "type": "module",
+  "status": "draft",
+  "supports_submodules": true
+}

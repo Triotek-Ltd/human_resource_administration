@@ -1,0 +1,13 @@
+{
+  "id": "case_notes",
+  "entity": "submodule",
+  "children": {
+    "docs_registry": "docs.json"
+  },
+  "supports": [
+    "doc",
+    "workflow",
+    "report",
+    "print"
+  ]
+}

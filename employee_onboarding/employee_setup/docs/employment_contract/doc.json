@@ -1,0 +1,27 @@
+{
+  "doc_key": "employment_contract",
+  "doc_title": "Employment Contract",
+  "doc_kind": "transaction",
+  "status": "draft",
+  "module_id": "employee_onboarding",
+  "submodule_id": "employee_setup",
+  "app_id": "human_resource_administration",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "transaction",
+  "classification": {
+    "archetype": "transaction",
+    "bundle": "administration"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "administration",
+    "app": "human_resource_administration",
+    "module": "employee_onboarding",
+    "submodule": "employee_setup",
+    "reference_doc_id": "employment_contract",
+    "evidence_gaps": [
+      "amendment handling",
+      "renewal handling"
+    ]
+  }
+}

@@ -1,0 +1,123 @@
+{
+    "display":  {
+                    "title_template":  "{title}",
+                    "subtitle_template":  "{reference_no}",
+                    "list_columns":  [
+                                         "title",
+                                         "reference_no",
+                                         "transaction_date",
+                                         "party",
+                                         "total_amount",
+                                         "workflow_state"
+                                     ],
+                    "default_filters":  [
+
+                                        ],
+                    "quick_entry":  false
+                },
+    "related_docs":  [
+                         {
+                             "doc_id":  "employee_record",
+                             "relation_type":  "related",
+                             "show_in_related_panel":  true
+                         },
+                         {
+                             "doc_id":  "department_team",
+                             "relation_type":  "related",
+                             "show_in_related_panel":  true
+                         }
+                     ],
+    "lookup_rules":  [
+                         {
+                             "doc_id":  "employee_record",
+                             "field_id":  "party",
+                             "purpose":  "party_reference",
+                             "lookup_mode":  "single"
+                         }
+                     ],
+    "fetch_rules":  [
+                        {
+                            "fetch_profile":  "employee_profile",
+                            "field_id":  "party",
+                            "purpose":  "party_reference",
+                            "source_doc_id":  "employee_record",
+                            "fetch_fields":  [
+                                                 "title",
+                                                 "reference_no",
+                                                 "employee_id",
+                                                 "legal_name",
+                                                 "preferred_name",
+                                                 "work_email",
+                                                 "work_phone"
+                                             ]
+                        }
+                    ],
+    "reference_map":  {
+                          "primary_reference_field":  "reference_no",
+                          "reference_labels":  [
+
+                                               ]
+                      },
+    "relation_rules":  {
+                           "parent_doc":  null,
+                           "child_docs":  [
+
+                                          ],
+                           "show_related_panel":  true
+                       },
+    "borrowed_fields":  [
+                            {
+                                "description":  "employee identity from employee_record"
+                            },
+                            {
+                                "description":  "team context from department_team"
+                            }
+                        ],
+    "ui_panels":  {
+                      "show_activity_log":  true,
+                      "show_comments":  true,
+                      "show_assignments":  true,
+                      "show_related_docs":  true
+                  },
+    "integration":  {
+                        "external_refs":  [
+
+                                          ],
+                        "sync_rules":  [
+
+                                       ]
+                    },
+    "runtime_hints":  {
+                          "doc_key":  "access_assignment",
+                          "supports_related_lookup":  true,
+                          "supports_fetch_rules":  true,
+                          "workflow_hints":  {
+                                                 "business_objective":  "Approve and provision workstation, system, and resource access for a new employee.",
+                                                 "actors":  [
+                                                                "HR officer",
+                                                                "IT/admin support",
+                                                                "approver"
+                                                            ],
+                                                 "start_condition":  "The employee requires system or physical access to begin work.",
+                                                 "ordered_steps":  [
+                                                                       "Create the access assignment request.",
+                                                                       "Approve the requested role and resources.",
+                                                                       "Issue or provision the required access.",
+                                                                       "Close the assignment once provisioned."
+                                                                   ],
+                                                 "primary_actions":  [
+                                                                         "create",
+                                                                         "approve",
+                                                                         "issue",
+                                                                         "close"
+                                                                     ],
+                                                 "primary_transitions":  [
+                                                                             "access_assignment: draft -\u003e approved -\u003e issued -\u003e closed"
+                                                                         ],
+                                                 "downstream_effects":  [
+                                                                            "Provisioning becomes auditable.",
+                                                                            "Employee readiness can be confirmed during onboarding."
+                                                                        ]
+                                             }
+                      }
+}

@@ -1,0 +1,136 @@
+{
+  "doc_id": "access_assignment",
+  "doc_title": "Access Assignment",
+  "archetype": "transaction",
+  "doc_kind": "transaction",
+  "actions": [
+    "create",
+    "approve",
+    "issue",
+    "close"
+  ],
+  "lifecycle": {
+    "initial_state": "draft",
+    "states": [
+      "draft",
+      "approved",
+      "issued",
+      "closed"
+    ],
+    "terminal_states": [
+      "closed"
+    ]
+  },
+  "related_doc_count": 2,
+  "fetch_rule_count": 1,
+  "action_handler_count": 4,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "transaction_flow",
+      "supports_submission": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": true
+    },
+    "integration_profile": {
+      "external_sync_enabled": true,
+      "tracks_external_refs": true
+    },
+    "lifecycle_states": [
+      "draft",
+      "approved",
+      "issued",
+      "closed"
+    ],
+    "is_transactional": true
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "transaction_date"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "transaction_date": "transaction_date",
+      "party": "party_reference",
+      "currency": "currency_code",
+      "total_amount": "total_amount",
+      "employee": "party_reference",
+      "approver": "actor_reference",
+      "provisioned_date": "schedule_marker"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "assignment_no",
+      "employee",
+      "system_or_resource"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "transaction_date",
+      "party",
+      "total_amount",
+      "workflow_state"
+    ],
+    "initial_state": "draft",
+    "lifecycle_states": [
+      "draft",
+      "approved",
+      "issued",
+      "closed"
+    ],
+    "terminal_states": [
+      "closed"
+    ],
+    "action_targets": {
+      "issue": "issued",
+      "create": null,
+      "approve": "approved",
+      "close": "closed"
+    }
+  },
+  "workflow_hints": {
+    "business_objective": "Approve and provision workstation, system, and resource access for a new employee.",
+    "actors": [
+      "HR officer",
+      "IT/admin support",
+      "approver"
+    ],
+    "start_condition": "The employee requires system or physical access to begin work.",
+    "ordered_steps": [
+      "Create the access assignment request.",
+      "Approve the requested role and resources.",
+      "Issue or provision the required access.",
+      "Close the assignment once provisioned."
+    ],
+    "primary_actions": [
+      "create",
+      "approve",
+      "issue",
+      "close"
+    ],
+    "primary_transitions": [
+      "access_assignment: draft -> approved -> issued -> closed"
+    ],
+    "downstream_effects": [
+      "Provisioning becomes auditable.",
+      "Employee readiness can be confirmed during onboarding."
+    ]
+  },
+  "related_docs": [
+    "employee_record",
+    "department_team"
+  ],
+  "borrowed_fields": [
+    "employee identity from employee_record",
+    "team context from department_team"
+  ]
+}

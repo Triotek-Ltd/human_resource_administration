@@ -1,0 +1,8 @@
+{
+  "id": "payroll_administration",
+  "title": "Payroll Administration",
+  "app_id": "human_resource_administration",
+  "type": "module",
+  "status": "draft",
+  "supports_submodules": true
+}

@@ -1,0 +1,6 @@
+{
+  "submodules": [
+    "training_plans",
+    "training_records"
+  ]
+}

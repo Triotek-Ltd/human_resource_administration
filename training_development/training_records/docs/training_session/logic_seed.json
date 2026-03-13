@@ -1,0 +1,107 @@
+{
+  "doc_id": "training_session",
+  "doc_title": "Training Session",
+  "archetype": "event",
+  "doc_kind": "event",
+  "actions": [
+    "create",
+    "confirm",
+    "close",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "scheduled",
+    "states": [
+      "scheduled",
+      "completed",
+      "archived"
+    ],
+    "terminal_states": [
+      "archived"
+    ]
+  },
+  "related_doc_count": 1,
+  "fetch_rule_count": 0,
+  "action_handler_count": 4,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "event_schedule",
+      "supports_timing": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": false
+    },
+    "integration_profile": {
+      "external_sync_enabled": false
+    },
+    "lifecycle_states": [
+      "scheduled",
+      "completed",
+      "archived"
+    ],
+    "is_transactional": false
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "start_at": "schedule_marker",
+      "end_at": "schedule_marker",
+      "session_no": "reference",
+      "date_time": "event_datetime",
+      "trainer": "actor_reference"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "session_no",
+      "plan",
+      "date_time"
+    ],
+    "list_columns": [
+      "title",
+      "start_at",
+      "end_at",
+      "workflow_state"
+    ],
+    "initial_state": "scheduled",
+    "lifecycle_states": [
+      "scheduled",
+      "completed",
+      "archived"
+    ],
+    "terminal_states": [
+      "archived"
+    ],
+    "action_targets": {
+      "confirm": "completed",
+      "create": null,
+      "archive": "archived",
+      "close": null
+    }
+  },
+  "workflow_hints": {
+    "business_objective": "Schedule and deliver concrete training sessions from approved plans.",
+    "actors": [
+      "HR or L&D officer",
+      "trainer"
+    ],
+    "primary_transitions": [
+      "training_session: scheduled -> completed -> archived"
+    ]
+  },
+  "related_docs": [
+    "training_attendance"
+  ],
+  "borrowed_fields": [
+    "title and objectives from training_plan"
+  ]
+}

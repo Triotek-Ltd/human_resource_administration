@@ -1,0 +1,12 @@
+{
+  "id": "training_development",
+  "entity": "module",
+  "children": {
+    "submodules_registry": "submodules.json",
+    "docs_registry": "docs.json"
+  },
+  "supports": [
+    "submodule",
+    "doc"
+  ]
+}

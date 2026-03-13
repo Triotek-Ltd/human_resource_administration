@@ -1,0 +1,8 @@
+{
+  "id": "recruitment_selection",
+  "title": "Recruitment Selection",
+  "app_id": "human_resource_administration",
+  "type": "module",
+  "status": "draft",
+  "supports_submodules": true
+}

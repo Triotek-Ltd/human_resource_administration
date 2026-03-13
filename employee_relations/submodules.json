@@ -1,0 +1,7 @@
+{
+  "submodules": [
+    "grievance_cases",
+    "case_notes",
+    "disciplinary_actions"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "submodules": [
+    "vacancy_management",
+    "interviews_offers",
+    "candidate_pipeline"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "docs": [
+    "payroll_line",
+    "salary_structure",
+    "attendance_record",
+    "payroll_run",
+    "payroll_transaction",
+    "payslip"
+  ]
+}

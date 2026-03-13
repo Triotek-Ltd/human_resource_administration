@@ -1,0 +1,27 @@
+{
+  "doc_key": "training_need",
+  "doc_title": "Training Need",
+  "doc_kind": "workflow_case",
+  "status": "draft",
+  "module_id": "training_development",
+  "submodule_id": "training_plans",
+  "app_id": "human_resource_administration",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "workflow_case",
+  "classification": {
+    "archetype": "workflow_case",
+    "bundle": "administration"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "administration",
+    "app": "human_resource_administration",
+    "module": "training_development",
+    "submodule": "training_plans",
+    "reference_doc_id": "training_need",
+    "evidence_gaps": [
+      "prioritization rules",
+      "funding rules"
+    ]
+  }
+}

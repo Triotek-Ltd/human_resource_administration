@@ -1,0 +1,27 @@
+{
+  "doc_key": "performance_appraisal",
+  "doc_title": "Performance Appraisal",
+  "doc_kind": "workflow_case",
+  "status": "draft",
+  "module_id": "performance_appraisal",
+  "submodule_id": "appraisal_reviews",
+  "app_id": "human_resource_administration",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "workflow_case",
+  "classification": {
+    "archetype": "workflow_case",
+    "bundle": "administration"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "administration",
+    "app": "human_resource_administration",
+    "module": "performance_appraisal",
+    "submodule": "appraisal_reviews",
+    "reference_doc_id": "performance_appraisal",
+    "evidence_gaps": [
+      "review-step model",
+      "calibration workflow"
+    ]
+  }
+}
