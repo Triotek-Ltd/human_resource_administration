@@ -1,0 +1,8 @@
+{
+  "id": "payroll_run",
+  "title": "Payroll Run",
+  "app_id": "human_resource_administration",
+  "module_id": "payroll_administration",
+  "type": "submodule",
+  "status": "draft"
+}

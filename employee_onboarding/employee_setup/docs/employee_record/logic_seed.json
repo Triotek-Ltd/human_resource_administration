@@ -61,7 +61,12 @@
     "field_purposes": {
       "workflow_state": "lifecycle_state",
       "hire_date": "schedule_marker",
-      "employment_status": "status_flag"
+      "employment_status": "status_flag",
+      "related_employment_contract": "relation_collection",
+      "related_onboarding_case": "relation_collection",
+      "related_access_assignment": "relation_collection",
+      "related_orientation_session": "relation_collection",
+      "related_salary_structure": "relation_collection"
     },
     "search_fields": [
       "title",
@@ -89,49 +94,67 @@
       "archived"
     ],
     "action_targets": {
+      "create": null,
+      "update": null,
+      "review": null,
+      "view": null,
       "archive": "archived",
       "activate": "active",
-      "review": null,
-      "create": null,
       "change_status": null,
       "assign": null,
-      "view": null,
-      "record": null,
-      "update": null
+      "record": null
     }
   },
   "workflow_hints": {
-    "business_objective": "Convert an accepted candidate into an active employee with records, payroll enrollment, orientation, and access.",
+    "business_objective": "calculate, approve, pay, document, and post payroll accurately for a pay period",
     "actors": [
-      "HR officer",
-      "hiring manager",
       "payroll officer",
-      "IT/admin support",
-      "new employee"
+      "HR reviewer",
+      "approver",
+      "finance officer",
+      "employee"
     ],
-    "start_condition": "An accepted offer exists and onboarding must begin.",
+    "start_condition": "a payroll period is due for processing",
     "ordered_steps": [
-      "Create the employee master record.",
-      "Prepare and issue the employment contract.",
-      "Register employee for payroll and employment controls.",
-      "Create onboarding tasks and track completion.",
-      "Issue policies, handbook, and orientation scheduling."
+      "Collect attendance and salary basis."
     ],
     "primary_actions": [
-      "create",
-      "activate",
-      "update",
-      "review"
+      "record",
+      "review",
+      "update"
     ],
-    "primary_transitions": [
-      "employee_record: draft -> active"
-    ],
+    "primary_transitions": [],
     "downstream_effects": [
-      "Payroll enrollment becomes possible.",
-      "Access and onboarding tasks can be assigned.",
-      "Orientation and policy acknowledgement can be scheduled."
-    ]
+      "payroll history becomes available for employee records, finance controls, and reporting outputs"
+    ],
+    "action_actors": {
+      "create": [
+        "payroll officer"
+      ],
+      "update": [
+        "payroll officer"
+      ],
+      "review": [
+        "HR reviewer"
+      ],
+      "archive": [
+        "payroll officer"
+      ],
+      "activate": [
+        "payroll officer"
+      ],
+      "assign": [
+        "payroll officer"
+      ],
+      "record": [
+        "payroll officer"
+      ]
+    }
   },
+  "downstream_effects": [
+    "payroll history becomes available for employee records, finance controls, and reporting outputs"
+  ],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "employment_contract",
     "onboarding_case",
@@ -140,7 +163,7 @@
     "salary_structure"
   ],
   "borrowed_fields": [
-    "department display fields from linked records",
+    "department",
     "supervisor display fields from linked records",
     "salary defaults from salary_structure"
   ]

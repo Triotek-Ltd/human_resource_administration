@@ -8,10 +8,10 @@ ARCHETYPE = "workflow_case"
 INITIAL_STATE = 'open'
 STATES = ['open', 'in_progress', 'closed', 'archived']
 TERMINAL_STATES = ['closed', 'archived']
-ACTION_RULES = {'close': {'allowed_in_states': ['open', 'in_progress'], 'transitions_to': 'closed'}, 'create': {'allowed_in_states': ['open', 'in_progress'], 'transitions_to': None}, 'assign': {'allowed_in_states': ['open', 'in_progress'], 'transitions_to': 'in_progress'}, 'track': {'allowed_in_states': ['open', 'in_progress'], 'transitions_to': None}}
+ACTION_RULES = {'create': {'allowed_in_states': ['open', 'in_progress'], 'transitions_to': None}, 'assign': {'allowed_in_states': ['open', 'in_progress'], 'transitions_to': 'in_progress'}, 'track': {'allowed_in_states': ['open', 'in_progress'], 'transitions_to': None}, 'close': {'allowed_in_states': ['open', 'in_progress'], 'transitions_to': 'closed'}}
 
 STATE_FIELD = 'workflow_state'
-WORKFLOW_HINTS = {'business_objective': 'Track structured follow-up improvement work arising from appraisal outcomes.', 'actors': ['manager', 'employee', 'HR officer'], 'primary_transitions': ['improvement_plan: open -> in_progress -> closed -> archived']}
+WORKFLOW_HINTS = {'business_objective': 'run a performance cycle, capture formal appraisals, and manage improvement follow-up where needed', 'actors': ['supervisor', 'employee', 'HR reviewer'], 'start_condition': 'a performance cycle opens', 'ordered_steps': ['Launch and monitor an improvement plan where required.'], 'primary_actions': ['create', 'assign', 'track', 'close'], 'primary_transitions': ['improvement_plan: opened -> in_progress -> closed'], 'downstream_effects': ['supports employee growth and performance management'], 'action_actors': {'create': ['supervisor'], 'assign': ['supervisor'], 'track': ['supervisor'], 'close': ['supervisor']}}
 
 class WorkflowService:
     def allowed_actions_for_state(self, state: str | None) -> list[str]:

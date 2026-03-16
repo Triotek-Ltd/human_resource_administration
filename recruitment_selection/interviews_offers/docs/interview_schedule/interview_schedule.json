@@ -14,7 +14,7 @@
     "doc_key": "interview_schedule"
   },
   "doc_key": "interview_schedule",
-  "doc_title": "interview_schedule",
+  "doc_title": "Interview Schedule",
   "allowed_actions": [
     "create",
     "confirm",
@@ -51,9 +51,11 @@
       ],
       "content": [
         "description",
-        "interview_no",
+        "interview_number",
+        "date",
+        "time",
         "panel",
-        "location_or_link",
+        "location_or_meeting_link",
         "status"
       ],
       "relations": [
@@ -62,8 +64,7 @@
       "amounts": [],
       "dates": [
         "start_at",
-        "end_at",
-        "date_time"
+        "end_at"
       ],
       "parties": [],
       "status": [
@@ -223,8 +224,8 @@
         }
       },
       {
-        "field_id": "interview_no",
-        "label": "Interview No",
+        "field_id": "interview_number",
+        "label": "Interview Number",
         "type": "Data",
         "required": false,
         "read_only": false,
@@ -238,10 +239,10 @@
         "read_only_depends_on": null,
         "fetch_from": null,
         "allow_on_submit": false,
-        "indexed": false,
+        "indexed": true,
         "ui": {
           "visible": true,
-          "list_visible": false,
+          "list_visible": true,
           "filterable": true,
           "sortable": true
         }
@@ -271,25 +272,49 @@
         }
       },
       {
-        "field_id": "date_time",
-        "label": "Date Time",
-        "type": "Datetime",
+        "field_id": "date",
+        "label": "Date",
+        "type": "Data",
         "required": false,
         "read_only": false,
         "default": null,
         "unique": false,
         "options": null,
-        "purpose": "event_datetime",
+        "purpose": null,
         "linked_doc": null,
         "depends_on": null,
         "mandatory_depends_on": null,
         "read_only_depends_on": null,
         "fetch_from": null,
         "allow_on_submit": false,
-        "indexed": true,
+        "indexed": false,
         "ui": {
           "visible": true,
-          "list_visible": true,
+          "list_visible": false,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "time",
+        "label": "Time",
+        "type": "Data",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": null,
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": true,
+          "list_visible": false,
           "filterable": true,
           "sortable": true
         }
@@ -319,8 +344,8 @@
         }
       },
       {
-        "field_id": "location_or_link",
-        "label": "Location Or Link",
+        "field_id": "location_or_meeting_link",
+        "label": "Location Or Meeting Link",
         "type": "Data",
         "required": false,
         "read_only": false,
@@ -372,9 +397,9 @@
       "title",
       "reference_no",
       "description",
-      "interview_no",
+      "interview_number",
       "application",
-      "date_time"
+      "date"
     ],
     "sort_field": "modified",
     "sort_order": "DESC",
@@ -422,7 +447,7 @@
           "completed",
           "cancelled"
         ],
-        "transitions_to": null
+        "transitions_to": "completed"
       },
       "cancel": {
         "allowed_in_states": [
@@ -445,17 +470,44 @@
       {
         "role_id": "System Manager",
         "actions": [
-          "create",
-          "update",
           "view",
           "list",
-          "record",
-          "review",
-          "assign",
-          "track",
-          "monitor",
+          "create",
           "confirm",
+          "cancel",
           "archive"
+        ]
+      },
+      {
+        "role_id": "hiring manager",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "cancel",
+          "archive"
+        ]
+      },
+      {
+        "role_id": "recruiter",
+        "actions": [
+          "view",
+          "list"
+        ]
+      },
+      {
+        "role_id": "interviewer",
+        "actions": [
+          "view",
+          "list"
+        ]
+      },
+      {
+        "role_id": "approver",
+        "actions": [
+          "view",
+          "list",
+          "confirm"
         ]
       }
     ],
@@ -536,7 +588,10 @@
     },
     "borrowed_fields": [
       {
-        "description": "candidate and vacancy context from candidate_application"
+        "description": "candidate"
+      },
+      {
+        "description": "role details from candidate_application"
       }
     ],
     "ui_panels": {
@@ -554,16 +609,44 @@
       "supports_related_lookup": true,
       "supports_fetch_rules": true,
       "workflow_hints": {
-        "business_objective": "Schedule and track recruitment interviews against candidate applications.",
+        "business_objective": "define a staffing need, attract candidates, assess them, and issue an approved offer to the selected candidate",
         "actors": [
-          "HR officer",
           "hiring manager",
-          "panel"
+          "recruiter",
+          "interviewer",
+          "approver"
+        ],
+        "start_condition": "a staffing requirement is approved",
+        "ordered_steps": [
+          "Schedule interviews and record evaluations."
+        ],
+        "primary_actions": [
+          "schedule",
+          "record",
+          "review"
         ],
         "primary_transitions": [
-          "interview_schedule: scheduled -> completed or cancelled -> archived"
-        ]
-      }
+          "interview_schedule: draft -> scheduled -> completed"
+        ],
+        "downstream_effects": [
+          "feeds onboarding and employee master creation"
+        ],
+        "action_actors": {
+          "create": [
+            "hiring manager"
+          ],
+          "confirm": [
+            "approver"
+          ],
+          "cancel": [
+            "hiring manager"
+          ],
+          "archive": [
+            "hiring manager"
+          ]
+        }
+      },
+      "action_side_effects_file": "side_effects.json"
     }
   },
   "classification": {
@@ -639,6 +722,9 @@
       "reports": "reports/service.py",
       "integrations": "integrations/service.py"
     },
+    "runtime_contract": {
+      "side_effects_file": "side_effects.json"
+    },
     "action_handlers": {
       "base_dir": "actions",
       "registry": "actions/registry.py",
@@ -655,6 +741,37 @@
       "doc_kind": "event"
     }
   },
+  "testing": {
+    "seeded": true,
+    "api_base_path": "/apis/human_resource_administration/recruitment_selection/interviews_offers/interview_schedule/",
+    "status_field": "workflow_state",
+    "initial_state": "scheduled",
+    "required_fields": [
+      "title",
+      "workflow_state"
+    ],
+    "transition_scenarios": [
+      {
+        "action_id": "confirm",
+        "source_state": "scheduled",
+        "target_state": "completed",
+        "disallowed_state": "archived"
+      },
+      {
+        "action_id": "archive",
+        "source_state": "scheduled",
+        "target_state": "archived",
+        "disallowed_state": "archived"
+      }
+    ],
+    "related_docs": [
+      "candidate_application"
+    ],
+    "downstream_effects": [
+      "feeds onboarding and employee master creation"
+    ],
+    "action_side_effects_file": "side_effects.json"
+  },
   "runtime": {
     "source_of_truth": "doc_folder",
     "generated_from": [
@@ -662,7 +779,8 @@
       "schema.json",
       "actions.json",
       "settings.json",
-      "logic_seed.json"
+      "logic_seed.json",
+      "side_effects.json"
     ],
     "generator": "plug.apps.doc.file_handler"
   }

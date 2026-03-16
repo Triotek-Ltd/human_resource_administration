@@ -20,7 +20,7 @@
     "submodule": "training_plans",
     "reference_doc_id": "training_need",
     "evidence_gaps": [
-      "prioritization rules",
+      "prioritization",
       "funding rules"
     ]
   }

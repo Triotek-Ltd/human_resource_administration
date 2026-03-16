@@ -51,22 +51,24 @@
       ],
       "content": [
         "description",
-        "session_no",
-        "facilitator",
+        "session_number",
+        "date",
+        "time",
         "completion_note"
       ],
       "relations": [
+        "facilitator",
         "attendees"
       ],
       "amounts": [],
       "dates": [
         "start_at",
-        "end_at",
-        "date_time"
+        "end_at"
       ],
       "parties": [],
       "status": [
-        "workflow_state"
+        "workflow_state",
+        "archive_status"
       ]
     },
     "fields": [
@@ -221,39 +223,15 @@
         }
       },
       {
-        "field_id": "session_no",
-        "label": "Session No",
+        "field_id": "session_number",
+        "label": "Session Number",
         "type": "Data",
         "required": false,
         "read_only": false,
         "default": null,
         "unique": false,
         "options": null,
-        "purpose": "reference",
-        "linked_doc": null,
-        "depends_on": null,
-        "mandatory_depends_on": null,
-        "read_only_depends_on": null,
-        "fetch_from": null,
-        "allow_on_submit": false,
-        "indexed": false,
-        "ui": {
-          "visible": true,
-          "list_visible": false,
-          "filterable": true,
-          "sortable": true
-        }
-      },
-      {
-        "field_id": "date_time",
-        "label": "Date Time",
-        "type": "Datetime",
-        "required": false,
-        "read_only": false,
-        "default": null,
-        "unique": false,
-        "options": null,
-        "purpose": "event_datetime",
+        "purpose": null,
         "linked_doc": null,
         "depends_on": null,
         "mandatory_depends_on": null,
@@ -269,8 +247,8 @@
         }
       },
       {
-        "field_id": "facilitator",
-        "label": "Facilitator",
+        "field_id": "date",
+        "label": "Date",
         "type": "Data",
         "required": false,
         "read_only": false,
@@ -279,6 +257,54 @@
         "options": null,
         "purpose": null,
         "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": true,
+          "list_visible": false,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "time",
+        "label": "Time",
+        "type": "Data",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": null,
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": true,
+          "list_visible": false,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "facilitator",
+        "label": "Facilitator",
+        "type": "Data",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "actor_reference",
+        "linked_doc": "employee_record",
         "depends_on": null,
         "mandatory_depends_on": null,
         "read_only_depends_on": null,
@@ -339,6 +365,37 @@
           "filterable": true,
           "sortable": true
         }
+      },
+      {
+        "field_id": "archive_status",
+        "label": "Archive Status",
+        "type": "Select",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": {
+          "values": [
+            "draft",
+            "active",
+            "closed",
+            "archived"
+          ]
+        },
+        "purpose": "status_flag",
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": true,
+          "list_visible": true,
+          "filterable": true,
+          "sortable": true
+        }
       }
     ],
     "title_field": "title",
@@ -346,9 +403,9 @@
       "title",
       "reference_no",
       "description",
-      "session_no",
-      "date_time",
-      "facilitator"
+      "session_number",
+      "date",
+      "time"
     ],
     "sort_field": "modified",
     "sort_order": "DESC",
@@ -393,7 +450,7 @@
           "scheduled",
           "completed"
         ],
-        "transitions_to": null
+        "transitions_to": "completed"
       },
       "close": {
         "allowed_in_states": [
@@ -414,17 +471,51 @@
       {
         "role_id": "System Manager",
         "actions": [
-          "create",
-          "update",
           "view",
           "list",
-          "record",
-          "review",
-          "assign",
-          "track",
-          "monitor",
+          "create",
           "confirm",
+          "close",
           "archive"
+        ]
+      },
+      {
+        "role_id": "HR officer",
+        "actions": [
+          "view",
+          "list",
+          "create"
+        ]
+      },
+      {
+        "role_id": "hiring manager",
+        "actions": [
+          "view",
+          "list",
+          "confirm",
+          "close",
+          "archive"
+        ]
+      },
+      {
+        "role_id": "payroll officer",
+        "actions": [
+          "view",
+          "list"
+        ]
+      },
+      {
+        "role_id": "IT/admin support",
+        "actions": [
+          "view",
+          "list"
+        ]
+      },
+      {
+        "role_id": "new employee",
+        "actions": [
+          "view",
+          "list"
         ]
       }
     ],
@@ -514,7 +605,10 @@
     },
     "borrowed_fields": [
       {
-        "description": "employee attendee references from employee_record"
+        "description": "attendee"
+      },
+      {
+        "description": "department data from employee_record"
       }
     ],
     "ui_panels": {
@@ -532,32 +626,45 @@
       "supports_related_lookup": true,
       "supports_fetch_rules": true,
       "workflow_hints": {
-        "business_objective": "Schedule, deliver, and record orientation attendance and completion for new employees.",
+        "business_objective": "convert an accepted candidate into an active employee with records, payroll enrollment, orientation, and access",
         "actors": [
           "HR officer",
-          "facilitator",
+          "hiring manager",
+          "payroll officer",
+          "IT/admin support",
           "new employee"
         ],
-        "start_condition": "Orientation must be scheduled as part of onboarding.",
+        "start_condition": "an accepted offer exists and onboarding must begin",
         "ordered_steps": [
-          "Create the orientation session and attendee list.",
-          "Run the session and record attendance.",
-          "Confirm completion details.",
-          "Archive the session record."
+          "Issue policies, handbook, and orientation scheduling."
         ],
         "primary_actions": [
           "create",
           "confirm",
-          "close",
-          "archive"
+          "close"
         ],
         "primary_transitions": [
-          "orientation_session: scheduled -> completed -> archived"
+          "orientation_session: scheduled -> completed"
         ],
         "downstream_effects": [
-          "Orientation completion is available for compliance and onboarding review."
-        ]
-      }
+          "employee becomes eligible for payroll, training, appraisal, and employee-relations workflows"
+        ],
+        "action_actors": {
+          "create": [
+            "HR officer"
+          ],
+          "confirm": [
+            "hiring manager"
+          ],
+          "close": [
+            "hiring manager"
+          ],
+          "archive": [
+            "hiring manager"
+          ]
+        }
+      },
+      "action_side_effects_file": "side_effects.json"
     }
   },
   "classification": {
@@ -633,6 +740,9 @@
       "reports": "reports/service.py",
       "integrations": "integrations/service.py"
     },
+    "runtime_contract": {
+      "side_effects_file": "side_effects.json"
+    },
     "action_handlers": {
       "base_dir": "actions",
       "registry": "actions/registry.py",
@@ -649,6 +759,37 @@
       "doc_kind": "event"
     }
   },
+  "testing": {
+    "seeded": true,
+    "api_base_path": "/apis/human_resource_administration/employee_onboarding/access_orientation/orientation_session/",
+    "status_field": "workflow_state",
+    "initial_state": "scheduled",
+    "required_fields": [
+      "title",
+      "workflow_state"
+    ],
+    "transition_scenarios": [
+      {
+        "action_id": "confirm",
+        "source_state": "scheduled",
+        "target_state": "completed",
+        "disallowed_state": "archived"
+      },
+      {
+        "action_id": "archive",
+        "source_state": "scheduled",
+        "target_state": "archived",
+        "disallowed_state": "archived"
+      }
+    ],
+    "related_docs": [
+      "employee_record"
+    ],
+    "downstream_effects": [
+      "employee becomes eligible for payroll, training, appraisal, and employee-relations workflows"
+    ],
+    "action_side_effects_file": "side_effects.json"
+  },
   "runtime": {
     "source_of_truth": "doc_folder",
     "generated_from": [
@@ -656,7 +797,8 @@
       "schema.json",
       "actions.json",
       "settings.json",
-      "logic_seed.json"
+      "logic_seed.json",
+      "side_effects.json"
     ],
     "generator": "plug.apps.doc.file_handler"
   }

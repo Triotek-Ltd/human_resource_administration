@@ -1,0 +1,132 @@
+{
+  "doc_id": "job_description",
+  "doc_title": "Job Description",
+  "archetype": "configuration",
+  "doc_kind": "configuration",
+  "actions": [
+    "create",
+    "update",
+    "review",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "draft",
+    "states": [
+      "draft",
+      "active",
+      "archived"
+    ],
+    "terminal_states": [
+      "archived"
+    ]
+  },
+  "related_doc_count": 1,
+  "fetch_rule_count": 0,
+  "action_handler_count": 4,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "configuration_control",
+      "case_management": false
+    },
+    "reporting_profile": {
+      "supports_snapshots": false,
+      "supports_outputs": false
+    },
+    "integration_profile": {
+      "external_sync_enabled": true
+    },
+    "lifecycle_states": [
+      "draft",
+      "active",
+      "archived"
+    ],
+    "is_transactional": false
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "related_job_vacancy": "relation_collection"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "description_number",
+      "role_title",
+      "duties"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "workflow_state",
+      "modified"
+    ],
+    "initial_state": "draft",
+    "lifecycle_states": [
+      "draft",
+      "active",
+      "archived"
+    ],
+    "terminal_states": [
+      "archived"
+    ],
+    "action_targets": {
+      "create": null,
+      "update": null,
+      "review": null,
+      "archive": "archived"
+    }
+  },
+  "workflow_hints": {
+    "business_objective": "define a staffing need, attract candidates, assess them, and issue an approved offer to the selected candidate",
+    "actors": [
+      "hiring manager",
+      "recruiter",
+      "interviewer",
+      "approver"
+    ],
+    "start_condition": "a staffing requirement is approved",
+    "ordered_steps": [
+      "Define and approve the role requirement."
+    ],
+    "primary_actions": [
+      "create",
+      "review",
+      "approve",
+      "publish"
+    ],
+    "primary_transitions": [],
+    "downstream_effects": [
+      "feeds onboarding and employee master creation"
+    ],
+    "action_actors": {
+      "create": [
+        "hiring manager"
+      ],
+      "update": [
+        "hiring manager"
+      ],
+      "review": [
+        "recruiter"
+      ],
+      "archive": [
+        "hiring manager"
+      ]
+    }
+  },
+  "downstream_effects": [
+    "feeds onboarding and employee master creation"
+  ],
+  "action_side_effects_file": "side_effects.json",
+  "related_docs": [
+    "job_vacancy"
+  ],
+  "borrowed_fields": []
+}

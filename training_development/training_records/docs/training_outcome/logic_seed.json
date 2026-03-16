@@ -21,7 +21,7 @@
     ]
   },
   "related_doc_count": 2,
-  "fetch_rule_count": 1,
+  "fetch_rule_count": 0,
   "action_handler_count": 4,
   "archetype_profile": {
     "workflow_profile": {
@@ -55,15 +55,17 @@
     "field_purposes": {
       "workflow_state": "lifecycle_state",
       "transaction_date": "transaction_date",
-      "party": "party_reference",
+      "party": "primary_party",
       "currency": "currency_code",
-      "total_amount": "total_amount"
+      "total_amount": "total_amount",
+      "related_training_session": "relation_collection",
+      "related_employee_record": "relation_collection"
     },
     "search_fields": [
       "title",
       "reference_no",
       "description",
-      "outcome_no",
+      "outcome_number",
       "session_or_plan",
       "evaluation_summary"
     ],
@@ -85,29 +87,59 @@
       "archived"
     ],
     "action_targets": {
-      "confirm": "confirmed",
       "create": null,
-      "archive": "archived",
-      "review": null
+      "review": null,
+      "confirm": "confirmed",
+      "archive": "archived"
     }
   },
   "workflow_hints": {
-    "business_objective": "Record the result and effectiveness of training delivery for follow-up action.",
+    "business_objective": "identify capability gaps, plan learning interventions, deliver training, and record outcomes",
     "actors": [
+      "HR development owner",
       "trainer",
-      "manager",
-      "HR or L&D officer"
+      "participant manager"
+    ],
+    "start_condition": "a training need is identified",
+    "ordered_steps": [
+      "Evaluate and record the training outcome."
+    ],
+    "primary_actions": [
+      "create",
+      "review",
+      "close"
     ],
     "primary_transitions": [
-      "training_outcome: draft -> confirmed -> archived"
-    ]
+      "training_outcome: draft -> reviewed -> closed"
+    ],
+    "downstream_effects": [
+      "supports employee development and performance planning"
+    ],
+    "action_actors": {
+      "create": [
+        "HR development owner"
+      ],
+      "review": [
+        "trainer"
+      ],
+      "confirm": [
+        "participant manager"
+      ],
+      "archive": [
+        "HR development owner"
+      ]
+    }
   },
+  "downstream_effects": [
+    "supports employee development and performance planning"
+  ],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "training_session",
     "employee_record"
   ],
   "borrowed_fields": [
-    "session context from training_session",
-    "participant context from employee_record"
+    "participant",
+    "session context from linked records"
   ]
 }

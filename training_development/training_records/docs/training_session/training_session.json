@@ -14,7 +14,7 @@
     "doc_key": "training_session"
   },
   "doc_key": "training_session",
-  "doc_title": "training_session",
+  "doc_title": "Training Session",
   "allowed_actions": [
     "create",
     "confirm",
@@ -51,19 +51,22 @@
       ],
       "content": [
         "description",
-        "session_no",
+        "session_number",
         "plan",
+        "date",
+        "time",
         "trainer",
         "venue_or_link",
         "seat_count",
         "status"
       ],
-      "relations": [],
+      "relations": [
+        "related_training_attendance"
+      ],
       "amounts": [],
       "dates": [
         "start_at",
-        "end_at",
-        "date_time"
+        "end_at"
       ],
       "parties": [],
       "status": [
@@ -222,25 +225,25 @@
         }
       },
       {
-        "field_id": "session_no",
-        "label": "Session No",
+        "field_id": "session_number",
+        "label": "Session Number",
         "type": "Data",
         "required": false,
         "read_only": false,
         "default": null,
         "unique": false,
         "options": null,
-        "purpose": "reference",
+        "purpose": null,
         "linked_doc": null,
         "depends_on": null,
         "mandatory_depends_on": null,
         "read_only_depends_on": null,
         "fetch_from": null,
         "allow_on_submit": false,
-        "indexed": false,
+        "indexed": true,
         "ui": {
           "visible": true,
-          "list_visible": false,
+          "list_visible": true,
           "filterable": true,
           "sortable": true
         }
@@ -270,25 +273,49 @@
         }
       },
       {
-        "field_id": "date_time",
-        "label": "Date Time",
-        "type": "Datetime",
+        "field_id": "date",
+        "label": "Date",
+        "type": "Data",
         "required": false,
         "read_only": false,
         "default": null,
         "unique": false,
         "options": null,
-        "purpose": "event_datetime",
+        "purpose": null,
         "linked_doc": null,
         "depends_on": null,
         "mandatory_depends_on": null,
         "read_only_depends_on": null,
         "fetch_from": null,
         "allow_on_submit": false,
-        "indexed": true,
+        "indexed": false,
         "ui": {
           "visible": true,
-          "list_visible": true,
+          "list_visible": false,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "time",
+        "label": "Time",
+        "type": "Data",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": null,
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": true,
+          "list_visible": false,
           "filterable": true,
           "sortable": true
         }
@@ -302,7 +329,7 @@
         "default": null,
         "unique": false,
         "options": null,
-        "purpose": null,
+        "purpose": "actor_reference",
         "linked_doc": null,
         "depends_on": null,
         "mandatory_depends_on": null,
@@ -388,6 +415,30 @@
           "filterable": true,
           "sortable": true
         }
+      },
+      {
+        "field_id": "related_training_attendance",
+        "label": "Related Training Attendance",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "training_attendance",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
       }
     ],
     "title_field": "title",
@@ -395,9 +446,9 @@
       "title",
       "reference_no",
       "description",
-      "session_no",
+      "session_number",
       "plan",
-      "date_time"
+      "date"
     ],
     "sort_field": "modified",
     "sort_order": "DESC",
@@ -442,7 +493,7 @@
           "scheduled",
           "completed"
         ],
-        "transitions_to": null
+        "transitions_to": "completed"
       },
       "close": {
         "allowed_in_states": [
@@ -463,17 +514,37 @@
       {
         "role_id": "System Manager",
         "actions": [
-          "create",
-          "update",
           "view",
           "list",
-          "record",
-          "review",
-          "assign",
-          "track",
-          "monitor",
+          "create",
           "confirm",
+          "close",
           "archive"
+        ]
+      },
+      {
+        "role_id": "HR development owner",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "close",
+          "archive"
+        ]
+      },
+      {
+        "role_id": "trainer",
+        "actions": [
+          "view",
+          "list"
+        ]
+      },
+      {
+        "role_id": "participant manager",
+        "actions": [
+          "view",
+          "list",
+          "confirm"
         ]
       }
     ],
@@ -541,7 +612,14 @@
         "show_in_related_panel": true
       }
     ],
-    "lookup_rules": [],
+    "lookup_rules": [
+      {
+        "field_id": "related_training_attendance",
+        "doc_id": "training_attendance",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      }
+    ],
     "fetch_rules": [],
     "reference_map": {
       "primary_reference_field": "reference_no",
@@ -549,12 +627,17 @@
     },
     "relation_rules": {
       "parent_doc": null,
-      "child_docs": [],
+      "child_docs": [
+        "training_attendance"
+      ],
       "show_related_panel": true
     },
     "borrowed_fields": [
       {
-        "description": "title and objectives from training_plan"
+        "description": "plan title"
+      },
+      {
+        "description": "objectives from training_plan"
       }
     ],
     "ui_panels": {
@@ -572,15 +655,44 @@
       "supports_related_lookup": true,
       "supports_fetch_rules": true,
       "workflow_hints": {
-        "business_objective": "Schedule and deliver concrete training sessions from approved plans.",
+        "business_objective": "identify capability gaps, plan learning interventions, deliver training, and record outcomes",
         "actors": [
-          "HR or L&D officer",
-          "trainer"
+          "HR development owner",
+          "trainer",
+          "participant manager"
+        ],
+        "start_condition": "a training need is identified",
+        "ordered_steps": [
+          "Schedule and run the training session."
+        ],
+        "primary_actions": [
+          "schedule",
+          "start",
+          "complete",
+          "record"
         ],
         "primary_transitions": [
-          "training_session: scheduled -> completed -> archived"
-        ]
-      }
+          "training_session: draft -> scheduled -> completed"
+        ],
+        "downstream_effects": [
+          "supports employee development and performance planning"
+        ],
+        "action_actors": {
+          "create": [
+            "HR development owner"
+          ],
+          "confirm": [
+            "participant manager"
+          ],
+          "close": [
+            "HR development owner"
+          ],
+          "archive": [
+            "HR development owner"
+          ]
+        }
+      },
+      "action_side_effects_file": "side_effects.json"
     }
   },
   "classification": {
@@ -656,6 +768,9 @@
       "reports": "reports/service.py",
       "integrations": "integrations/service.py"
     },
+    "runtime_contract": {
+      "side_effects_file": "side_effects.json"
+    },
     "action_handlers": {
       "base_dir": "actions",
       "registry": "actions/registry.py",
@@ -672,6 +787,37 @@
       "doc_kind": "event"
     }
   },
+  "testing": {
+    "seeded": true,
+    "api_base_path": "/apis/human_resource_administration/training_development/training_records/training_session/",
+    "status_field": "workflow_state",
+    "initial_state": "scheduled",
+    "required_fields": [
+      "title",
+      "workflow_state"
+    ],
+    "transition_scenarios": [
+      {
+        "action_id": "confirm",
+        "source_state": "scheduled",
+        "target_state": "completed",
+        "disallowed_state": "archived"
+      },
+      {
+        "action_id": "archive",
+        "source_state": "scheduled",
+        "target_state": "archived",
+        "disallowed_state": "archived"
+      }
+    ],
+    "related_docs": [
+      "training_attendance"
+    ],
+    "downstream_effects": [
+      "supports employee development and performance planning"
+    ],
+    "action_side_effects_file": "side_effects.json"
+  },
   "runtime": {
     "source_of_truth": "doc_folder",
     "generated_from": [
@@ -679,7 +825,8 @@
       "schema.json",
       "actions.json",
       "settings.json",
-      "logic_seed.json"
+      "logic_seed.json",
+      "side_effects.json"
     ],
     "generator": "plug.apps.doc.file_handler"
   }

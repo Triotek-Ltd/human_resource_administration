@@ -2,14 +2,14 @@
 
 from __future__ import annotations
 
-from manifold.core.services.relation_resolution import RelationResolutionService
+from core.services.relation_resolution import RelationResolutionService
 
 
 DOC_ID = "employment_contract"
 RELATED_DOCS = [{'doc_id': 'employee_record', 'relation_type': 'related', 'show_in_related_panel': True}]
-FETCH_RULES = [{'fetch_profile': 'employee_profile', 'field_id': 'party', 'purpose': 'party_reference', 'source_doc_id': 'employee_record', 'fetch_fields': ['title', 'reference_no', 'employee_id', 'legal_name', 'preferred_name', 'work_email', 'work_phone']}, {'fetch_profile': 'employee_profile', 'field_id': 'employee', 'purpose': 'party_reference', 'source_doc_id': 'employee_record', 'fetch_fields': ['title', 'reference_no', 'employee_id', 'legal_name', 'preferred_name', 'work_email', 'work_phone']}]
+FETCH_RULES = [{'field_id': 'employee', 'source_doc_id': 'employee_record', 'fetch_profile': 'employee_profile', 'fetch_fields': ['title', 'reference_no', 'employee_id', 'legal_name', 'preferred_name', 'work_email', 'work_phone'], 'purpose': 'party_reference'}]
 
-BORROWED_FIELDS = [{'description': 'employee profile details from employee_record'}, {'description': 'salary defaults from salary_structure'}]
+BORROWED_FIELDS = [{'description': 'employee'}, {'description': 'role details from employee_record'}]
 
 class RelationService:
     def _bridge(self, context: dict | None = None) -> RelationResolutionService | None:

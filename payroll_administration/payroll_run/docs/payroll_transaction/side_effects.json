@@ -1,0 +1,34 @@
+{
+  "record": [
+    {
+      "type": "update_current",
+      "fields": {
+        "workflow_state": "draft"
+      }
+    }
+  ],
+  "post": [
+    {
+      "type": "update_current",
+      "fields": {
+        "workflow_state": "posted"
+      }
+    }
+  ],
+  "reconcile": [
+    {
+      "type": "update_current",
+      "fields": {
+        "workflow_state": "reconciled"
+      }
+    }
+  ],
+  "archive": [
+    {
+      "type": "update_current",
+      "fields": {
+        "workflow_state": "archived"
+      }
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "doc_id": "payroll_transaction",
+  "doc_title": "Payroll Transaction",
+  "archetype": "ledger",
+  "doc_kind": "ledger",
+  "actions": [
+    "record",
+    "post",
+    "reconcile",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "draft",
+    "states": [
+      "draft",
+      "posted",
+      "reconciled",
+      "archived"
+    ],
+    "terminal_states": [
+      "archived"
+    ]
+  },
+  "related_doc_count": 1,
+  "fetch_rule_count": 0,
+  "action_handler_count": 4,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "posting_flow",
+      "supports_reconciliation": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": true
+    },
+    "integration_profile": {
+      "external_sync_enabled": true,
+      "tracks_external_refs": true
+    },
+    "lifecycle_states": [
+      "draft",
+      "posted",
+      "reconciled",
+      "archived"
+    ],
+    "is_transactional": true
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "posting_date"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "posting_date": "posting_date",
+      "reconciliation_status": "status_flag"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "transaction_number",
+      "payroll_run",
+      "posting_date"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "posting_date",
+      "workflow_state"
+    ],
+    "initial_state": "draft",
+    "lifecycle_states": [
+      "draft",
+      "posted",
+      "reconciled",
+      "archived"
+    ],
+    "terminal_states": [
+      "archived"
+    ],
+    "action_targets": {
+      "record": null,
+      "post": null,
+      "reconcile": null,
+      "archive": "archived"
+    }
+  },
+  "workflow_hints": {
+    "business_objective": "calculate, approve, pay, document, and post payroll accurately for a pay period",
+    "actors": [
+      "payroll officer",
+      "HR reviewer",
+      "approver",
+      "finance officer",
+      "employee"
+    ],
+    "start_condition": "a payroll period is due for processing",
+    "ordered_steps": [
+      "Post payroll accounting transactions."
+    ],
+    "primary_actions": [
+      "record",
+      "post",
+      "reconcile"
+    ],
+    "primary_transitions": [
+      "payroll_transaction: draft -> posted -> reconciled"
+    ],
+    "downstream_effects": [
+      "payroll history becomes available for employee records, finance controls, and reporting outputs"
+    ],
+    "action_actors": {
+      "record": [
+        "payroll officer"
+      ],
+      "post": [
+        "finance officer"
+      ],
+      "reconcile": [
+        "finance officer"
+      ],
+      "archive": [
+        "payroll officer"
+      ]
+    }
+  },
+  "downstream_effects": [
+    "payroll history becomes available for employee records, finance controls, and reporting outputs"
+  ],
+  "action_side_effects_file": "side_effects.json",
+  "related_docs": [
+    "payroll_run"
+  ],
+  "borrowed_fields": [
+    "period",
+    "amount context from payroll_run"
+  ]
+}

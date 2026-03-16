@@ -1,0 +1,150 @@
+{
+  "doc_id": "disciplinary_action",
+  "doc_title": "Disciplinary Action",
+  "archetype": "transaction",
+  "doc_kind": "transaction",
+  "actions": [
+    "create",
+    "submit",
+    "approve",
+    "issue",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "draft",
+    "states": [
+      "draft",
+      "approved",
+      "issued",
+      "archived"
+    ],
+    "terminal_states": [
+      "archived"
+    ]
+  },
+  "related_doc_count": 2,
+  "fetch_rule_count": 1,
+  "action_handler_count": 5,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "transaction_flow",
+      "supports_submission": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": true
+    },
+    "integration_profile": {
+      "external_sync_enabled": true,
+      "tracks_external_refs": true
+    },
+    "lifecycle_states": [
+      "draft",
+      "approved",
+      "issued",
+      "archived"
+    ],
+    "is_transactional": true
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "transaction_date"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "transaction_date": "transaction_date",
+      "party": "primary_party",
+      "currency": "currency_code",
+      "total_amount": "total_amount",
+      "employee": "party_reference",
+      "issue_date": "schedule_marker",
+      "effective_date": "schedule_marker",
+      "related_employee_grievance": "relation_collection"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "action_number",
+      "employee",
+      "grievance_or_incident"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "transaction_date",
+      "party",
+      "total_amount",
+      "workflow_state"
+    ],
+    "initial_state": "draft",
+    "lifecycle_states": [
+      "draft",
+      "approved",
+      "issued",
+      "archived"
+    ],
+    "terminal_states": [
+      "archived"
+    ],
+    "action_targets": {
+      "create": null,
+      "submit": "approved",
+      "approve": "approved",
+      "issue": "issued",
+      "archive": "archived"
+    }
+  },
+  "workflow_hints": {
+    "relation_context": {
+      "related_docs": [
+        "employee_grievance",
+        "employee_record"
+      ],
+      "borrowed_fields": [
+        "employee",
+        "case context from linked records"
+      ],
+      "inferred_roles": [
+        "hr officer",
+        "case owner"
+      ]
+    },
+    "actors": [
+      "hr officer",
+      "case owner"
+    ],
+    "action_actors": {
+      "create": [
+        "hr officer"
+      ],
+      "submit": [
+        "hr officer"
+      ],
+      "approve": [
+        "case owner"
+      ],
+      "issue": [
+        "case owner"
+      ],
+      "archive": [
+        "case owner"
+      ]
+    }
+  },
+  "downstream_effects": [],
+  "action_side_effects_file": "side_effects.json",
+  "related_docs": [
+    "employee_grievance",
+    "employee_record"
+  ],
+  "borrowed_fields": [
+    "employee",
+    "case context from linked records"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "doc_key": "payslip",
+  "doc_title": "Payslip",
+  "doc_kind": "transaction",
+  "status": "draft",
+  "module_id": "payroll_administration",
+  "submodule_id": "payroll_run",
+  "app_id": "human_resource_administration",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "transaction",
+  "classification": {
+    "archetype": "transaction",
+    "bundle": "administration"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "administration",
+    "app": "human_resource_administration",
+    "module": "payroll_administration",
+    "submodule": "payroll_run",
+    "reference_doc_id": "payslip",
+    "evidence_gaps": [
+      "statement layout",
+      "disclosure policy"
+    ]
+  }
+}

@@ -8,7 +8,7 @@ ACTION_ID = "close"
 ACTION_RULE = {'allowed_in_states': ['scheduled', 'completed'], 'transitions_to': None}
 
 STATE_FIELD = 'workflow_state'
-WORKFLOW_HINTS = {'business_objective': 'Schedule and deliver concrete training sessions from approved plans.', 'actors': ['HR or L&D officer', 'trainer'], 'primary_transitions': ['training_session: scheduled -> completed -> archived']}
+WORKFLOW_HINTS = {'business_objective': 'identify capability gaps, plan learning interventions, deliver training, and record outcomes', 'actors': ['HR development owner', 'trainer', 'participant manager'], 'start_condition': 'a training need is identified', 'ordered_steps': ['Schedule and run the training session.'], 'primary_actions': ['schedule', 'start', 'complete', 'record'], 'primary_transitions': ['training_session: draft -> scheduled -> completed'], 'downstream_effects': ['supports employee development and performance planning'], 'action_actors': {'create': ['HR development owner'], 'confirm': ['participant manager'], 'close': ['HR development owner'], 'archive': ['HR development owner']}}
 
 def handle_close(payload: dict, context: dict | None = None) -> dict:
     context = context or {}

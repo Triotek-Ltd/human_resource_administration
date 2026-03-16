@@ -1,7 +1,6 @@
 {
   "submodules": [
-    "appraisal_cycles",
-    "improvement_plans",
-    "appraisal_reviews"
+    "evaluation_cycles",
+    "improvement_plans"
   ]
 }

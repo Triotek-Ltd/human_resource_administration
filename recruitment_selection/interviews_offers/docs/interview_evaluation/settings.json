@@ -1,102 +1,100 @@
 {
-    "display":  {
-                    "title_template":  "{title}",
-                    "subtitle_template":  "{reference_no}",
-                    "list_columns":  [
-                                         "title",
-                                         "reference_no",
-                                         "transaction_date",
-                                         "party",
-                                         "total_amount",
-                                         "workflow_state"
-                                     ],
-                    "default_filters":  [
-
-                                        ],
-                    "quick_entry":  false
-                },
-    "related_docs":  [
-                         {
-                             "doc_id":  "candidate_application",
-                             "relation_type":  "related",
-                             "show_in_related_panel":  true
-                         },
-                         {
-                             "doc_id":  "interview_schedule",
-                             "relation_type":  "related",
-                             "show_in_related_panel":  true
-                         }
-                     ],
-    "lookup_rules":  [
-                         {
-                             "doc_id":  "candidate_application",
-                             "field_id":  "party",
-                             "purpose":  "party_reference",
-                             "lookup_mode":  "single"
-                         }
-                     ],
-    "fetch_rules":  [
-                        {
-                            "fetch_profile":  "candidate_profile",
-                            "field_id":  "party",
-                            "purpose":  "party_reference",
-                            "source_doc_id":  "candidate_application",
-                            "fetch_fields":  [
-                                                 "title",
-                                                 "reference_no",
-                                                 "candidate_no",
-                                                 "email",
-                                                 "phone",
-                                                 "source"
-                                             ]
-                        }
-                    ],
-    "reference_map":  {
-                          "primary_reference_field":  "reference_no",
-                          "reference_labels":  [
-
-                                               ]
-                      },
-    "relation_rules":  {
-                           "parent_doc":  null,
-                           "child_docs":  [
-
-                                          ],
-                           "show_related_panel":  true
-                       },
-    "borrowed_fields":  [
-                            {
-                                "description":  "candidate and interview context from linked records"
-                            }
-                        ],
-    "ui_panels":  {
-                      "show_activity_log":  true,
-                      "show_comments":  true,
-                      "show_assignments":  true,
-                      "show_related_docs":  true
-                  },
-    "integration":  {
-                        "external_refs":  [
-
-                                          ],
-                        "sync_rules":  [
-
-                                       ]
-                    },
-    "runtime_hints":  {
-                          "doc_key":  "interview_evaluation",
-                          "supports_related_lookup":  true,
-                          "supports_fetch_rules":  true,
-                          "workflow_hints":  {
-                                                 "business_objective":  "Capture structured interviewer assessment and recommendation data.",
-                                                 "actors":  [
-                                                                "interviewer",
-                                                                "HR officer",
-                                                                "hiring manager"
-                                                            ],
-                                                 "primary_transitions":  [
-                                                                             "interview_evaluation: draft -\u003e reviewed -\u003e approved -\u003e archived"
-                                                                         ]
-                                             }
-                      }
+  "display": {
+    "title_template": "{title}",
+    "subtitle_template": "{reference_no}",
+    "list_columns": [
+      "title",
+      "reference_no",
+      "transaction_date",
+      "party",
+      "total_amount",
+      "workflow_state"
+    ],
+    "default_filters": [],
+    "quick_entry": false
+  },
+  "related_docs": [
+    {
+      "doc_id": "candidate_application",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    },
+    {
+      "doc_id": "interview_schedule",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    }
+  ],
+  "lookup_rules": [
+    {
+      "field_id": "related_interview_schedule",
+      "doc_id": "interview_schedule",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    }
+  ],
+  "fetch_rules": [],
+  "reference_map": {
+    "primary_reference_field": "reference_no",
+    "reference_labels": []
+  },
+  "relation_rules": {
+    "parent_doc": null,
+    "child_docs": [
+      "interview_schedule"
+    ],
+    "show_related_panel": true
+  },
+  "borrowed_fields": [
+    {
+      "description": "interview context from interview_schedule"
+    }
+  ],
+  "ui_panels": {
+    "show_activity_log": true,
+    "show_comments": true,
+    "show_assignments": true,
+    "show_related_docs": true
+  },
+  "integration": {
+    "external_refs": [],
+    "sync_rules": []
+  },
+  "runtime_hints": {
+    "doc_key": "interview_evaluation",
+    "supports_related_lookup": true,
+    "supports_fetch_rules": true,
+    "workflow_hints": {
+      "relation_context": {
+        "related_docs": [
+          "candidate_application",
+          "interview_schedule"
+        ],
+        "borrowed_fields": [
+          "interview context from interview_schedule"
+        ],
+        "inferred_roles": [
+          "hr officer"
+        ]
+      },
+      "actors": [
+        "hr officer"
+      ],
+      "action_actors": {
+        "create": [
+          "hr officer"
+        ],
+        "review": [
+          "hr officer"
+        ],
+        "approve": [
+          "hr officer"
+        ],
+        "archive": [
+          "hr officer"
+        ]
+      }
+    },
+    "action_side_effects_file": "side_effects.json"
+  }
 }

@@ -20,8 +20,8 @@
     "submodule": "interviews_offers",
     "reference_doc_id": "interview_evaluation",
     "evidence_gaps": [
-      "scorecard model",
-      "weighting model"
+      "scorecard weighting",
+      "reviewer workflow"
     ]
   }
 }

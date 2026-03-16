@@ -1,0 +1,202 @@
+{
+  "doc_id": "payroll_run",
+  "doc_title": "Payroll Run",
+  "archetype": "transaction",
+  "doc_kind": "transaction",
+  "actions": [
+    "create",
+    "review",
+    "process",
+    "post",
+    "close",
+    "submit",
+    "approve",
+    "recalculate",
+    "reissue",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "draft",
+    "states": [
+      "draft",
+      "reviewed",
+      "approved",
+      "processed",
+      "posted",
+      "closed",
+      "archived"
+    ],
+    "terminal_states": [
+      "closed",
+      "archived"
+    ]
+  },
+  "related_doc_count": 5,
+  "fetch_rule_count": 0,
+  "action_handler_count": 10,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "transaction_flow",
+      "supports_submission": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": true
+    },
+    "integration_profile": {
+      "external_sync_enabled": true,
+      "tracks_external_refs": true
+    },
+    "lifecycle_states": [
+      "draft",
+      "reviewed",
+      "approved",
+      "processed",
+      "posted",
+      "closed",
+      "archived"
+    ],
+    "is_transactional": true
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "transaction_date"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "transaction_date": "transaction_date",
+      "party": "primary_party",
+      "currency": "currency_code",
+      "total_amount": "total_amount",
+      "pay_date": "schedule_marker",
+      "deduction_total": "monetary_value",
+      "related_payroll_line": "relation_collection",
+      "related_payslip": "relation_collection",
+      "related_attendance_record": "relation_collection",
+      "related_employee_record": "relation_collection",
+      "related_payroll_transaction": "relation_collection"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "run_number",
+      "pay_period_start",
+      "end"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "transaction_date",
+      "party",
+      "total_amount",
+      "workflow_state"
+    ],
+    "initial_state": "draft",
+    "lifecycle_states": [
+      "draft",
+      "reviewed",
+      "approved",
+      "processed",
+      "posted",
+      "closed",
+      "archived"
+    ],
+    "terminal_states": [
+      "closed",
+      "archived"
+    ],
+    "action_targets": {
+      "create": null,
+      "review": "reviewed",
+      "process": null,
+      "post": null,
+      "close": "closed",
+      "submit": "approved",
+      "approve": "approved",
+      "recalculate": null,
+      "reissue": null,
+      "archive": "archived"
+    }
+  },
+  "workflow_hints": {
+    "business_objective": "calculate, approve, pay, document, and post payroll accurately for a pay period",
+    "actors": [
+      "payroll officer",
+      "HR reviewer",
+      "approver",
+      "finance officer",
+      "employee"
+    ],
+    "start_condition": "a payroll period is due for processing",
+    "ordered_steps": [
+      "Create the payroll run for the period.",
+      "Approve payroll totals and deductions.",
+      "Process payment and issue payslips.",
+      "Close the payroll cycle."
+    ],
+    "primary_actions": [
+      "create",
+      "review",
+      "approve",
+      "process",
+      "issue",
+      "post",
+      "close",
+      "archive"
+    ],
+    "primary_transitions": [
+      "payroll_run: draft -> reviewed",
+      "payroll_run: reviewed -> approved",
+      "payroll_run: approved -> processed",
+      "payroll_run: processed -> posted -> closed -> archived"
+    ],
+    "downstream_effects": [
+      "payroll history becomes available for employee records, finance controls, and reporting outputs"
+    ],
+    "action_actors": {
+      "create": [
+        "payroll officer"
+      ],
+      "review": [
+        "HR reviewer"
+      ],
+      "post": [
+        "finance officer"
+      ],
+      "close": [
+        "payroll officer"
+      ],
+      "submit": [
+        "payroll officer"
+      ],
+      "approve": [
+        "approver"
+      ],
+      "archive": [
+        "payroll officer"
+      ]
+    }
+  },
+  "downstream_effects": [
+    "payroll history becomes available for employee records, finance controls, and reporting outputs"
+  ],
+  "action_side_effects_file": "side_effects.json",
+  "related_docs": [
+    "payroll_line",
+    "payslip",
+    "attendance_record",
+    "employee_record",
+    "payroll_transaction"
+  ],
+  "borrowed_fields": [
+    "attendance totals from attendance_record",
+    "employee display",
+    "department data from employee_record"
+  ]
+}

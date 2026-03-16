@@ -8,7 +8,7 @@ ACTION_ID = "review"
 ACTION_RULE = {'allowed_in_states': ['open', 'approved'], 'transitions_to': None}
 
 STATE_FIELD = 'workflow_state'
-WORKFLOW_HINTS = {'business_objective': 'Capture and assess learning needs before they are turned into approved training plans.', 'actors': ['employee', 'manager', 'HR or L&D officer'], 'primary_transitions': ['training_need: open -> approved -> closed -> archived']}
+WORKFLOW_HINTS = {'business_objective': 'identify capability gaps, plan learning interventions, deliver training, and record outcomes', 'actors': ['HR development owner', 'trainer', 'participant manager'], 'start_condition': 'a training need is identified', 'ordered_steps': ['Capture and assess the training need.'], 'primary_actions': ['create', 'review', 'approve'], 'primary_transitions': ['training_need: draft -> in_review -> approved'], 'downstream_effects': ['supports employee development and performance planning'], 'action_actors': {'create': ['HR development owner'], 'review': ['trainer'], 'approve': ['participant manager'], 'close': ['HR development owner']}}
 
 def handle_review(payload: dict, context: dict | None = None) -> dict:
     context = context or {}

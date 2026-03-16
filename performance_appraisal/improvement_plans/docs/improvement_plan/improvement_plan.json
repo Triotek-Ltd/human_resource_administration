@@ -14,7 +14,7 @@
     "doc_key": "improvement_plan"
   },
   "doc_key": "improvement_plan",
-  "doc_title": "improvement_plan",
+  "doc_title": "Improvement Plan",
   "allowed_actions": [
     "create",
     "assign",
@@ -59,15 +59,15 @@
       ],
       "content": [
         "description",
-        "plan_no",
+        "plan_number",
         "issue_summary",
         "actions",
-        "owner",
         "review_dates",
         "completion_note"
       ],
       "relations": [
-        "appraisal"
+        "appraisal",
+        "owner"
       ],
       "amounts": [],
       "dates": [],
@@ -181,8 +181,8 @@
         }
       },
       {
-        "field_id": "plan_no",
-        "label": "Plan No",
+        "field_id": "plan_number",
+        "label": "Plan Number",
         "type": "Data",
         "required": false,
         "read_only": false,
@@ -196,10 +196,10 @@
         "read_only_depends_on": null,
         "fetch_from": null,
         "allow_on_submit": false,
-        "indexed": false,
+        "indexed": true,
         "ui": {
           "visible": true,
-          "list_visible": false,
+          "list_visible": true,
           "filterable": true,
           "sortable": true
         }
@@ -285,8 +285,8 @@
         "default": null,
         "unique": false,
         "options": null,
-        "purpose": null,
-        "linked_doc": null,
+        "purpose": "actor_reference",
+        "linked_doc": "employee_record",
         "depends_on": null,
         "mandatory_depends_on": null,
         "read_only_depends_on": null,
@@ -354,7 +354,7 @@
       "title",
       "reference_no",
       "description",
-      "plan_no",
+      "plan_number",
       "appraisal",
       "issue_summary"
     ],
@@ -403,7 +403,7 @@
           "open",
           "in_progress"
         ],
-        "transitions_to": null
+        "transitions_to": "in_progress"
       },
       "track": {
         "allowed_in_states": [
@@ -424,17 +424,37 @@
       {
         "role_id": "System Manager",
         "actions": [
-          "create",
-          "update",
           "view",
           "list",
-          "record",
-          "review",
+          "create",
           "assign",
           "track",
-          "monitor",
-          "confirm",
-          "archive"
+          "close"
+        ]
+      },
+      {
+        "role_id": "supervisor",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "assign",
+          "track",
+          "close"
+        ]
+      },
+      {
+        "role_id": "employee",
+        "actions": [
+          "view",
+          "list"
+        ]
+      },
+      {
+        "role_id": "HR reviewer",
+        "actions": [
+          "view",
+          "list"
         ]
       }
     ],
@@ -520,7 +540,13 @@
     },
     "borrowed_fields": [
       {
-        "description": "appraisal and employee context from linked records"
+        "description": "employee"
+      },
+      {
+        "description": "manager"
+      },
+      {
+        "description": "appraisal summary from linked records"
       }
     ],
     "ui_panels": {
@@ -538,16 +564,44 @@
       "supports_related_lookup": true,
       "supports_fetch_rules": true,
       "workflow_hints": {
-        "business_objective": "Track structured follow-up improvement work arising from appraisal outcomes.",
+        "business_objective": "run a performance cycle, capture formal appraisals, and manage improvement follow-up where needed",
         "actors": [
-          "manager",
+          "supervisor",
           "employee",
-          "HR officer"
+          "HR reviewer"
+        ],
+        "start_condition": "a performance cycle opens",
+        "ordered_steps": [
+          "Launch and monitor an improvement plan where required."
+        ],
+        "primary_actions": [
+          "create",
+          "assign",
+          "track",
+          "close"
         ],
         "primary_transitions": [
-          "improvement_plan: open -> in_progress -> closed -> archived"
-        ]
-      }
+          "improvement_plan: opened -> in_progress -> closed"
+        ],
+        "downstream_effects": [
+          "supports employee growth and performance management"
+        ],
+        "action_actors": {
+          "create": [
+            "supervisor"
+          ],
+          "assign": [
+            "supervisor"
+          ],
+          "track": [
+            "supervisor"
+          ],
+          "close": [
+            "supervisor"
+          ]
+        }
+      },
+      "action_side_effects_file": "side_effects.json"
     }
   },
   "classification": {
@@ -623,6 +677,9 @@
       "reports": "reports/service.py",
       "integrations": "integrations/service.py"
     },
+    "runtime_contract": {
+      "side_effects_file": "side_effects.json"
+    },
     "action_handlers": {
       "base_dir": "actions",
       "registry": "actions/registry.py",
@@ -639,6 +696,38 @@
       "doc_kind": "workflow_case"
     }
   },
+  "testing": {
+    "seeded": true,
+    "api_base_path": "/apis/human_resource_administration/performance_appraisal/improvement_plans/improvement_plan/",
+    "status_field": "workflow_state",
+    "initial_state": "open",
+    "required_fields": [
+      "title",
+      "workflow_state"
+    ],
+    "transition_scenarios": [
+      {
+        "action_id": "assign",
+        "source_state": "open",
+        "target_state": "in_progress",
+        "disallowed_state": "closed"
+      },
+      {
+        "action_id": "close",
+        "source_state": "open",
+        "target_state": "closed",
+        "disallowed_state": "closed"
+      }
+    ],
+    "related_docs": [
+      "performance_appraisal",
+      "employee_record"
+    ],
+    "downstream_effects": [
+      "supports employee growth and performance management"
+    ],
+    "action_side_effects_file": "side_effects.json"
+  },
   "runtime": {
     "source_of_truth": "doc_folder",
     "generated_from": [
@@ -646,7 +735,8 @@
       "schema.json",
       "actions.json",
       "settings.json",
-      "logic_seed.json"
+      "logic_seed.json",
+      "side_effects.json"
     ],
     "generator": "plug.apps.doc.file_handler"
   }

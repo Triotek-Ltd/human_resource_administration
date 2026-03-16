@@ -2,14 +2,14 @@
 
 from __future__ import annotations
 
-from manifold.core.services.relation_resolution import RelationResolutionService
+from core.services.relation_resolution import RelationResolutionService
 
 
 DOC_ID = "interview_evaluation"
 RELATED_DOCS = [{'doc_id': 'candidate_application', 'relation_type': 'related', 'show_in_related_panel': True}, {'doc_id': 'interview_schedule', 'relation_type': 'related', 'show_in_related_panel': True}]
-FETCH_RULES = [{'fetch_profile': 'candidate_profile', 'field_id': 'party', 'purpose': 'party_reference', 'source_doc_id': 'candidate_application', 'fetch_fields': ['title', 'reference_no', 'candidate_no', 'email', 'phone', 'source']}]
+FETCH_RULES = []
 
-BORROWED_FIELDS = [{'description': 'candidate and interview context from linked records'}]
+BORROWED_FIELDS = [{'description': 'interview context from interview_schedule'}]
 
 class RelationService:
     def _bridge(self, context: dict | None = None) -> RelationResolutionService | None:

@@ -1,0 +1,138 @@
+{
+  "doc_id": "performance_cycle",
+  "doc_title": "Performance Cycle",
+  "archetype": "configuration",
+  "doc_kind": "configuration",
+  "actions": [
+    "create",
+    "update",
+    "publish",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "draft",
+    "states": [
+      "draft",
+      "published",
+      "closed",
+      "archived"
+    ],
+    "terminal_states": [
+      "closed",
+      "archived"
+    ]
+  },
+  "related_doc_count": 1,
+  "fetch_rule_count": 0,
+  "action_handler_count": 4,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "configuration_control",
+      "case_management": false
+    },
+    "reporting_profile": {
+      "supports_snapshots": false,
+      "supports_outputs": false
+    },
+    "integration_profile": {
+      "external_sync_enabled": true
+    },
+    "lifecycle_states": [
+      "draft",
+      "published",
+      "closed",
+      "archived"
+    ],
+    "is_transactional": false
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "publication_date": "schedule_marker",
+      "close_date": "schedule_marker",
+      "related_performance_appraisal": "relation_collection"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "cycle_number",
+      "start",
+      "end_dates"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "workflow_state",
+      "modified"
+    ],
+    "initial_state": "draft",
+    "lifecycle_states": [
+      "draft",
+      "published",
+      "closed",
+      "archived"
+    ],
+    "terminal_states": [
+      "closed",
+      "archived"
+    ],
+    "action_targets": {
+      "create": null,
+      "update": null,
+      "publish": "published",
+      "archive": "archived"
+    }
+  },
+  "workflow_hints": {
+    "business_objective": "run a performance cycle, capture formal appraisals, and manage improvement follow-up where needed",
+    "actors": [
+      "supervisor",
+      "employee",
+      "HR reviewer"
+    ],
+    "start_condition": "a performance cycle opens",
+    "ordered_steps": [
+      "Open and publish the appraisal cycle."
+    ],
+    "primary_actions": [
+      "create",
+      "publish"
+    ],
+    "primary_transitions": [
+      "performance_cycle: draft -> active"
+    ],
+    "downstream_effects": [
+      "supports employee growth and performance management"
+    ],
+    "action_actors": {
+      "create": [
+        "supervisor"
+      ],
+      "update": [
+        "supervisor"
+      ],
+      "publish": [
+        "supervisor"
+      ],
+      "archive": [
+        "supervisor"
+      ]
+    }
+  },
+  "downstream_effects": [
+    "supports employee growth and performance management"
+  ],
+  "action_side_effects_file": "side_effects.json",
+  "related_docs": [
+    "performance_appraisal"
+  ],
+  "borrowed_fields": []
+}

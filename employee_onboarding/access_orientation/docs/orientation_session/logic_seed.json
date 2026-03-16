@@ -52,21 +52,20 @@
     ],
     "field_purposes": {
       "workflow_state": "lifecycle_state",
-      "start_at": "schedule_marker",
-      "end_at": "schedule_marker",
-      "session_no": "reference",
-      "date_time": "event_datetime",
+      "start_at": "event_start",
+      "end_at": "event_end",
       "facilitator": "actor_reference",
-      "attendees": "participant_collection",
-      "completion_note": "completion_note"
+      "attendees": "relation_collection",
+      "completion_note": "completion_note",
+      "archive_status": "status_flag"
     },
     "search_fields": [
       "title",
       "reference_no",
       "description",
-      "session_no",
-      "date_time",
-      "facilitator"
+      "session_number",
+      "date",
+      "time"
     ],
     "list_columns": [
       "title",
@@ -84,43 +83,60 @@
       "archived"
     ],
     "action_targets": {
-      "confirm": "completed",
       "create": null,
-      "archive": "archived",
-      "close": null
+      "confirm": "completed",
+      "close": null,
+      "archive": "archived"
     }
   },
   "workflow_hints": {
-    "business_objective": "Schedule, deliver, and record orientation attendance and completion for new employees.",
+    "business_objective": "convert an accepted candidate into an active employee with records, payroll enrollment, orientation, and access",
     "actors": [
       "HR officer",
-      "facilitator",
+      "hiring manager",
+      "payroll officer",
+      "IT/admin support",
       "new employee"
     ],
-    "start_condition": "Orientation must be scheduled as part of onboarding.",
+    "start_condition": "an accepted offer exists and onboarding must begin",
     "ordered_steps": [
-      "Create the orientation session and attendee list.",
-      "Run the session and record attendance.",
-      "Confirm completion details.",
-      "Archive the session record."
+      "Issue policies, handbook, and orientation scheduling."
     ],
     "primary_actions": [
       "create",
       "confirm",
-      "close",
-      "archive"
+      "close"
     ],
     "primary_transitions": [
-      "orientation_session: scheduled -> completed -> archived"
+      "orientation_session: scheduled -> completed"
     ],
     "downstream_effects": [
-      "Orientation completion is available for compliance and onboarding review."
-    ]
+      "employee becomes eligible for payroll, training, appraisal, and employee-relations workflows"
+    ],
+    "action_actors": {
+      "create": [
+        "HR officer"
+      ],
+      "confirm": [
+        "hiring manager"
+      ],
+      "close": [
+        "hiring manager"
+      ],
+      "archive": [
+        "hiring manager"
+      ]
+    }
   },
+  "downstream_effects": [
+    "employee becomes eligible for payroll, training, appraisal, and employee-relations workflows"
+  ],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "employee_record"
   ],
   "borrowed_fields": [
-    "employee attendee references from employee_record"
+    "attendee",
+    "department data from employee_record"
   ]
 }

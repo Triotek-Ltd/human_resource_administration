@@ -1,0 +1,122 @@
+{
+  "doc_id": "relations_case_note",
+  "doc_title": "Relations Case Note",
+  "archetype": "ledger",
+  "doc_kind": "ledger",
+  "actions": [
+    "record",
+    "view",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "active",
+    "states": [
+      "active",
+      "archived"
+    ],
+    "terminal_states": [
+      "archived"
+    ]
+  },
+  "related_doc_count": 1,
+  "fetch_rule_count": 0,
+  "action_handler_count": 3,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "posting_flow",
+      "supports_reconciliation": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": true
+    },
+    "integration_profile": {
+      "external_sync_enabled": true,
+      "tracks_external_refs": true
+    },
+    "lifecycle_states": [
+      "active",
+      "archived"
+    ],
+    "is_transactional": true
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "posting_date"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "posting_date": "posting_date",
+      "note_date": "schedule_marker",
+      "author": "actor_reference"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "note_number",
+      "grievance",
+      "note_date"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "posting_date",
+      "workflow_state"
+    ],
+    "initial_state": "active",
+    "lifecycle_states": [
+      "active",
+      "archived"
+    ],
+    "terminal_states": [
+      "archived"
+    ],
+    "action_targets": {
+      "record": null,
+      "view": null,
+      "archive": "archived"
+    }
+  },
+  "workflow_hints": {
+    "relation_context": {
+      "related_docs": [
+        "employee_grievance"
+      ],
+      "borrowed_fields": [
+        "grievance status",
+        "employee from employee_grievance"
+      ],
+      "inferred_roles": [
+        "hr officer",
+        "case owner"
+      ]
+    },
+    "actors": [
+      "hr officer",
+      "case owner"
+    ],
+    "action_actors": {
+      "record": [
+        "hr officer"
+      ],
+      "archive": [
+        "case owner"
+      ]
+    }
+  },
+  "downstream_effects": [],
+  "action_side_effects_file": "side_effects.json",
+  "related_docs": [
+    "employee_grievance"
+  ],
+  "borrowed_fields": [
+    "grievance status",
+    "employee from employee_grievance"
+  ]
+}

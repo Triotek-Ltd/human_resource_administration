@@ -1,0 +1,26 @@
+"""Action handler seed for candidate_application:shortlist."""
+
+from __future__ import annotations
+
+
+DOC_ID = "candidate_application"
+ACTION_ID = "shortlist"
+ACTION_RULE = {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': 'shortlisted'}
+
+STATE_FIELD = 'workflow_state'
+WORKFLOW_HINTS = {'business_objective': 'define a staffing need, attract candidates, assess them, and issue an approved offer to the selected candidate', 'actors': ['hiring manager', 'recruiter', 'interviewer', 'approver'], 'start_condition': 'a staffing requirement is approved', 'ordered_steps': ['Receive and review candidate applications.'], 'primary_actions': ['create', 'review', 'shortlist', 'reject'], 'primary_transitions': ['candidate_application: draft -> in_review -> shortlisted or rejected'], 'downstream_effects': ['feeds onboarding and employee master creation'], 'action_actors': {'create': ['hiring manager'], 'review': ['recruiter'], 'archive': ['hiring manager'], 'reject': ['approver']}}
+
+def handle_shortlist(payload: dict, context: dict | None = None) -> dict:
+    context = context or {}
+    next_state = ACTION_RULE.get("transitions_to")
+    updates = {STATE_FIELD: next_state} if STATE_FIELD and next_state else {}
+    return {
+        "doc_id": DOC_ID,
+        "action_id": ACTION_ID,
+        "payload": payload,
+        "context": context,
+        "allowed_in_states": ACTION_RULE.get("allowed_in_states", []),
+        "next_state": next_state,
+        "updates": updates,
+        "workflow_objective": WORKFLOW_HINTS.get("business_objective"),
+    }

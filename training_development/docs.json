@@ -1,9 +1,9 @@
 {
   "docs": [
-    "training_plan",
     "training_attendance",
-    "training_session",
     "training_need",
-    "training_outcome"
+    "training_outcome",
+    "training_plan",
+    "training_session"
   ]
 }

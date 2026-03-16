@@ -1,0 +1,93 @@
+{
+  "doc_id": "performance_rating",
+  "doc_title": "Performance Rating",
+  "archetype": "ledger",
+  "doc_kind": "ledger",
+  "actions": [
+    "record",
+    "review",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "active",
+    "states": [
+      "active",
+      "archived"
+    ],
+    "terminal_states": [
+      "archived"
+    ]
+  },
+  "related_doc_count": 1,
+  "fetch_rule_count": 0,
+  "action_handler_count": 3,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "posting_flow",
+      "supports_reconciliation": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": true
+    },
+    "integration_profile": {
+      "external_sync_enabled": true,
+      "tracks_external_refs": true
+    },
+    "lifecycle_states": [
+      "active",
+      "archived"
+    ],
+    "is_transactional": true
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "posting_date"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "posting_date": "posting_date"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "rating_number",
+      "appraisal",
+      "criterion"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "posting_date",
+      "workflow_state"
+    ],
+    "initial_state": "active",
+    "lifecycle_states": [
+      "active",
+      "archived"
+    ],
+    "terminal_states": [
+      "archived"
+    ],
+    "action_targets": {
+      "record": null,
+      "review": null,
+      "archive": "archived"
+    }
+  },
+  "workflow_hints": {},
+  "downstream_effects": [],
+  "action_side_effects_file": "side_effects.json",
+  "related_docs": [
+    "performance_appraisal"
+  ],
+  "borrowed_fields": [
+    "appraisal context from performance_appraisal"
+  ]
+}

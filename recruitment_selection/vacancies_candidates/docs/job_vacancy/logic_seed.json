@@ -1,0 +1,159 @@
+{
+  "doc_id": "job_vacancy",
+  "doc_title": "Job Vacancy",
+  "archetype": "workflow_case",
+  "doc_kind": "workflow_case",
+  "actions": [
+    "create",
+    "submit",
+    "approve",
+    "publish",
+    "close",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "draft",
+    "states": [
+      "draft",
+      "approved",
+      "published",
+      "closed",
+      "archived"
+    ],
+    "terminal_states": [
+      "closed",
+      "archived"
+    ]
+  },
+  "related_doc_count": 2,
+  "fetch_rule_count": 0,
+  "action_handler_count": 6,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "case_flow",
+      "supports_assignment": true,
+      "supports_escalation": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": false
+    },
+    "integration_profile": {
+      "external_sync_enabled": false
+    },
+    "lifecycle_states": [
+      "draft",
+      "approved",
+      "published",
+      "closed",
+      "archived"
+    ],
+    "is_transactional": false
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "opening_date": "schedule_marker",
+      "closing_date": "schedule_marker",
+      "related_job_description": "relation_collection",
+      "related_candidate_application": "relation_collection"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "vacancy_number",
+      "department",
+      "justification"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "workflow_state",
+      "modified"
+    ],
+    "initial_state": "draft",
+    "lifecycle_states": [
+      "draft",
+      "approved",
+      "published",
+      "closed",
+      "archived"
+    ],
+    "terminal_states": [
+      "closed",
+      "archived"
+    ],
+    "action_targets": {
+      "create": null,
+      "submit": "approved",
+      "approve": "approved",
+      "publish": "published",
+      "close": "closed",
+      "archive": "archived"
+    }
+  },
+  "workflow_hints": {
+    "business_objective": "define a staffing need, attract candidates, assess them, and issue an approved offer to the selected candidate",
+    "actors": [
+      "hiring manager",
+      "recruiter",
+      "interviewer",
+      "approver"
+    ],
+    "start_condition": "a staffing requirement is approved",
+    "ordered_steps": [
+      "Define and approve the role requirement."
+    ],
+    "primary_actions": [
+      "create",
+      "review",
+      "approve",
+      "publish"
+    ],
+    "primary_transitions": [
+      "job_vacancy: draft -> approved -> published"
+    ],
+    "downstream_effects": [
+      "feeds onboarding and employee master creation"
+    ],
+    "action_actors": {
+      "create": [
+        "hiring manager"
+      ],
+      "submit": [
+        "hiring manager"
+      ],
+      "approve": [
+        "approver"
+      ],
+      "publish": [
+        "hiring manager"
+      ],
+      "close": [
+        "hiring manager"
+      ],
+      "archive": [
+        "hiring manager"
+      ]
+    }
+  },
+  "downstream_effects": [
+    "feeds onboarding and employee master creation"
+  ],
+  "action_side_effects_file": "side_effects.json",
+  "related_docs": [
+    "job_description",
+    "candidate_application"
+  ],
+  "borrowed_fields": [
+    "role details from job_description"
+  ]
+}

@@ -5,7 +5,7 @@ from __future__ import annotations
 
 DOC_ID = "access_assignment"
 ALLOWED_ACTIONS = ['create', 'approve', 'issue', 'close']
-ACTION_RULES = {'create': {'allowed_in_states': ['draft', 'approved', 'issued'], 'transitions_to': None}, 'approve': {'allowed_in_states': ['draft', 'approved', 'issued'], 'transitions_to': 'approved'}, 'issue': {'allowed_in_states': ['draft', 'approved', 'issued'], 'transitions_to': 'issued'}, 'close': {'allowed_in_states': ['draft', 'approved', 'issued'], 'transitions_to': 'closed'}}
+ACTION_RULES = {'create': {'allowed_in_states': ['draft', 'approved', 'issued'], 'transitions_to': None}, 'approve': {'allowed_in_states': ['draft', 'approved', 'issued'], 'transitions_to': 'approved'}, 'issue': {'allowed_in_states': ['approved'], 'transitions_to': 'issued'}, 'close': {'allowed_in_states': ['draft', 'approved', 'issued'], 'transitions_to': 'closed'}}
 
 STATE_FIELD = 'workflow_state'
 

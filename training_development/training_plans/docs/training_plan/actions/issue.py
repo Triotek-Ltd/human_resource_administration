@@ -5,10 +5,10 @@ from __future__ import annotations
 
 DOC_ID = "training_plan"
 ACTION_ID = "issue"
-ACTION_RULE = {'allowed_in_states': ['draft', 'approved', 'scheduled'], 'transitions_to': None}
+ACTION_RULE = {'allowed_in_states': ['approved'], 'transitions_to': None}
 
 STATE_FIELD = 'workflow_state'
-WORKFLOW_HINTS = {'business_objective': 'Define approved training plans that can be scheduled and delivered.', 'actors': ['HR or L&D officer', 'manager', 'approver'], 'primary_transitions': ['training_plan: draft -> approved -> scheduled -> archived']}
+WORKFLOW_HINTS = {'business_objective': 'identify capability gaps, plan learning interventions, deliver training, and record outcomes', 'actors': ['HR development owner', 'trainer', 'participant manager'], 'start_condition': 'a training need is identified', 'ordered_steps': ['Build and approve the training plan.'], 'primary_actions': ['create', 'submit', 'approve'], 'primary_transitions': ['training_plan: draft -> submitted -> approved'], 'downstream_effects': ['supports employee development and performance planning'], 'action_actors': {'create': ['HR development owner'], 'submit': ['HR development owner'], 'approve': ['participant manager'], 'issue': ['HR development owner'], 'archive': ['HR development owner']}}
 
 def handle_issue(payload: dict, context: dict | None = None) -> dict:
     context = context or {}

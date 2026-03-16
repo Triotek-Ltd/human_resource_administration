@@ -5,10 +5,10 @@ from __future__ import annotations
 
 DOC_ID = "employee_record"
 ACTION_ID = "activate"
-ACTION_RULE = {'allowed_in_states': ['draft', 'active', 'inactive'], 'transitions_to': 'active'}
+ACTION_RULE = {'allowed_in_states': ['draft'], 'transitions_to': 'active'}
 
 STATE_FIELD = 'workflow_state'
-WORKFLOW_HINTS = {'business_objective': 'Convert an accepted candidate into an active employee with records, payroll enrollment, orientation, and access.', 'actors': ['HR officer', 'hiring manager', 'payroll officer', 'IT/admin support', 'new employee'], 'start_condition': 'An accepted offer exists and onboarding must begin.', 'ordered_steps': ['Create the employee master record.', 'Prepare and issue the employment contract.', 'Register employee for payroll and employment controls.', 'Create onboarding tasks and track completion.', 'Issue policies, handbook, and orientation scheduling.'], 'primary_actions': ['create', 'activate', 'update', 'review'], 'primary_transitions': ['employee_record: draft -> active'], 'downstream_effects': ['Payroll enrollment becomes possible.', 'Access and onboarding tasks can be assigned.', 'Orientation and policy acknowledgement can be scheduled.']}
+WORKFLOW_HINTS = {'business_objective': 'calculate, approve, pay, document, and post payroll accurately for a pay period', 'actors': ['payroll officer', 'HR reviewer', 'approver', 'finance officer', 'employee'], 'start_condition': 'a payroll period is due for processing', 'ordered_steps': ['Collect attendance and salary basis.'], 'primary_actions': ['record', 'review', 'update'], 'primary_transitions': [], 'downstream_effects': ['payroll history becomes available for employee records, finance controls, and reporting outputs'], 'action_actors': {'create': ['payroll officer'], 'update': ['payroll officer'], 'review': ['HR reviewer'], 'archive': ['payroll officer'], 'activate': ['payroll officer'], 'assign': ['payroll officer'], 'record': ['payroll officer']}}
 
 def handle_activate(payload: dict, context: dict | None = None) -> dict:
     context = context or {}

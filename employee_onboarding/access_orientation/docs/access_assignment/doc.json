@@ -20,8 +20,9 @@
     "submodule": "access_orientation",
     "reference_doc_id": "access_assignment",
     "evidence_gaps": [
-      "deprovisioning handling",
-      "expiry handling"
+      "deprovisioning",
+      "expiry",
+      "access-role taxonomy"
     ]
   }
 }

@@ -8,7 +8,7 @@ ACTION_ID = "create"
 ACTION_RULE = {'allowed_in_states': ['scheduled', 'completed'], 'transitions_to': None}
 
 STATE_FIELD = 'workflow_state'
-WORKFLOW_HINTS = {'business_objective': 'Schedule, deliver, and record orientation attendance and completion for new employees.', 'actors': ['HR officer', 'facilitator', 'new employee'], 'start_condition': 'Orientation must be scheduled as part of onboarding.', 'ordered_steps': ['Create the orientation session and attendee list.', 'Run the session and record attendance.', 'Confirm completion details.', 'Archive the session record.'], 'primary_actions': ['create', 'confirm', 'close', 'archive'], 'primary_transitions': ['orientation_session: scheduled -> completed -> archived'], 'downstream_effects': ['Orientation completion is available for compliance and onboarding review.']}
+WORKFLOW_HINTS = {'business_objective': 'convert an accepted candidate into an active employee with records, payroll enrollment, orientation, and access', 'actors': ['HR officer', 'hiring manager', 'payroll officer', 'IT/admin support', 'new employee'], 'start_condition': 'an accepted offer exists and onboarding must begin', 'ordered_steps': ['Issue policies, handbook, and orientation scheduling.'], 'primary_actions': ['create', 'confirm', 'close'], 'primary_transitions': ['orientation_session: scheduled -> completed'], 'downstream_effects': ['employee becomes eligible for payroll, training, appraisal, and employee-relations workflows'], 'action_actors': {'create': ['HR officer'], 'confirm': ['hiring manager'], 'close': ['hiring manager'], 'archive': ['hiring manager']}}
 
 def handle_create(payload: dict, context: dict | None = None) -> dict:
     context = context or {}

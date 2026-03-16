@@ -5,7 +5,7 @@ from __future__ import annotations
 
 DOC_ID = "employment_contract"
 ALLOWED_ACTIONS = ['create', 'submit', 'approve', 'issue', 'archive']
-ACTION_RULES = {'create': {'allowed_in_states': ['draft', 'approved', 'signed'], 'transitions_to': None}, 'submit': {'allowed_in_states': ['draft', 'approved', 'signed'], 'transitions_to': 'approved'}, 'approve': {'allowed_in_states': ['draft', 'approved', 'signed'], 'transitions_to': 'approved'}, 'issue': {'allowed_in_states': ['draft', 'approved', 'signed'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['draft', 'approved', 'signed'], 'transitions_to': 'archived'}}
+ACTION_RULES = {'create': {'allowed_in_states': ['draft', 'approved', 'signed'], 'transitions_to': None}, 'submit': {'allowed_in_states': ['draft', 'approved', 'signed'], 'transitions_to': 'approved'}, 'approve': {'allowed_in_states': ['draft', 'approved', 'signed'], 'transitions_to': 'approved'}, 'issue': {'allowed_in_states': ['approved'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['draft', 'approved', 'signed'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
 

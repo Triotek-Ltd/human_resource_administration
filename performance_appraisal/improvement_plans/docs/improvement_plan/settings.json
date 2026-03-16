@@ -1,82 +1,102 @@
 {
-    "display":  {
-                    "title_template":  "{title}",
-                    "subtitle_template":  "{reference_no}",
-                    "list_columns":  [
-                                         "title",
-                                         "reference_no",
-                                         "workflow_state",
-                                         "modified"
-                                     ],
-                    "default_filters":  [
-
-                                        ],
-                    "quick_entry":  false
-                },
-    "related_docs":  [
-                         {
-                             "doc_id":  "performance_appraisal",
-                             "relation_type":  "related",
-                             "show_in_related_panel":  true
-                         },
-                         {
-                             "doc_id":  "employee_record",
-                             "relation_type":  "related",
-                             "show_in_related_panel":  true
-                         }
-                     ],
-    "lookup_rules":  [
-
-                     ],
-    "fetch_rules":  [
-
-                    ],
-    "reference_map":  {
-                          "primary_reference_field":  "reference_no",
-                          "reference_labels":  [
-
-                                               ]
-                      },
-    "relation_rules":  {
-                           "parent_doc":  null,
-                           "child_docs":  [
-
-                                          ],
-                           "show_related_panel":  true
-                       },
-    "borrowed_fields":  [
-                            {
-                                "description":  "appraisal and employee context from linked records"
-                            }
-                        ],
-    "ui_panels":  {
-                      "show_activity_log":  true,
-                      "show_comments":  true,
-                      "show_assignments":  true,
-                      "show_related_docs":  true
-                  },
-    "integration":  {
-                        "external_refs":  [
-
-                                          ],
-                        "sync_rules":  [
-
-                                       ]
-                    },
-    "runtime_hints":  {
-                          "doc_key":  "improvement_plan",
-                          "supports_related_lookup":  true,
-                          "supports_fetch_rules":  true,
-                          "workflow_hints":  {
-                                                 "business_objective":  "Track structured follow-up improvement work arising from appraisal outcomes.",
-                                                 "actors":  [
-                                                                "manager",
-                                                                "employee",
-                                                                "HR officer"
-                                                            ],
-                                                 "primary_transitions":  [
-                                                                             "improvement_plan: open -\u003e in_progress -\u003e closed -\u003e archived"
-                                                                         ]
-                                             }
-                      }
+  "display": {
+    "title_template": "{title}",
+    "subtitle_template": "{reference_no}",
+    "list_columns": [
+      "title",
+      "reference_no",
+      "workflow_state",
+      "modified"
+    ],
+    "default_filters": [],
+    "quick_entry": false
+  },
+  "related_docs": [
+    {
+      "doc_id": "performance_appraisal",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    },
+    {
+      "doc_id": "employee_record",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    }
+  ],
+  "lookup_rules": [],
+  "fetch_rules": [],
+  "reference_map": {
+    "primary_reference_field": "reference_no",
+    "reference_labels": []
+  },
+  "relation_rules": {
+    "parent_doc": null,
+    "child_docs": [],
+    "show_related_panel": true
+  },
+  "borrowed_fields": [
+    {
+      "description": "employee"
+    },
+    {
+      "description": "manager"
+    },
+    {
+      "description": "appraisal summary from linked records"
+    }
+  ],
+  "ui_panels": {
+    "show_activity_log": true,
+    "show_comments": true,
+    "show_assignments": true,
+    "show_related_docs": true
+  },
+  "integration": {
+    "external_refs": [],
+    "sync_rules": []
+  },
+  "runtime_hints": {
+    "doc_key": "improvement_plan",
+    "supports_related_lookup": true,
+    "supports_fetch_rules": true,
+    "workflow_hints": {
+      "business_objective": "run a performance cycle, capture formal appraisals, and manage improvement follow-up where needed",
+      "actors": [
+        "supervisor",
+        "employee",
+        "HR reviewer"
+      ],
+      "start_condition": "a performance cycle opens",
+      "ordered_steps": [
+        "Launch and monitor an improvement plan where required."
+      ],
+      "primary_actions": [
+        "create",
+        "assign",
+        "track",
+        "close"
+      ],
+      "primary_transitions": [
+        "improvement_plan: opened -> in_progress -> closed"
+      ],
+      "downstream_effects": [
+        "supports employee growth and performance management"
+      ],
+      "action_actors": {
+        "create": [
+          "supervisor"
+        ],
+        "assign": [
+          "supervisor"
+        ],
+        "track": [
+          "supervisor"
+        ],
+        "close": [
+          "supervisor"
+        ]
+      }
+    },
+    "action_side_effects_file": "side_effects.json"
+  }
 }

@@ -8,7 +8,7 @@ ACTION_ID = "create"
 ACTION_RULE = {'allowed_in_states': ['draft', 'issued', 'accepted', 'declined', 'cancelled'], 'transitions_to': None}
 
 STATE_FIELD = 'workflow_state'
-WORKFLOW_HINTS = {'business_objective': 'Issue and track employment offers against selected candidate applications.', 'actors': ['HR officer', 'approver', 'candidate'], 'primary_transitions': ['job_offer: draft -> issued -> accepted or declined or cancelled -> archived']}
+WORKFLOW_HINTS = {'business_objective': 'define a staffing need, attract candidates, assess them, and issue an approved offer to the selected candidate', 'actors': ['hiring manager', 'recruiter', 'interviewer', 'approver'], 'start_condition': 'a staffing requirement is approved', 'ordered_steps': ['Select the candidate and issue the offer.'], 'primary_actions': ['create', 'approve', 'issue', 'close'], 'primary_transitions': ['job_offer: draft -> approved -> issued -> closed'], 'downstream_effects': ['feeds onboarding and employee master creation'], 'action_actors': {'create': ['hiring manager'], 'issue': ['hiring manager'], 'confirm': ['approver'], 'cancel': ['hiring manager'], 'archive': ['hiring manager']}}
 
 def handle_create(payload: dict, context: dict | None = None) -> dict:
     context = context or {}

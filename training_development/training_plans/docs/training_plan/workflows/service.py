@@ -8,10 +8,10 @@ ARCHETYPE = "transaction"
 INITIAL_STATE = 'draft'
 STATES = ['draft', 'approved', 'scheduled', 'archived']
 TERMINAL_STATES = ['archived']
-ACTION_RULES = {'issue': {'allowed_in_states': ['draft', 'approved', 'scheduled'], 'transitions_to': None}, 'submit': {'allowed_in_states': ['draft', 'approved', 'scheduled'], 'transitions_to': 'approved'}, 'create': {'allowed_in_states': ['draft', 'approved', 'scheduled'], 'transitions_to': None}, 'approve': {'allowed_in_states': ['draft', 'approved', 'scheduled'], 'transitions_to': 'approved'}, 'archive': {'allowed_in_states': ['draft', 'approved', 'scheduled'], 'transitions_to': 'archived'}}
+ACTION_RULES = {'create': {'allowed_in_states': ['draft', 'approved', 'scheduled'], 'transitions_to': None}, 'submit': {'allowed_in_states': ['draft', 'approved', 'scheduled'], 'transitions_to': 'approved'}, 'approve': {'allowed_in_states': ['draft', 'approved', 'scheduled'], 'transitions_to': 'approved'}, 'issue': {'allowed_in_states': ['approved'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['draft', 'approved', 'scheduled'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
-WORKFLOW_HINTS = {'business_objective': 'Define approved training plans that can be scheduled and delivered.', 'actors': ['HR or L&D officer', 'manager', 'approver'], 'primary_transitions': ['training_plan: draft -> approved -> scheduled -> archived']}
+WORKFLOW_HINTS = {'business_objective': 'identify capability gaps, plan learning interventions, deliver training, and record outcomes', 'actors': ['HR development owner', 'trainer', 'participant manager'], 'start_condition': 'a training need is identified', 'ordered_steps': ['Build and approve the training plan.'], 'primary_actions': ['create', 'submit', 'approve'], 'primary_transitions': ['training_plan: draft -> submitted -> approved'], 'downstream_effects': ['supports employee development and performance planning'], 'action_actors': {'create': ['HR development owner'], 'submit': ['HR development owner'], 'approve': ['participant manager'], 'issue': ['HR development owner'], 'archive': ['HR development owner']}}
 
 class WorkflowService:
     def allowed_actions_for_state(self, state: str | None) -> list[str]:

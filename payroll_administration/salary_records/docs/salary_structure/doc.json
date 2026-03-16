@@ -1,0 +1,27 @@
+{
+  "doc_key": "salary_structure",
+  "doc_title": "Salary Structure",
+  "doc_kind": "configuration",
+  "status": "draft",
+  "module_id": "payroll_administration",
+  "submodule_id": "salary_records",
+  "app_id": "human_resource_administration",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "configuration",
+  "classification": {
+    "archetype": "configuration",
+    "bundle": "administration"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "administration",
+    "app": "human_resource_administration",
+    "module": "payroll_administration",
+    "submodule": "salary_records",
+    "reference_doc_id": "salary_structure",
+    "evidence_gaps": [
+      "earning",
+      "deduction taxonomy"
+    ]
+  }
+}

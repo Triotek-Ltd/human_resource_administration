@@ -20,8 +20,8 @@
     "submodule": "access_orientation",
     "reference_doc_id": "orientation_session",
     "evidence_gaps": [
-      "required-module tracking",
-      "attendance detail model"
+      "attendance",
+      "mandatory-module tracking"
     ]
   }
 }

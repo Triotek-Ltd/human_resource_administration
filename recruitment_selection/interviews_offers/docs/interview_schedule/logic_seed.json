@@ -54,17 +54,16 @@
     ],
     "field_purposes": {
       "workflow_state": "lifecycle_state",
-      "start_at": "schedule_marker",
-      "end_at": "schedule_marker",
-      "date_time": "event_datetime"
+      "start_at": "event_start",
+      "end_at": "event_end"
     },
     "search_fields": [
       "title",
       "reference_no",
       "description",
-      "interview_no",
+      "interview_number",
       "application",
-      "date_time"
+      "date"
     ],
     "list_columns": [
       "title",
@@ -83,27 +82,59 @@
       "archived"
     ],
     "action_targets": {
-      "confirm": "completed",
       "create": null,
-      "archive": "archived",
-      "cancel": null
+      "confirm": "completed",
+      "cancel": null,
+      "archive": "archived"
     }
   },
   "workflow_hints": {
-    "business_objective": "Schedule and track recruitment interviews against candidate applications.",
+    "business_objective": "define a staffing need, attract candidates, assess them, and issue an approved offer to the selected candidate",
     "actors": [
-      "HR officer",
       "hiring manager",
-      "panel"
+      "recruiter",
+      "interviewer",
+      "approver"
+    ],
+    "start_condition": "a staffing requirement is approved",
+    "ordered_steps": [
+      "Schedule interviews and record evaluations."
+    ],
+    "primary_actions": [
+      "schedule",
+      "record",
+      "review"
     ],
     "primary_transitions": [
-      "interview_schedule: scheduled -> completed or cancelled -> archived"
-    ]
+      "interview_schedule: draft -> scheduled -> completed"
+    ],
+    "downstream_effects": [
+      "feeds onboarding and employee master creation"
+    ],
+    "action_actors": {
+      "create": [
+        "hiring manager"
+      ],
+      "confirm": [
+        "approver"
+      ],
+      "cancel": [
+        "hiring manager"
+      ],
+      "archive": [
+        "hiring manager"
+      ]
+    }
   },
+  "downstream_effects": [
+    "feeds onboarding and employee master creation"
+  ],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "candidate_application"
   ],
   "borrowed_fields": [
-    "candidate and vacancy context from candidate_application"
+    "candidate",
+    "role details from candidate_application"
   ]
 }

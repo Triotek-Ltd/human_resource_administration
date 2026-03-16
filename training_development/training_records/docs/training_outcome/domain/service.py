@@ -5,9 +5,11 @@ from __future__ import annotations
 
 ARCHETYPE_PROFILE = {'workflow_profile': {'mode': 'transaction_flow', 'supports_submission': True}, 'reporting_profile': {'supports_snapshots': True, 'supports_outputs': True}, 'integration_profile': {'external_sync_enabled': True, 'tracks_external_refs': True}, 'lifecycle_states': ['draft', 'confirmed', 'archived'], 'is_transactional': True}
 
-CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state', 'transaction_date'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'transaction_date': 'transaction_date', 'party': 'party_reference', 'currency': 'currency_code', 'total_amount': 'total_amount'}, 'search_fields': ['title', 'reference_no', 'description', 'outcome_no', 'session_or_plan', 'evaluation_summary'], 'list_columns': ['title', 'reference_no', 'transaction_date', 'party', 'total_amount', 'workflow_state'], 'initial_state': 'draft', 'lifecycle_states': ['draft', 'confirmed', 'archived'], 'terminal_states': ['archived'], 'action_targets': {'confirm': 'confirmed', 'create': None, 'archive': 'archived', 'review': None}}
+CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state', 'transaction_date'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'transaction_date': 'transaction_date', 'party': 'primary_party', 'currency': 'currency_code', 'total_amount': 'total_amount', 'related_training_session': 'relation_collection', 'related_employee_record': 'relation_collection'}, 'search_fields': ['title', 'reference_no', 'description', 'outcome_number', 'session_or_plan', 'evaluation_summary'], 'list_columns': ['title', 'reference_no', 'transaction_date', 'party', 'total_amount', 'workflow_state'], 'initial_state': 'draft', 'lifecycle_states': ['draft', 'confirmed', 'archived'], 'terminal_states': ['archived'], 'action_targets': {'create': None, 'review': None, 'confirm': 'confirmed', 'archive': 'archived'}}
 
-WORKFLOW_HINTS = {'business_objective': 'Record the result and effectiveness of training delivery for follow-up action.', 'actors': ['trainer', 'manager', 'HR or L&D officer'], 'primary_transitions': ['training_outcome: draft -> confirmed -> archived']}
+WORKFLOW_HINTS = {'business_objective': 'identify capability gaps, plan learning interventions, deliver training, and record outcomes', 'actors': ['HR development owner', 'trainer', 'participant manager'], 'start_condition': 'a training need is identified', 'ordered_steps': ['Evaluate and record the training outcome.'], 'primary_actions': ['create', 'review', 'close'], 'primary_transitions': ['training_outcome: draft -> reviewed -> closed'], 'downstream_effects': ['supports employee development and performance planning'], 'action_actors': {'create': ['HR development owner'], 'review': ['trainer'], 'confirm': ['participant manager'], 'archive': ['HR development owner']}}
+
+SIDE_EFFECT_HINTS = {'downstream_effects': ['supports employee development and performance planning'], 'related_docs': ['training_session', 'employee_record'], 'action_targets': {'create': None, 'review': None, 'confirm': 'confirmed', 'archive': 'archived'}, 'action_side_effects_file': 'side_effects.json'}
 
 class DomainService:
     doc_id = "training_outcome"
@@ -63,12 +65,28 @@ class DomainService:
     def after_update(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         return serialized_data
 
+    def after_action(
+        self,
+        instance,
+        action_id: str,
+        payload: dict,
+        action_result: dict,
+        context: dict | None = None,
+    ) -> dict:
+        return {
+            "updates": {},
+            "side_effects": [],
+        }
+
     def shape_retrieve_data(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         serialized_data.setdefault("_business_capabilities", self.business_capabilities())
         return serialized_data
 
     def workflow_objective(self) -> str | None:
         return WORKFLOW_HINTS.get("business_objective")
+
+    def side_effect_hints(self) -> dict:
+        return SIDE_EFFECT_HINTS
 
     def business_capabilities(self) -> dict:
         return {

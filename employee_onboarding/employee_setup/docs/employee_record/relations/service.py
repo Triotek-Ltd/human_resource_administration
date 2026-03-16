@@ -2,14 +2,14 @@
 
 from __future__ import annotations
 
-from manifold.core.services.relation_resolution import RelationResolutionService
+from core.services.relation_resolution import RelationResolutionService
 
 
 DOC_ID = "employee_record"
 RELATED_DOCS = [{'doc_id': 'employment_contract', 'relation_type': 'related', 'show_in_related_panel': True}, {'doc_id': 'onboarding_case', 'relation_type': 'related', 'show_in_related_panel': True}, {'doc_id': 'access_assignment', 'relation_type': 'related', 'show_in_related_panel': True}, {'doc_id': 'orientation_session', 'relation_type': 'related', 'show_in_related_panel': True}, {'doc_id': 'salary_structure', 'relation_type': 'related', 'show_in_related_panel': True}]
 FETCH_RULES = []
 
-BORROWED_FIELDS = [{'description': 'department display fields from linked records'}, {'description': 'supervisor display fields from linked records'}, {'description': 'salary defaults from salary_structure'}]
+BORROWED_FIELDS = [{'description': 'department'}, {'description': 'supervisor display fields from linked records'}, {'description': 'salary defaults from salary_structure'}]
 
 class RelationService:
     def _bridge(self, context: dict | None = None) -> RelationResolutionService | None:

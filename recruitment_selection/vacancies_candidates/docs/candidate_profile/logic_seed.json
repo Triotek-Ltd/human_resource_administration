@@ -1,0 +1,115 @@
+{
+  "doc_id": "candidate_profile",
+  "doc_title": "Candidate Profile",
+  "archetype": "master",
+  "doc_kind": "master",
+  "actions": [
+    "create",
+    "update",
+    "view",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "active",
+    "states": [
+      "active",
+      "archived"
+    ],
+    "terminal_states": [
+      "archived"
+    ]
+  },
+  "related_doc_count": 1,
+  "fetch_rule_count": 0,
+  "action_handler_count": 4,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "entity_lifecycle",
+      "case_management": false
+    },
+    "reporting_profile": {
+      "supports_snapshots": false,
+      "supports_outputs": false
+    },
+    "integration_profile": {
+      "external_sync_enabled": false
+    },
+    "lifecycle_states": [
+      "active",
+      "archived"
+    ],
+    "is_transactional": false
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "related_candidate_application": "relation_collection"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "candidate_number",
+      "name",
+      "contact_info"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "workflow_state",
+      "modified"
+    ],
+    "initial_state": "active",
+    "lifecycle_states": [
+      "active",
+      "archived"
+    ],
+    "terminal_states": [
+      "archived"
+    ],
+    "action_targets": {
+      "create": null,
+      "update": null,
+      "view": null,
+      "archive": "archived"
+    }
+  },
+  "workflow_hints": {
+    "relation_context": {
+      "related_docs": [
+        "candidate_application"
+      ],
+      "borrowed_fields": [],
+      "inferred_roles": [
+        "hr officer"
+      ]
+    },
+    "actors": [
+      "hr officer"
+    ],
+    "action_actors": {
+      "create": [
+        "hr officer"
+      ],
+      "update": [
+        "hr officer"
+      ],
+      "archive": [
+        "hr officer"
+      ]
+    }
+  },
+  "downstream_effects": [],
+  "action_side_effects_file": "side_effects.json",
+  "related_docs": [
+    "candidate_application"
+  ],
+  "borrowed_fields": []
+}

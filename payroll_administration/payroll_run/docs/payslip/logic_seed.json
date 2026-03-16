@@ -1,0 +1,143 @@
+{
+  "doc_id": "payslip",
+  "doc_title": "Payslip",
+  "archetype": "transaction",
+  "doc_kind": "transaction",
+  "actions": [
+    "create",
+    "issue",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "draft",
+    "states": [
+      "draft",
+      "issued",
+      "archived"
+    ],
+    "terminal_states": [
+      "archived"
+    ]
+  },
+  "related_doc_count": 2,
+  "fetch_rule_count": 1,
+  "action_handler_count": 3,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "transaction_flow",
+      "supports_submission": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": true
+    },
+    "integration_profile": {
+      "external_sync_enabled": true,
+      "tracks_external_refs": true
+    },
+    "lifecycle_states": [
+      "draft",
+      "issued",
+      "archived"
+    ],
+    "is_transactional": true
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "transaction_date"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "transaction_date": "transaction_date",
+      "party": "primary_party",
+      "currency": "currency_code",
+      "total_amount": "total_amount",
+      "employee": "party_reference",
+      "pay_date": "schedule_marker",
+      "totals": "structured_payload"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "payslip_number",
+      "employee",
+      "payroll_run"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "transaction_date",
+      "party",
+      "total_amount",
+      "workflow_state"
+    ],
+    "initial_state": "draft",
+    "lifecycle_states": [
+      "draft",
+      "issued",
+      "archived"
+    ],
+    "terminal_states": [
+      "archived"
+    ],
+    "action_targets": {
+      "create": null,
+      "issue": "issued",
+      "archive": "archived"
+    }
+  },
+  "workflow_hints": {
+    "business_objective": "calculate, approve, pay, document, and post payroll accurately for a pay period",
+    "actors": [
+      "payroll officer",
+      "HR reviewer",
+      "approver",
+      "finance officer",
+      "employee"
+    ],
+    "start_condition": "a payroll period is due for processing",
+    "ordered_steps": [
+      "Process payment and issue payslips."
+    ],
+    "primary_actions": [
+      "process",
+      "issue"
+    ],
+    "primary_transitions": [
+      "payslip: draft -> issued"
+    ],
+    "downstream_effects": [
+      "payroll history becomes available for employee records, finance controls, and reporting outputs"
+    ],
+    "action_actors": {
+      "create": [
+        "payroll officer"
+      ],
+      "issue": [
+        "payroll officer"
+      ],
+      "archive": [
+        "payroll officer"
+      ]
+    }
+  },
+  "downstream_effects": [
+    "payroll history becomes available for employee records, finance controls, and reporting outputs"
+  ],
+  "action_side_effects_file": "side_effects.json",
+  "related_docs": [
+    "employee_record",
+    "payroll_run"
+  ],
+  "borrowed_fields": [
+    "employee identity",
+    "payroll totals from employee_record",
+    "payroll_run"
+  ]
+}

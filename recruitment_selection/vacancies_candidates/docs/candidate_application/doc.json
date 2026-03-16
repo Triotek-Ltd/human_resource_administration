@@ -1,0 +1,27 @@
+{
+  "doc_key": "candidate_application",
+  "doc_title": "Candidate Application",
+  "doc_kind": "transaction",
+  "status": "draft",
+  "module_id": "recruitment_selection",
+  "submodule_id": "vacancies_candidates",
+  "app_id": "human_resource_administration",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "transaction",
+  "classification": {
+    "archetype": "transaction",
+    "bundle": "administration"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "administration",
+    "app": "human_resource_administration",
+    "module": "recruitment_selection",
+    "submodule": "vacancies_candidates",
+    "reference_doc_id": "candidate_application",
+    "evidence_gaps": [
+      "diversity or compliance fields",
+      "multi-application profile policy"
+    ]
+  }
+}

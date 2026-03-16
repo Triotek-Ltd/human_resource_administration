@@ -1,0 +1,870 @@
+{
+  "identity": {
+    "doc_id": "employee_grievance",
+    "title": "Employee Grievance",
+    "archetype": "workflow_case",
+    "app": "human_resource_administration",
+    "module": "employee_relations",
+    "submodule": "grievances_cases",
+    "source_kind": "reference_doc_generation_manifest",
+    "bundle_id": "administration",
+    "app_id": "human_resource_administration",
+    "module_id": "employee_relations",
+    "submodule_id": "grievances_cases",
+    "doc_key": "employee_grievance"
+  },
+  "doc_key": "employee_grievance",
+  "doc_title": "Employee Grievance",
+  "allowed_actions": [
+    "create",
+    "assign",
+    "review",
+    "escalate",
+    "close",
+    "archive"
+  ],
+  "actions": {
+    "actions": [
+      "create",
+      "assign",
+      "review",
+      "escalate",
+      "close",
+      "archive"
+    ],
+    "families": {
+      "primary": [
+        "create",
+        "assign"
+      ],
+      "workflow": [
+        "submit",
+        "approve",
+        "return_for_revision",
+        "escalate",
+        "close",
+        "notify"
+      ]
+    }
+  },
+  "schema": {
+    "field_groups": {
+      "system": [
+        "id",
+        "creation",
+        "modified",
+        "owner",
+        "docstatus",
+        "workflow_state"
+      ],
+      "identity": [
+        "title",
+        "reference_no"
+      ],
+      "content": [
+        "description",
+        "grievance_number",
+        "grievance_type",
+        "summary",
+        "requested_remedy",
+        "resolution_state"
+      ],
+      "relations": [
+        "employee",
+        "owner",
+        "related_relations_case_note"
+      ],
+      "amounts": [],
+      "dates": [
+        "issue_date"
+      ],
+      "parties": [],
+      "status": [
+        "workflow_state"
+      ]
+    },
+    "fields": [
+      {
+        "field_id": "title",
+        "label": "Title",
+        "type": "Data",
+        "required": true,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": null,
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": true,
+        "ui": {
+          "visible": true,
+          "list_visible": true,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "reference_no",
+        "label": "Reference No",
+        "type": "Data",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": null,
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": true,
+        "ui": {
+          "visible": true,
+          "list_visible": true,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "description",
+        "label": "Description",
+        "type": "Text",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": null,
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": true,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "workflow_state",
+        "label": "Workflow State",
+        "type": "Select",
+        "required": true,
+        "read_only": false,
+        "options": {
+          "values": [
+            "open",
+            "in_review",
+            "resolved",
+            "closed",
+            "archived"
+          ]
+        },
+        "default": "open",
+        "unique": false,
+        "linked_doc": null,
+        "purpose": "lifecycle_state",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": true,
+        "ui": {
+          "visible": true,
+          "list_visible": true,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "grievance_number",
+        "label": "Grievance Number",
+        "type": "Data",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": null,
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": true,
+        "ui": {
+          "visible": true,
+          "list_visible": true,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "employee",
+        "label": "Employee",
+        "type": "Link",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "party_reference",
+        "linked_doc": "employee_record",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": true,
+        "ui": {
+          "visible": true,
+          "list_visible": true,
+          "filterable": true,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "issue_date",
+        "label": "Issue Date",
+        "type": "Date",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "schedule_marker",
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": true,
+        "ui": {
+          "visible": true,
+          "list_visible": true,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "grievance_type",
+        "label": "Grievance Type",
+        "type": "Data",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": null,
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": true,
+          "list_visible": false,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "summary",
+        "label": "Summary",
+        "type": "Data",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": null,
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": true,
+          "list_visible": false,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "requested_remedy",
+        "label": "Requested Remedy",
+        "type": "Data",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": null,
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": true,
+          "list_visible": false,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "owner",
+        "label": "Owner",
+        "type": "Data",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "actor_reference",
+        "linked_doc": "employee_record",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": true,
+          "list_visible": false,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "resolution_state",
+        "label": "Resolution State",
+        "type": "Data",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": null,
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": true,
+          "list_visible": false,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "related_relations_case_note",
+        "label": "Related Relations Case Note",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "relations_case_note",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
+      }
+    ],
+    "title_field": "title",
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "grievance_number",
+      "employee",
+      "issue_date"
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "default_view": "List",
+    "status_field": "workflow_state",
+    "system_fields": [
+      "id",
+      "creation",
+      "modified",
+      "owner",
+      "docstatus",
+      "workflow_state"
+    ],
+    "record_contract": {
+      "doc_kind": "workflow_case",
+      "supports_attachments": true,
+      "supports_comments": true,
+      "supports_activity_log": true,
+      "supports_assignments": true
+    },
+    "lifecycle": {
+      "initial_state": "open",
+      "states": [
+        "open",
+        "in_review",
+        "resolved",
+        "closed",
+        "archived"
+      ],
+      "terminal_states": [
+        "closed",
+        "archived"
+      ]
+    },
+    "action_rules": {
+      "create": {
+        "allowed_in_states": [
+          "open",
+          "in_review",
+          "resolved"
+        ],
+        "transitions_to": null
+      },
+      "assign": {
+        "allowed_in_states": [
+          "open",
+          "in_review",
+          "resolved"
+        ],
+        "transitions_to": "in_review"
+      },
+      "review": {
+        "allowed_in_states": [
+          "open",
+          "in_review",
+          "resolved"
+        ],
+        "transitions_to": "in_review"
+      },
+      "escalate": {
+        "allowed_in_states": [
+          "open",
+          "in_review",
+          "resolved"
+        ],
+        "transitions_to": null
+      },
+      "close": {
+        "allowed_in_states": [
+          "open",
+          "in_review",
+          "resolved"
+        ],
+        "transitions_to": "closed"
+      },
+      "archive": {
+        "allowed_in_states": [
+          "open",
+          "in_review",
+          "resolved"
+        ],
+        "transitions_to": "archived"
+      }
+    },
+    "role_action_matrix": [
+      {
+        "role_id": "System Manager",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "assign",
+          "review",
+          "escalate",
+          "close",
+          "archive"
+        ]
+      },
+      {
+        "role_id": "employee-relations owner",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "assign",
+          "close",
+          "archive"
+        ]
+      },
+      {
+        "role_id": "manager",
+        "actions": [
+          "view",
+          "list"
+        ]
+      },
+      {
+        "role_id": "HR reviewer",
+        "actions": [
+          "view",
+          "list",
+          "review"
+        ]
+      }
+    ],
+    "transaction_behavior": {
+      "is_transactional": false,
+      "transaction_kind": null,
+      "posting_behavior": {
+        "requires_posting": false,
+        "posting_action": "post",
+        "reversal_action": "cancel"
+      },
+      "party_model": {
+        "primary_party_field": null,
+        "counterparty_field": null,
+        "party_roles": []
+      },
+      "value_model": {
+        "currency_field": null,
+        "amount_fields": [],
+        "balance_impact": "none"
+      },
+      "reference_model": {
+        "reference_no_field": "reference_no",
+        "upstream_links": [],
+        "downstream_links": []
+      },
+      "line_items": {
+        "enabled": false,
+        "table_field": null,
+        "item_key_field": null,
+        "quantity_field": null,
+        "rate_field": null,
+        "amount_field": null
+      },
+      "fulfilment": {
+        "enabled": false,
+        "dispatch_state_field": null,
+        "delivery_state_field": null,
+        "completion_action": "confirm"
+      },
+      "audit": {
+        "track_state_history": true,
+        "track_action_log": true,
+        "track_external_refs": true
+      }
+    }
+  },
+  "settings": {
+    "display": {
+      "title_template": "{title}",
+      "subtitle_template": "{reference_no}",
+      "list_columns": [
+        "title",
+        "reference_no",
+        "workflow_state",
+        "modified"
+      ],
+      "default_filters": [],
+      "quick_entry": false
+    },
+    "related_docs": [
+      {
+        "doc_id": "employee_record",
+        "relation_type": "related",
+        "show_in_related_panel": true
+      },
+      {
+        "doc_id": "relations_case_note",
+        "relation_type": "related",
+        "show_in_related_panel": true
+      }
+    ],
+    "lookup_rules": [
+      {
+        "field_id": "employee",
+        "doc_id": "employee_record",
+        "lookup_mode": "single",
+        "purpose": "party_reference"
+      },
+      {
+        "field_id": "related_relations_case_note",
+        "doc_id": "relations_case_note",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      }
+    ],
+    "fetch_rules": [
+      {
+        "field_id": "employee",
+        "source_doc_id": "employee_record",
+        "fetch_profile": "employee_profile",
+        "fetch_fields": [
+          "title",
+          "reference_no",
+          "employee_id",
+          "legal_name",
+          "preferred_name",
+          "work_email",
+          "work_phone"
+        ],
+        "purpose": "party_reference"
+      }
+    ],
+    "reference_map": {
+      "primary_reference_field": "reference_no",
+      "reference_labels": []
+    },
+    "relation_rules": {
+      "parent_doc": null,
+      "child_docs": [
+        "relations_case_note"
+      ],
+      "show_related_panel": true
+    },
+    "borrowed_fields": [
+      {
+        "description": "employee"
+      },
+      {
+        "description": "department context from employee_record"
+      }
+    ],
+    "ui_panels": {
+      "show_activity_log": true,
+      "show_comments": true,
+      "show_assignments": true,
+      "show_related_docs": true
+    },
+    "integration": {
+      "external_refs": [],
+      "sync_rules": []
+    },
+    "runtime_hints": {
+      "doc_key": "employee_grievance",
+      "supports_related_lookup": true,
+      "supports_fetch_rules": true,
+      "workflow_hints": {
+        "business_objective": "receive employee concerns, investigate them fairly, and record resolution or disciplinary outcomes",
+        "actors": [
+          "employee-relations owner",
+          "manager",
+          "HR reviewer"
+        ],
+        "start_condition": "an employee concern or grievance is filed",
+        "ordered_steps": [
+          "Open the grievance or relations case.",
+          "Issue disciplinary or closure records where required."
+        ],
+        "primary_actions": [
+          "create",
+          "assign",
+          "approve",
+          "close"
+        ],
+        "primary_transitions": [
+          "employee_grievance: opened -> in_review",
+          "employee_grievance: in_review -> resolved -> closed"
+        ],
+        "downstream_effects": [
+          "supports HR compliance and risk management"
+        ],
+        "action_actors": {
+          "create": [
+            "employee-relations owner"
+          ],
+          "assign": [
+            "employee-relations owner"
+          ],
+          "review": [
+            "HR reviewer"
+          ],
+          "close": [
+            "employee-relations owner"
+          ],
+          "archive": [
+            "employee-relations owner"
+          ]
+        }
+      },
+      "action_side_effects_file": "side_effects.json"
+    }
+  },
+  "classification": {
+    "category": "workflow/support doc",
+    "bundle": "administration",
+    "archetype": "workflow_case",
+    "doc_kind": "workflow_case"
+  },
+  "behavior": {
+    "transaction_behavior": {
+      "is_transactional": false,
+      "transaction_kind": null,
+      "posting_behavior": {
+        "requires_posting": false,
+        "posting_action": "post",
+        "reversal_action": "cancel"
+      },
+      "party_model": {
+        "primary_party_field": null,
+        "counterparty_field": null,
+        "party_roles": []
+      },
+      "value_model": {
+        "currency_field": null,
+        "amount_fields": [],
+        "balance_impact": "none"
+      },
+      "reference_model": {
+        "reference_no_field": "reference_no",
+        "upstream_links": [],
+        "downstream_links": []
+      },
+      "line_items": {
+        "enabled": false,
+        "table_field": null,
+        "item_key_field": null,
+        "quantity_field": null,
+        "rate_field": null,
+        "amount_field": null
+      },
+      "fulfilment": {
+        "enabled": false,
+        "dispatch_state_field": null,
+        "delivery_state_field": null,
+        "completion_action": "confirm"
+      },
+      "audit": {
+        "track_state_history": true,
+        "track_action_log": true,
+        "track_external_refs": true
+      }
+    },
+    "report_boundary_classification": "workflow/support doc",
+    "validation_status": "ready",
+    "validation_warnings": []
+  },
+  "business_logic": {
+    "seeded": true,
+    "folders": [
+      "domain",
+      "actions",
+      "workflows",
+      "relations",
+      "reports",
+      "integrations"
+    ],
+    "seed_file": "logic_seed.json",
+    "handler_registry": "actions/registry.py",
+    "service_entrypoints": {
+      "domain": "domain/service.py",
+      "workflow": "workflows/service.py",
+      "relations": "relations/service.py",
+      "reports": "reports/service.py",
+      "integrations": "integrations/service.py"
+    },
+    "runtime_contract": {
+      "side_effects_file": "side_effects.json"
+    },
+    "action_handlers": {
+      "base_dir": "actions",
+      "registry": "actions/registry.py",
+      "count": 6,
+      "files": [
+        "actions/create.py",
+        "actions/assign.py",
+        "actions/review.py",
+        "actions/escalate.py",
+        "actions/close.py",
+        "actions/archive.py"
+      ]
+    },
+    "classification": {
+      "archetype": "workflow_case",
+      "doc_kind": "workflow_case"
+    }
+  },
+  "testing": {
+    "seeded": true,
+    "api_base_path": "/apis/human_resource_administration/employee_relations/grievances_cases/employee_grievance/",
+    "status_field": "workflow_state",
+    "initial_state": "open",
+    "required_fields": [
+      "title",
+      "workflow_state"
+    ],
+    "transition_scenarios": [
+      {
+        "action_id": "assign",
+        "source_state": "open",
+        "target_state": "in_review",
+        "disallowed_state": "closed"
+      },
+      {
+        "action_id": "review",
+        "source_state": "open",
+        "target_state": "in_review",
+        "disallowed_state": "closed"
+      },
+      {
+        "action_id": "close",
+        "source_state": "open",
+        "target_state": "closed",
+        "disallowed_state": "closed"
+      },
+      {
+        "action_id": "archive",
+        "source_state": "open",
+        "target_state": "archived",
+        "disallowed_state": "closed"
+      }
+    ],
+    "related_docs": [
+      "employee_record",
+      "relations_case_note"
+    ],
+    "downstream_effects": [
+      "supports HR compliance and risk management"
+    ],
+    "action_side_effects_file": "side_effects.json"
+  },
+  "runtime": {
+    "source_of_truth": "doc_folder",
+    "generated_from": [
+      "doc.json",
+      "schema.json",
+      "actions.json",
+      "settings.json",
+      "logic_seed.json",
+      "side_effects.json"
+    ],
+    "generator": "plug.apps.doc.file_handler"
+  }
+}

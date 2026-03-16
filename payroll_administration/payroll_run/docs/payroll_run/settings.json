@@ -1,0 +1,177 @@
+{
+  "display": {
+    "title_template": "{title}",
+    "subtitle_template": "{reference_no}",
+    "list_columns": [
+      "title",
+      "reference_no",
+      "transaction_date",
+      "party",
+      "total_amount",
+      "workflow_state"
+    ],
+    "default_filters": [],
+    "quick_entry": false
+  },
+  "related_docs": [
+    {
+      "doc_id": "payroll_line",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    },
+    {
+      "doc_id": "payslip",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    },
+    {
+      "doc_id": "attendance_record",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    },
+    {
+      "doc_id": "employee_record",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    },
+    {
+      "doc_id": "payroll_transaction",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    }
+  ],
+  "lookup_rules": [
+    {
+      "field_id": "related_payroll_line",
+      "doc_id": "payroll_line",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_payslip",
+      "doc_id": "payslip",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_attendance_record",
+      "doc_id": "attendance_record",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_employee_record",
+      "doc_id": "employee_record",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_payroll_transaction",
+      "doc_id": "payroll_transaction",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    }
+  ],
+  "fetch_rules": [],
+  "reference_map": {
+    "primary_reference_field": "reference_no",
+    "reference_labels": []
+  },
+  "relation_rules": {
+    "parent_doc": null,
+    "child_docs": [
+      "payroll_line",
+      "payslip",
+      "attendance_record",
+      "employee_record",
+      "payroll_transaction"
+    ],
+    "show_related_panel": true
+  },
+  "borrowed_fields": [
+    {
+      "description": "attendance totals from attendance_record"
+    },
+    {
+      "description": "employee display"
+    },
+    {
+      "description": "department data from employee_record"
+    }
+  ],
+  "ui_panels": {
+    "show_activity_log": true,
+    "show_comments": true,
+    "show_assignments": true,
+    "show_related_docs": true
+  },
+  "integration": {
+    "external_refs": [],
+    "sync_rules": []
+  },
+  "runtime_hints": {
+    "doc_key": "payroll_run",
+    "supports_related_lookup": true,
+    "supports_fetch_rules": true,
+    "workflow_hints": {
+      "business_objective": "calculate, approve, pay, document, and post payroll accurately for a pay period",
+      "actors": [
+        "payroll officer",
+        "HR reviewer",
+        "approver",
+        "finance officer",
+        "employee"
+      ],
+      "start_condition": "a payroll period is due for processing",
+      "ordered_steps": [
+        "Create the payroll run for the period.",
+        "Approve payroll totals and deductions.",
+        "Process payment and issue payslips.",
+        "Close the payroll cycle."
+      ],
+      "primary_actions": [
+        "create",
+        "review",
+        "approve",
+        "process",
+        "issue",
+        "post",
+        "close",
+        "archive"
+      ],
+      "primary_transitions": [
+        "payroll_run: draft -> reviewed",
+        "payroll_run: reviewed -> approved",
+        "payroll_run: approved -> processed",
+        "payroll_run: processed -> posted -> closed -> archived"
+      ],
+      "downstream_effects": [
+        "payroll history becomes available for employee records, finance controls, and reporting outputs"
+      ],
+      "action_actors": {
+        "create": [
+          "payroll officer"
+        ],
+        "review": [
+          "HR reviewer"
+        ],
+        "post": [
+          "finance officer"
+        ],
+        "close": [
+          "payroll officer"
+        ],
+        "submit": [
+          "payroll officer"
+        ],
+        "approve": [
+          "approver"
+        ],
+        "archive": [
+          "payroll officer"
+        ]
+      }
+    },
+    "action_side_effects_file": "side_effects.json"
+  }
+}

@@ -1,7 +1,7 @@
 {
   "docs": [
     "training_attendance",
-    "training_session",
-    "training_outcome"
+    "training_outcome",
+    "training_session"
   ]
 }

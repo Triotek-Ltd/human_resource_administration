@@ -1,0 +1,158 @@
+{
+  "doc_id": "employee_grievance",
+  "doc_title": "Employee Grievance",
+  "archetype": "workflow_case",
+  "doc_kind": "workflow_case",
+  "actions": [
+    "create",
+    "assign",
+    "review",
+    "escalate",
+    "close",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "open",
+    "states": [
+      "open",
+      "in_review",
+      "resolved",
+      "closed",
+      "archived"
+    ],
+    "terminal_states": [
+      "closed",
+      "archived"
+    ]
+  },
+  "related_doc_count": 2,
+  "fetch_rule_count": 1,
+  "action_handler_count": 6,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "case_flow",
+      "supports_assignment": true,
+      "supports_escalation": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": false
+    },
+    "integration_profile": {
+      "external_sync_enabled": false
+    },
+    "lifecycle_states": [
+      "open",
+      "in_review",
+      "resolved",
+      "closed",
+      "archived"
+    ],
+    "is_transactional": false
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "employee": "party_reference",
+      "issue_date": "schedule_marker",
+      "owner": "actor_reference",
+      "related_relations_case_note": "relation_collection"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "grievance_number",
+      "employee",
+      "issue_date"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "workflow_state",
+      "modified"
+    ],
+    "initial_state": "open",
+    "lifecycle_states": [
+      "open",
+      "in_review",
+      "resolved",
+      "closed",
+      "archived"
+    ],
+    "terminal_states": [
+      "closed",
+      "archived"
+    ],
+    "action_targets": {
+      "create": null,
+      "assign": "in_review",
+      "review": "in_review",
+      "escalate": null,
+      "close": "closed",
+      "archive": "archived"
+    }
+  },
+  "workflow_hints": {
+    "business_objective": "receive employee concerns, investigate them fairly, and record resolution or disciplinary outcomes",
+    "actors": [
+      "employee-relations owner",
+      "manager",
+      "HR reviewer"
+    ],
+    "start_condition": "an employee concern or grievance is filed",
+    "ordered_steps": [
+      "Open the grievance or relations case.",
+      "Issue disciplinary or closure records where required."
+    ],
+    "primary_actions": [
+      "create",
+      "assign",
+      "approve",
+      "close"
+    ],
+    "primary_transitions": [
+      "employee_grievance: opened -> in_review",
+      "employee_grievance: in_review -> resolved -> closed"
+    ],
+    "downstream_effects": [
+      "supports HR compliance and risk management"
+    ],
+    "action_actors": {
+      "create": [
+        "employee-relations owner"
+      ],
+      "assign": [
+        "employee-relations owner"
+      ],
+      "review": [
+        "HR reviewer"
+      ],
+      "close": [
+        "employee-relations owner"
+      ],
+      "archive": [
+        "employee-relations owner"
+      ]
+    }
+  },
+  "downstream_effects": [
+    "supports HR compliance and risk management"
+  ],
+  "action_side_effects_file": "side_effects.json",
+  "related_docs": [
+    "employee_record",
+    "relations_case_note"
+  ],
+  "borrowed_fields": [
+    "employee",
+    "department context from employee_record"
+  ]
+}

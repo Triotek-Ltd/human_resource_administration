@@ -5,7 +5,7 @@ from __future__ import annotations
 
 DOC_ID = "training_attendance"
 ALLOWED_ACTIONS = ['record', 'review', 'archive']
-ACTION_RULES = {'record': {'allowed_in_states': 'active', 'transitions_to': None}, 'review': {'allowed_in_states': 'active', 'transitions_to': None}, 'archive': {'allowed_in_states': 'active', 'transitions_to': 'archived'}}
+ACTION_RULES = {'record': {'allowed_in_states': ['active'], 'transitions_to': None}, 'review': {'allowed_in_states': ['active'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['active'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
 

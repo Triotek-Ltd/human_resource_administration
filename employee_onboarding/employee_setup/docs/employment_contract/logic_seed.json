@@ -23,7 +23,7 @@
     ]
   },
   "related_doc_count": 1,
-  "fetch_rule_count": 2,
+  "fetch_rule_count": 1,
   "action_handler_count": 5,
   "archetype_profile": {
     "workflow_profile": {
@@ -58,20 +58,19 @@
     "field_purposes": {
       "workflow_state": "lifecycle_state",
       "transaction_date": "transaction_date",
-      "party": "party_reference",
+      "party": "primary_party",
       "currency": "currency_code",
       "total_amount": "total_amount",
-      "contract_no": "reference",
       "employee": "party_reference",
       "start_date": "schedule_marker",
       "end_date": "schedule_marker",
-      "signature_status": "signature_status"
+      "signature_status": "status_flag"
     },
     "search_fields": [
       "title",
       "reference_no",
       "description",
-      "contract_no",
+      "contract_number",
       "employee",
       "contract_type"
     ],
@@ -94,47 +93,65 @@
       "archived"
     ],
     "action_targets": {
-      "issue": null,
-      "submit": "approved",
       "create": null,
+      "submit": "approved",
       "approve": "approved",
+      "issue": null,
       "archive": "archived"
     }
   },
   "workflow_hints": {
-    "business_objective": "Prepare, approve, issue, and retain the employee's signed employment agreement.",
+    "business_objective": "convert an accepted candidate into an active employee with records, payroll enrollment, orientation, and access",
     "actors": [
       "HR officer",
       "hiring manager",
-      "employee"
+      "payroll officer",
+      "IT/admin support",
+      "new employee"
     ],
-    "start_condition": "The employee record exists and the formal employment agreement must be issued.",
+    "start_condition": "an accepted offer exists and onboarding must begin",
     "ordered_steps": [
-      "Draft the employment contract from employee and compensation details.",
-      "Submit the contract for review and approval.",
-      "Issue the approved contract to the employee.",
-      "Record signed status and archive the final document."
+      "Prepare and issue the employment contract."
     ],
     "primary_actions": [
       "create",
       "submit",
       "approve",
-      "issue",
-      "archive"
+      "issue"
     ],
     "primary_transitions": [
-      "employment_contract: draft -> approved -> signed -> archived"
+      "employment_contract: draft -> approved -> signed"
     ],
     "downstream_effects": [
-      "Onboarding can proceed against an issued contract.",
-      "Employment terms become reference data for payroll and controls."
-    ]
+      "employee becomes eligible for payroll, training, appraisal, and employee-relations workflows"
+    ],
+    "action_actors": {
+      "create": [
+        "HR officer"
+      ],
+      "submit": [
+        "HR officer"
+      ],
+      "approve": [
+        "hiring manager"
+      ],
+      "issue": [
+        "IT/admin support"
+      ],
+      "archive": [
+        "hiring manager"
+      ]
+    }
   },
+  "downstream_effects": [
+    "employee becomes eligible for payroll, training, appraisal, and employee-relations workflows"
+  ],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "employee_record"
   ],
   "borrowed_fields": [
-    "employee profile details from employee_record",
-    "salary defaults from salary_structure"
+    "employee",
+    "role details from employee_record"
   ]
 }

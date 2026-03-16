@@ -1,0 +1,145 @@
+{
+  "doc_id": "onboarding_case",
+  "doc_title": "Onboarding Case",
+  "archetype": "workflow_case",
+  "doc_kind": "workflow_case",
+  "actions": [
+    "create",
+    "assign",
+    "track",
+    "confirm",
+    "close"
+  ],
+  "lifecycle": {
+    "initial_state": "open",
+    "states": [
+      "open",
+      "in_progress",
+      "completed",
+      "closed"
+    ],
+    "terminal_states": [
+      "closed"
+    ]
+  },
+  "related_doc_count": 1,
+  "fetch_rule_count": 1,
+  "action_handler_count": 5,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "case_flow",
+      "supports_assignment": true,
+      "supports_escalation": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": false
+    },
+    "integration_profile": {
+      "external_sync_enabled": false
+    },
+    "lifecycle_states": [
+      "open",
+      "in_progress",
+      "completed",
+      "closed"
+    ],
+    "is_transactional": false
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "employee": "party_reference",
+      "start_date": "schedule_marker",
+      "checklist_summary": "structured_payload",
+      "owner": "actor_reference"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "case_number",
+      "employee",
+      "start_date"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "workflow_state",
+      "modified"
+    ],
+    "initial_state": "open",
+    "lifecycle_states": [
+      "open",
+      "in_progress",
+      "completed",
+      "closed"
+    ],
+    "terminal_states": [
+      "closed"
+    ],
+    "action_targets": {
+      "create": null,
+      "assign": "in_progress",
+      "track": null,
+      "confirm": "completed",
+      "close": "closed"
+    }
+  },
+  "workflow_hints": {
+    "relation_context": {
+      "related_docs": [
+        "employee_record"
+      ],
+      "borrowed_fields": [
+        "role",
+        "department",
+        "supervisor",
+        "start date from employee_record"
+      ],
+      "inferred_roles": [
+        "hr officer",
+        "case owner"
+      ]
+    },
+    "actors": [
+      "hr officer",
+      "case owner"
+    ],
+    "action_actors": {
+      "create": [
+        "hr officer"
+      ],
+      "assign": [
+        "hr officer"
+      ],
+      "track": [
+        "hr officer"
+      ],
+      "confirm": [
+        "case owner"
+      ],
+      "close": [
+        "case owner"
+      ]
+    }
+  },
+  "downstream_effects": [],
+  "action_side_effects_file": "side_effects.json",
+  "related_docs": [
+    "employee_record"
+  ],
+  "borrowed_fields": [
+    "role",
+    "department",
+    "supervisor",
+    "start date from employee_record"
+  ]
+}

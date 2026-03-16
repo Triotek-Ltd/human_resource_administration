@@ -14,7 +14,7 @@
     "doc_key": "training_attendance"
   },
   "doc_key": "training_attendance",
-  "doc_title": "training_attendance",
+  "doc_title": "Training Attendance",
   "allowed_actions": [
     "record",
     "review",
@@ -49,7 +49,7 @@
       ],
       "content": [
         "description",
-        "attendance_no",
+        "attendance_number",
         "completion_flag",
         "score"
       ],
@@ -194,8 +194,8 @@
         }
       },
       {
-        "field_id": "attendance_no",
-        "label": "Attendance No",
+        "field_id": "attendance_number",
+        "label": "Attendance Number",
         "type": "Data",
         "required": false,
         "read_only": false,
@@ -209,10 +209,10 @@
         "read_only_depends_on": null,
         "fetch_from": null,
         "allow_on_submit": false,
-        "indexed": false,
+        "indexed": true,
         "ui": {
           "visible": true,
-          "list_visible": false,
+          "list_visible": true,
           "filterable": true,
           "sortable": true
         }
@@ -350,7 +350,7 @@
       "title",
       "reference_no",
       "description",
-      "attendance_no",
+      "attendance_number",
       "session",
       "employee"
     ],
@@ -407,17 +407,35 @@
       {
         "role_id": "System Manager",
         "actions": [
-          "create",
-          "update",
           "view",
           "list",
           "record",
           "review",
-          "assign",
-          "track",
-          "monitor",
-          "confirm",
           "archive"
+        ]
+      },
+      {
+        "role_id": "HR development owner",
+        "actions": [
+          "view",
+          "list",
+          "record",
+          "archive"
+        ]
+      },
+      {
+        "role_id": "trainer",
+        "actions": [
+          "view",
+          "list",
+          "review"
+        ]
+      },
+      {
+        "role_id": "participant manager",
+        "actions": [
+          "view",
+          "list"
         ]
       }
     ],
@@ -526,10 +544,10 @@
     },
     "borrowed_fields": [
       {
-        "description": "employee details from employee_record"
+        "description": "session details from training_session"
       },
       {
-        "description": "session details from training_session"
+        "description": "employee details from employee_record"
       }
     ],
     "ui_panels": {
@@ -547,15 +565,41 @@
       "supports_related_lookup": true,
       "supports_fetch_rules": true,
       "workflow_hints": {
-        "business_objective": "Maintain participation and completion records for delivered training sessions.",
+        "business_objective": "identify capability gaps, plan learning interventions, deliver training, and record outcomes",
         "actors": [
+          "HR development owner",
           "trainer",
-          "HR or L&D officer"
+          "participant manager"
+        ],
+        "start_condition": "a training need is identified",
+        "ordered_steps": [
+          "Schedule and run the training session."
+        ],
+        "primary_actions": [
+          "schedule",
+          "start",
+          "complete",
+          "record"
         ],
         "primary_transitions": [
-          "training_attendance: active -> archived"
-        ]
-      }
+          "training_attendance: active"
+        ],
+        "downstream_effects": [
+          "supports employee development and performance planning"
+        ],
+        "action_actors": {
+          "record": [
+            "HR development owner"
+          ],
+          "review": [
+            "trainer"
+          ],
+          "archive": [
+            "HR development owner"
+          ]
+        }
+      },
+      "action_side_effects_file": "side_effects.json"
     }
   },
   "classification": {
@@ -631,6 +675,9 @@
       "reports": "reports/service.py",
       "integrations": "integrations/service.py"
     },
+    "runtime_contract": {
+      "side_effects_file": "side_effects.json"
+    },
     "action_handlers": {
       "base_dir": "actions",
       "registry": "actions/registry.py",
@@ -646,6 +693,33 @@
       "doc_kind": "ledger"
     }
   },
+  "testing": {
+    "seeded": true,
+    "api_base_path": "/apis/human_resource_administration/training_development/training_records/training_attendance/",
+    "status_field": "workflow_state",
+    "initial_state": "active",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "posting_date"
+    ],
+    "transition_scenarios": [
+      {
+        "action_id": "archive",
+        "source_state": "active",
+        "target_state": "archived",
+        "disallowed_state": "archived"
+      }
+    ],
+    "related_docs": [
+      "training_session",
+      "employee_record"
+    ],
+    "downstream_effects": [
+      "supports employee development and performance planning"
+    ],
+    "action_side_effects_file": "side_effects.json"
+  },
   "runtime": {
     "source_of_truth": "doc_folder",
     "generated_from": [
@@ -653,7 +727,8 @@
       "schema.json",
       "actions.json",
       "settings.json",
-      "logic_seed.json"
+      "logic_seed.json",
+      "side_effects.json"
     ],
     "generator": "plug.apps.doc.file_handler"
   }

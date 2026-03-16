@@ -1,0 +1,1320 @@
+{
+  "identity": {
+    "doc_id": "payroll_run",
+    "title": "Payroll Run",
+    "archetype": "transaction",
+    "app": "human_resource_administration",
+    "module": "payroll_administration",
+    "submodule": "payroll_run",
+    "source_kind": "reference_doc_generation_manifest",
+    "bundle_id": "administration",
+    "app_id": "human_resource_administration",
+    "module_id": "payroll_administration",
+    "submodule_id": "payroll_run",
+    "doc_key": "payroll_run"
+  },
+  "doc_key": "payroll_run",
+  "doc_title": "Payroll Run",
+  "allowed_actions": [
+    "create",
+    "review",
+    "process",
+    "post",
+    "close",
+    "submit",
+    "approve",
+    "recalculate",
+    "reissue",
+    "archive"
+  ],
+  "actions": {
+    "actions": [
+      "create",
+      "review",
+      "process",
+      "post",
+      "close",
+      "submit",
+      "approve",
+      "recalculate",
+      "reissue",
+      "archive"
+    ],
+    "families": {
+      "primary": [
+        "create",
+        "review"
+      ],
+      "workflow": [
+        "submit",
+        "post",
+        "cancel",
+        "adjust",
+        "refund",
+        "process"
+      ]
+    }
+  },
+  "schema": {
+    "field_groups": {
+      "system": [
+        "id",
+        "creation",
+        "modified",
+        "owner",
+        "docstatus",
+        "workflow_state"
+      ],
+      "identity": [
+        "title",
+        "reference_no"
+      ],
+      "content": [
+        "description",
+        "run_number",
+        "pay_period_start",
+        "end",
+        "run_type",
+        "timesheet_cutoff",
+        "employee_count",
+        "gross_pay",
+        "net_pay",
+        "payment_method_summary",
+        "tax_cycle"
+      ],
+      "relations": [
+        "related_payroll_line",
+        "related_payslip",
+        "related_attendance_record",
+        "related_employee_record",
+        "related_payroll_transaction"
+      ],
+      "amounts": [
+        "currency",
+        "total_amount",
+        "deduction_total"
+      ],
+      "dates": [
+        "transaction_date",
+        "pay_date"
+      ],
+      "parties": [
+        "party"
+      ],
+      "status": [
+        "workflow_state"
+      ]
+    },
+    "fields": [
+      {
+        "field_id": "title",
+        "label": "Title",
+        "type": "Data",
+        "required": true,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": null,
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": true,
+        "ui": {
+          "visible": true,
+          "list_visible": true,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "reference_no",
+        "label": "Reference No",
+        "type": "Data",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": null,
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": true,
+        "ui": {
+          "visible": true,
+          "list_visible": true,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "description",
+        "label": "Description",
+        "type": "Text",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": null,
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": true,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "workflow_state",
+        "label": "Workflow State",
+        "type": "Select",
+        "required": true,
+        "read_only": false,
+        "options": {
+          "values": [
+            "draft",
+            "reviewed",
+            "approved",
+            "processed",
+            "posted",
+            "closed",
+            "archived"
+          ]
+        },
+        "default": "draft",
+        "unique": false,
+        "linked_doc": null,
+        "purpose": "lifecycle_state",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": true,
+        "ui": {
+          "visible": true,
+          "list_visible": true,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "transaction_date",
+        "label": "Transaction Date",
+        "type": "Date",
+        "required": true,
+        "read_only": false,
+        "default": "Today",
+        "unique": false,
+        "options": null,
+        "purpose": "transaction_date",
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": true,
+        "ui": {
+          "visible": true,
+          "list_visible": true,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "party",
+        "label": "Party",
+        "type": "Link",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "primary_party",
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": true,
+        "ui": {
+          "visible": true,
+          "list_visible": true,
+          "filterable": true,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "currency",
+        "label": "Currency",
+        "type": "Data",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "currency_code",
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": true,
+          "list_visible": true,
+          "filterable": true,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "total_amount",
+        "label": "Total Amount",
+        "type": "Currency",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "total_amount",
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": true,
+          "list_visible": true,
+          "filterable": false,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "run_number",
+        "label": "Run Number",
+        "type": "Data",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": null,
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": true,
+        "ui": {
+          "visible": true,
+          "list_visible": true,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "pay_period_start",
+        "label": "Pay Period Start",
+        "type": "Data",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": null,
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": true,
+          "list_visible": false,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "end",
+        "label": "End",
+        "type": "Data",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": null,
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": true,
+          "list_visible": false,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "pay_date",
+        "label": "Pay Date",
+        "type": "Date",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "schedule_marker",
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": true,
+        "ui": {
+          "visible": true,
+          "list_visible": true,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "run_type",
+        "label": "Run Type",
+        "type": "Data",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": null,
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": true,
+          "list_visible": false,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "timesheet_cutoff",
+        "label": "Timesheet Cutoff",
+        "type": "Data",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": null,
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": true,
+          "list_visible": false,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "employee_count",
+        "label": "Employee Count",
+        "type": "Data",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": null,
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": true,
+          "list_visible": false,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "gross_pay",
+        "label": "Gross Pay",
+        "type": "Data",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": null,
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": true,
+          "list_visible": false,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "net_pay",
+        "label": "Net Pay",
+        "type": "Data",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": null,
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": true,
+          "list_visible": false,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "deduction_total",
+        "label": "Deduction Total",
+        "type": "Currency",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "monetary_value",
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": true,
+          "list_visible": true,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "payment_method_summary",
+        "label": "Payment Method Summary",
+        "type": "Data",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": null,
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": true,
+          "list_visible": false,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "tax_cycle",
+        "label": "Tax Cycle",
+        "type": "Data",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": null,
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": true,
+          "list_visible": false,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "related_payroll_line",
+        "label": "Related Payroll Line",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "payroll_line",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "related_payslip",
+        "label": "Related Payslip",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "payslip",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "related_attendance_record",
+        "label": "Related Attendance Record",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "attendance_record",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "related_employee_record",
+        "label": "Related Employee Record",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "employee_record",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "related_payroll_transaction",
+        "label": "Related Payroll Transaction",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "payroll_transaction",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
+      }
+    ],
+    "title_field": "title",
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "run_number",
+      "pay_period_start",
+      "end"
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "default_view": "List",
+    "status_field": "workflow_state",
+    "system_fields": [
+      "id",
+      "creation",
+      "modified",
+      "owner",
+      "docstatus",
+      "workflow_state"
+    ],
+    "record_contract": {
+      "doc_kind": "transaction",
+      "supports_attachments": true,
+      "supports_comments": true,
+      "supports_activity_log": true,
+      "supports_assignments": true
+    },
+    "lifecycle": {
+      "initial_state": "draft",
+      "states": [
+        "draft",
+        "reviewed",
+        "approved",
+        "processed",
+        "posted",
+        "closed",
+        "archived"
+      ],
+      "terminal_states": [
+        "closed",
+        "archived"
+      ]
+    },
+    "action_rules": {
+      "create": {
+        "allowed_in_states": [
+          "draft",
+          "reviewed",
+          "approved",
+          "processed",
+          "posted"
+        ],
+        "transitions_to": null
+      },
+      "review": {
+        "allowed_in_states": [
+          "draft",
+          "reviewed",
+          "approved",
+          "processed",
+          "posted"
+        ],
+        "transitions_to": "reviewed"
+      },
+      "process": {
+        "allowed_in_states": [
+          "draft",
+          "reviewed",
+          "approved",
+          "processed",
+          "posted"
+        ],
+        "transitions_to": null
+      },
+      "post": {
+        "allowed_in_states": [
+          "draft",
+          "reviewed",
+          "approved",
+          "processed",
+          "posted"
+        ],
+        "transitions_to": null
+      },
+      "close": {
+        "allowed_in_states": [
+          "draft",
+          "reviewed",
+          "approved",
+          "processed",
+          "posted"
+        ],
+        "transitions_to": "closed"
+      },
+      "submit": {
+        "allowed_in_states": [
+          "draft",
+          "reviewed",
+          "approved",
+          "processed",
+          "posted"
+        ],
+        "transitions_to": "approved"
+      },
+      "approve": {
+        "allowed_in_states": [
+          "draft",
+          "reviewed",
+          "approved",
+          "processed",
+          "posted"
+        ],
+        "transitions_to": "approved"
+      },
+      "recalculate": {
+        "allowed_in_states": [
+          "draft",
+          "reviewed",
+          "approved",
+          "processed",
+          "posted"
+        ],
+        "transitions_to": null
+      },
+      "reissue": {
+        "allowed_in_states": [
+          "draft",
+          "reviewed",
+          "approved",
+          "processed",
+          "posted"
+        ],
+        "transitions_to": null
+      },
+      "archive": {
+        "allowed_in_states": [
+          "draft",
+          "reviewed",
+          "approved",
+          "processed",
+          "posted"
+        ],
+        "transitions_to": "archived"
+      }
+    },
+    "role_action_matrix": [
+      {
+        "role_id": "System Manager",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "review",
+          "process",
+          "post",
+          "close",
+          "submit",
+          "approve",
+          "recalculate",
+          "reissue",
+          "archive"
+        ]
+      },
+      {
+        "role_id": "payroll officer",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "close",
+          "submit",
+          "archive"
+        ]
+      },
+      {
+        "role_id": "HR reviewer",
+        "actions": [
+          "view",
+          "list",
+          "review"
+        ]
+      },
+      {
+        "role_id": "approver",
+        "actions": [
+          "view",
+          "list",
+          "approve"
+        ]
+      },
+      {
+        "role_id": "finance officer",
+        "actions": [
+          "view",
+          "list",
+          "post"
+        ]
+      },
+      {
+        "role_id": "employee",
+        "actions": [
+          "view",
+          "list"
+        ]
+      }
+    ],
+    "transaction_behavior": {
+      "is_transactional": true,
+      "transaction_kind": "business_transaction",
+      "posting_behavior": {
+        "requires_posting": true,
+        "posting_action": "post",
+        "reversal_action": "cancel"
+      },
+      "party_model": {
+        "primary_party_field": "party",
+        "counterparty_field": null,
+        "party_roles": [
+          "primary_party"
+        ]
+      },
+      "value_model": {
+        "currency_field": "currency",
+        "amount_fields": [
+          "total_amount"
+        ],
+        "balance_impact": "none"
+      },
+      "reference_model": {
+        "reference_no_field": "reference_no",
+        "upstream_links": [],
+        "downstream_links": []
+      },
+      "line_items": {
+        "enabled": false,
+        "table_field": null,
+        "item_key_field": null,
+        "quantity_field": null,
+        "rate_field": null,
+        "amount_field": null
+      },
+      "fulfilment": {
+        "enabled": false,
+        "dispatch_state_field": null,
+        "delivery_state_field": null,
+        "completion_action": "confirm"
+      },
+      "audit": {
+        "track_state_history": true,
+        "track_action_log": true,
+        "track_external_refs": true
+      }
+    }
+  },
+  "settings": {
+    "display": {
+      "title_template": "{title}",
+      "subtitle_template": "{reference_no}",
+      "list_columns": [
+        "title",
+        "reference_no",
+        "transaction_date",
+        "party",
+        "total_amount",
+        "workflow_state"
+      ],
+      "default_filters": [],
+      "quick_entry": false
+    },
+    "related_docs": [
+      {
+        "doc_id": "payroll_line",
+        "relation_type": "related",
+        "show_in_related_panel": true
+      },
+      {
+        "doc_id": "payslip",
+        "relation_type": "related",
+        "show_in_related_panel": true
+      },
+      {
+        "doc_id": "attendance_record",
+        "relation_type": "related",
+        "show_in_related_panel": true
+      },
+      {
+        "doc_id": "employee_record",
+        "relation_type": "related",
+        "show_in_related_panel": true
+      },
+      {
+        "doc_id": "payroll_transaction",
+        "relation_type": "related",
+        "show_in_related_panel": true
+      }
+    ],
+    "lookup_rules": [
+      {
+        "field_id": "related_payroll_line",
+        "doc_id": "payroll_line",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      },
+      {
+        "field_id": "related_payslip",
+        "doc_id": "payslip",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      },
+      {
+        "field_id": "related_attendance_record",
+        "doc_id": "attendance_record",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      },
+      {
+        "field_id": "related_employee_record",
+        "doc_id": "employee_record",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      },
+      {
+        "field_id": "related_payroll_transaction",
+        "doc_id": "payroll_transaction",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      }
+    ],
+    "fetch_rules": [],
+    "reference_map": {
+      "primary_reference_field": "reference_no",
+      "reference_labels": []
+    },
+    "relation_rules": {
+      "parent_doc": null,
+      "child_docs": [
+        "payroll_line",
+        "payslip",
+        "attendance_record",
+        "employee_record",
+        "payroll_transaction"
+      ],
+      "show_related_panel": true
+    },
+    "borrowed_fields": [
+      {
+        "description": "attendance totals from attendance_record"
+      },
+      {
+        "description": "employee display"
+      },
+      {
+        "description": "department data from employee_record"
+      }
+    ],
+    "ui_panels": {
+      "show_activity_log": true,
+      "show_comments": true,
+      "show_assignments": true,
+      "show_related_docs": true
+    },
+    "integration": {
+      "external_refs": [],
+      "sync_rules": []
+    },
+    "runtime_hints": {
+      "doc_key": "payroll_run",
+      "supports_related_lookup": true,
+      "supports_fetch_rules": true,
+      "workflow_hints": {
+        "business_objective": "calculate, approve, pay, document, and post payroll accurately for a pay period",
+        "actors": [
+          "payroll officer",
+          "HR reviewer",
+          "approver",
+          "finance officer",
+          "employee"
+        ],
+        "start_condition": "a payroll period is due for processing",
+        "ordered_steps": [
+          "Create the payroll run for the period.",
+          "Approve payroll totals and deductions.",
+          "Process payment and issue payslips.",
+          "Close the payroll cycle."
+        ],
+        "primary_actions": [
+          "create",
+          "review",
+          "approve",
+          "process",
+          "issue",
+          "post",
+          "close",
+          "archive"
+        ],
+        "primary_transitions": [
+          "payroll_run: draft -> reviewed",
+          "payroll_run: reviewed -> approved",
+          "payroll_run: approved -> processed",
+          "payroll_run: processed -> posted -> closed -> archived"
+        ],
+        "downstream_effects": [
+          "payroll history becomes available for employee records, finance controls, and reporting outputs"
+        ],
+        "action_actors": {
+          "create": [
+            "payroll officer"
+          ],
+          "review": [
+            "HR reviewer"
+          ],
+          "post": [
+            "finance officer"
+          ],
+          "close": [
+            "payroll officer"
+          ],
+          "submit": [
+            "payroll officer"
+          ],
+          "approve": [
+            "approver"
+          ],
+          "archive": [
+            "payroll officer"
+          ]
+        }
+      },
+      "action_side_effects_file": "side_effects.json"
+    }
+  },
+  "classification": {
+    "category": "source business doc",
+    "bundle": "administration",
+    "archetype": "transaction",
+    "doc_kind": "transaction"
+  },
+  "behavior": {
+    "transaction_behavior": {
+      "is_transactional": true,
+      "transaction_kind": "business_transaction",
+      "posting_behavior": {
+        "requires_posting": true,
+        "posting_action": "post",
+        "reversal_action": "cancel"
+      },
+      "party_model": {
+        "primary_party_field": "party",
+        "counterparty_field": null,
+        "party_roles": [
+          "primary_party"
+        ]
+      },
+      "value_model": {
+        "currency_field": "currency",
+        "amount_fields": [
+          "total_amount"
+        ],
+        "balance_impact": "none"
+      },
+      "reference_model": {
+        "reference_no_field": "reference_no",
+        "upstream_links": [],
+        "downstream_links": []
+      },
+      "line_items": {
+        "enabled": false,
+        "table_field": null,
+        "item_key_field": null,
+        "quantity_field": null,
+        "rate_field": null,
+        "amount_field": null
+      },
+      "fulfilment": {
+        "enabled": false,
+        "dispatch_state_field": null,
+        "delivery_state_field": null,
+        "completion_action": "confirm"
+      },
+      "audit": {
+        "track_state_history": true,
+        "track_action_log": true,
+        "track_external_refs": true
+      }
+    },
+    "report_boundary_classification": "source business doc",
+    "validation_status": "ready",
+    "validation_warnings": []
+  },
+  "business_logic": {
+    "seeded": true,
+    "folders": [
+      "domain",
+      "actions",
+      "workflows",
+      "relations",
+      "reports",
+      "integrations"
+    ],
+    "seed_file": "logic_seed.json",
+    "handler_registry": "actions/registry.py",
+    "service_entrypoints": {
+      "domain": "domain/service.py",
+      "workflow": "workflows/service.py",
+      "relations": "relations/service.py",
+      "reports": "reports/service.py",
+      "integrations": "integrations/service.py"
+    },
+    "runtime_contract": {
+      "side_effects_file": "side_effects.json"
+    },
+    "action_handlers": {
+      "base_dir": "actions",
+      "registry": "actions/registry.py",
+      "count": 10,
+      "files": [
+        "actions/create.py",
+        "actions/review.py",
+        "actions/process.py",
+        "actions/post.py",
+        "actions/close.py",
+        "actions/submit.py",
+        "actions/approve.py",
+        "actions/recalculate.py",
+        "actions/reissue.py",
+        "actions/archive.py"
+      ]
+    },
+    "classification": {
+      "archetype": "transaction",
+      "doc_kind": "transaction"
+    }
+  },
+  "testing": {
+    "seeded": true,
+    "api_base_path": "/apis/human_resource_administration/payroll_administration/payroll_run/payroll_run/",
+    "status_field": "workflow_state",
+    "initial_state": "draft",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "transaction_date"
+    ],
+    "transition_scenarios": [
+      {
+        "action_id": "review",
+        "source_state": "draft",
+        "target_state": "reviewed",
+        "disallowed_state": "closed"
+      },
+      {
+        "action_id": "close",
+        "source_state": "draft",
+        "target_state": "closed",
+        "disallowed_state": "closed"
+      },
+      {
+        "action_id": "submit",
+        "source_state": "draft",
+        "target_state": "approved",
+        "disallowed_state": "closed"
+      },
+      {
+        "action_id": "approve",
+        "source_state": "draft",
+        "target_state": "approved",
+        "disallowed_state": "closed"
+      },
+      {
+        "action_id": "archive",
+        "source_state": "draft",
+        "target_state": "archived",
+        "disallowed_state": "closed"
+      }
+    ],
+    "related_docs": [
+      "payroll_line",
+      "payslip",
+      "attendance_record",
+      "employee_record",
+      "payroll_transaction"
+    ],
+    "downstream_effects": [
+      "payroll history becomes available for employee records, finance controls, and reporting outputs"
+    ],
+    "action_side_effects_file": "side_effects.json"
+  },
+  "runtime": {
+    "source_of_truth": "doc_folder",
+    "generated_from": [
+      "doc.json",
+      "schema.json",
+      "actions.json",
+      "settings.json",
+      "logic_seed.json",
+      "side_effects.json"
+    ],
+    "generator": "plug.apps.doc.file_handler"
+  }
+}

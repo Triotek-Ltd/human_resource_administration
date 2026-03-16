@@ -8,10 +8,10 @@ ARCHETYPE = "ledger"
 INITIAL_STATE = 'active'
 STATES = ['active', 'archived']
 TERMINAL_STATES = ['archived']
-ACTION_RULES = {'record': {'allowed_in_states': 'active', 'transitions_to': None}, 'archive': {'allowed_in_states': 'active', 'transitions_to': 'archived'}, 'review': {'allowed_in_states': 'active', 'transitions_to': None}}
+ACTION_RULES = {'record': {'allowed_in_states': ['active'], 'transitions_to': None}, 'review': {'allowed_in_states': ['active'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['active'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
-WORKFLOW_HINTS = {'business_objective': 'Maintain participation and completion records for delivered training sessions.', 'actors': ['trainer', 'HR or L&D officer'], 'primary_transitions': ['training_attendance: active -> archived']}
+WORKFLOW_HINTS = {'business_objective': 'identify capability gaps, plan learning interventions, deliver training, and record outcomes', 'actors': ['HR development owner', 'trainer', 'participant manager'], 'start_condition': 'a training need is identified', 'ordered_steps': ['Schedule and run the training session.'], 'primary_actions': ['schedule', 'start', 'complete', 'record'], 'primary_transitions': ['training_attendance: active'], 'downstream_effects': ['supports employee development and performance planning'], 'action_actors': {'record': ['HR development owner'], 'review': ['trainer'], 'archive': ['HR development owner']}}
 
 class WorkflowService:
     def allowed_actions_for_state(self, state: str | None) -> list[str]:

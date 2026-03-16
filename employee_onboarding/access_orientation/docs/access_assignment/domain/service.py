@@ -5,9 +5,11 @@ from __future__ import annotations
 
 ARCHETYPE_PROFILE = {'workflow_profile': {'mode': 'transaction_flow', 'supports_submission': True}, 'reporting_profile': {'supports_snapshots': True, 'supports_outputs': True}, 'integration_profile': {'external_sync_enabled': True, 'tracks_external_refs': True}, 'lifecycle_states': ['draft', 'approved', 'issued', 'closed'], 'is_transactional': True}
 
-CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state', 'transaction_date'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'transaction_date': 'transaction_date', 'party': 'party_reference', 'currency': 'currency_code', 'total_amount': 'total_amount', 'employee': 'party_reference', 'approver': 'actor_reference', 'provisioned_date': 'schedule_marker'}, 'search_fields': ['title', 'reference_no', 'description', 'assignment_no', 'employee', 'system_or_resource'], 'list_columns': ['title', 'reference_no', 'transaction_date', 'party', 'total_amount', 'workflow_state'], 'initial_state': 'draft', 'lifecycle_states': ['draft', 'approved', 'issued', 'closed'], 'terminal_states': ['closed'], 'action_targets': {'issue': 'issued', 'create': None, 'approve': 'approved', 'close': 'closed'}}
+CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state', 'transaction_date'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'transaction_date': 'transaction_date', 'party': 'primary_party', 'currency': 'currency_code', 'total_amount': 'total_amount', 'employee': 'party_reference', 'approver': 'actor_reference', 'provisioned_date': 'schedule_marker', 'closed_date': 'schedule_marker'}, 'search_fields': ['title', 'reference_no', 'description', 'assignment_number', 'employee', 'system_or_resource'], 'list_columns': ['title', 'reference_no', 'transaction_date', 'party', 'total_amount', 'workflow_state'], 'initial_state': 'draft', 'lifecycle_states': ['draft', 'approved', 'issued', 'closed'], 'terminal_states': ['closed'], 'action_targets': {'create': None, 'approve': 'approved', 'issue': 'issued', 'close': 'closed'}}
 
-WORKFLOW_HINTS = {'business_objective': 'Approve and provision workstation, system, and resource access for a new employee.', 'actors': ['HR officer', 'IT/admin support', 'approver'], 'start_condition': 'The employee requires system or physical access to begin work.', 'ordered_steps': ['Create the access assignment request.', 'Approve the requested role and resources.', 'Issue or provision the required access.', 'Close the assignment once provisioned.'], 'primary_actions': ['create', 'approve', 'issue', 'close'], 'primary_transitions': ['access_assignment: draft -> approved -> issued -> closed'], 'downstream_effects': ['Provisioning becomes auditable.', 'Employee readiness can be confirmed during onboarding.']}
+WORKFLOW_HINTS = {'relation_context': {'related_docs': ['employee_record'], 'borrowed_fields': ['employee', 'department', 'supervisor data from employee_record'], 'inferred_roles': ['hr officer']}, 'actors': ['hr officer'], 'action_actors': {'create': ['hr officer'], 'approve': ['hr officer'], 'issue': ['hr officer'], 'close': ['hr officer']}}
+
+SIDE_EFFECT_HINTS = {'downstream_effects': [], 'related_docs': ['employee_record'], 'action_targets': {'create': None, 'approve': 'approved', 'issue': 'issued', 'close': 'closed'}, 'action_side_effects_file': 'side_effects.json'}
 
 class DomainService:
     doc_id = "access_assignment"
@@ -63,12 +65,28 @@ class DomainService:
     def after_update(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         return serialized_data
 
+    def after_action(
+        self,
+        instance,
+        action_id: str,
+        payload: dict,
+        action_result: dict,
+        context: dict | None = None,
+    ) -> dict:
+        return {
+            "updates": {},
+            "side_effects": [],
+        }
+
     def shape_retrieve_data(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         serialized_data.setdefault("_business_capabilities", self.business_capabilities())
         return serialized_data
 
     def workflow_objective(self) -> str | None:
         return WORKFLOW_HINTS.get("business_objective")
+
+    def side_effect_hints(self) -> dict:
+        return SIDE_EFFECT_HINTS
 
     def business_capabilities(self) -> dict:
         return {

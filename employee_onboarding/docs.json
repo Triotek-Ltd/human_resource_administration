@@ -1,9 +1,9 @@
 {
   "docs": [
+    "access_assignment",
     "employee_record",
     "employment_contract",
     "onboarding_case",
-    "access_assignment",
     "orientation_session"
   ]
 }

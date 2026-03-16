@@ -14,7 +14,7 @@
     "doc_key": "training_plan"
   },
   "doc_key": "training_plan",
-  "doc_title": "training_plan",
+  "doc_title": "Training Plan",
   "allowed_actions": [
     "create",
     "submit",
@@ -61,14 +61,16 @@
       ],
       "content": [
         "description",
-        "plan_no",
+        "plan_number",
         "target_group",
         "objectives",
         "delivery_mode",
         "planned_dates",
         "budget"
       ],
-      "relations": [],
+      "relations": [
+        "related_training_session"
+      ],
       "amounts": [
         "currency",
         "total_amount"
@@ -284,8 +286,8 @@
         }
       },
       {
-        "field_id": "plan_no",
-        "label": "Plan No",
+        "field_id": "plan_number",
+        "label": "Plan Number",
         "type": "Data",
         "required": false,
         "read_only": false,
@@ -299,10 +301,10 @@
         "read_only_depends_on": null,
         "fetch_from": null,
         "allow_on_submit": false,
-        "indexed": false,
+        "indexed": true,
         "ui": {
           "visible": true,
-          "list_visible": false,
+          "list_visible": true,
           "filterable": true,
           "sortable": true
         }
@@ -426,6 +428,30 @@
           "filterable": true,
           "sortable": true
         }
+      },
+      {
+        "field_id": "related_training_session",
+        "label": "Related Training Session",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "training_session",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
       }
     ],
     "title_field": "title",
@@ -433,7 +459,7 @@
       "title",
       "reference_no",
       "description",
-      "plan_no",
+      "plan_number",
       "target_group",
       "objectives"
     ],
@@ -483,7 +509,7 @@
           "approved",
           "scheduled"
         ],
-        "transitions_to": null
+        "transitions_to": "approved"
       },
       "approve": {
         "allowed_in_states": [
@@ -495,9 +521,7 @@
       },
       "issue": {
         "allowed_in_states": [
-          "draft",
-          "approved",
-          "scheduled"
+          "approved"
         ],
         "transitions_to": null
       },
@@ -514,17 +538,39 @@
       {
         "role_id": "System Manager",
         "actions": [
-          "create",
-          "update",
           "view",
           "list",
-          "record",
-          "review",
-          "assign",
-          "track",
-          "monitor",
-          "confirm",
+          "create",
+          "submit",
+          "approve",
+          "issue",
           "archive"
+        ]
+      },
+      {
+        "role_id": "HR development owner",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "submit",
+          "issue",
+          "archive"
+        ]
+      },
+      {
+        "role_id": "trainer",
+        "actions": [
+          "view",
+          "list"
+        ]
+      },
+      {
+        "role_id": "participant manager",
+        "actions": [
+          "view",
+          "list",
+          "approve"
         ]
       }
     ],
@@ -598,7 +644,14 @@
         "show_in_related_panel": true
       }
     ],
-    "lookup_rules": [],
+    "lookup_rules": [
+      {
+        "field_id": "related_training_session",
+        "doc_id": "training_session",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      }
+    ],
     "fetch_rules": [],
     "reference_map": {
       "primary_reference_field": "reference_no",
@@ -606,12 +659,14 @@
     },
     "relation_rules": {
       "parent_doc": null,
-      "child_docs": [],
+      "child_docs": [
+        "training_session"
+      ],
       "show_related_panel": true
     },
     "borrowed_fields": [
       {
-        "description": "need context from training_need where linked"
+        "description": "target group from linked employee or team records"
       }
     ],
     "ui_panels": {
@@ -629,16 +684,46 @@
       "supports_related_lookup": true,
       "supports_fetch_rules": true,
       "workflow_hints": {
-        "business_objective": "Define approved training plans that can be scheduled and delivered.",
+        "business_objective": "identify capability gaps, plan learning interventions, deliver training, and record outcomes",
         "actors": [
-          "HR or L&D officer",
-          "manager",
-          "approver"
+          "HR development owner",
+          "trainer",
+          "participant manager"
+        ],
+        "start_condition": "a training need is identified",
+        "ordered_steps": [
+          "Build and approve the training plan."
+        ],
+        "primary_actions": [
+          "create",
+          "submit",
+          "approve"
         ],
         "primary_transitions": [
-          "training_plan: draft -> approved -> scheduled -> archived"
-        ]
-      }
+          "training_plan: draft -> submitted -> approved"
+        ],
+        "downstream_effects": [
+          "supports employee development and performance planning"
+        ],
+        "action_actors": {
+          "create": [
+            "HR development owner"
+          ],
+          "submit": [
+            "HR development owner"
+          ],
+          "approve": [
+            "participant manager"
+          ],
+          "issue": [
+            "HR development owner"
+          ],
+          "archive": [
+            "HR development owner"
+          ]
+        }
+      },
+      "action_side_effects_file": "side_effects.json"
     }
   },
   "classification": {
@@ -718,6 +803,9 @@
       "reports": "reports/service.py",
       "integrations": "integrations/service.py"
     },
+    "runtime_contract": {
+      "side_effects_file": "side_effects.json"
+    },
     "action_handlers": {
       "base_dir": "actions",
       "registry": "actions/registry.py",
@@ -735,6 +823,44 @@
       "doc_kind": "transaction"
     }
   },
+  "testing": {
+    "seeded": true,
+    "api_base_path": "/apis/human_resource_administration/training_development/training_plans/training_plan/",
+    "status_field": "workflow_state",
+    "initial_state": "draft",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "transaction_date"
+    ],
+    "transition_scenarios": [
+      {
+        "action_id": "submit",
+        "source_state": "draft",
+        "target_state": "approved",
+        "disallowed_state": "archived"
+      },
+      {
+        "action_id": "approve",
+        "source_state": "draft",
+        "target_state": "approved",
+        "disallowed_state": "archived"
+      },
+      {
+        "action_id": "archive",
+        "source_state": "draft",
+        "target_state": "archived",
+        "disallowed_state": "archived"
+      }
+    ],
+    "related_docs": [
+      "training_session"
+    ],
+    "downstream_effects": [
+      "supports employee development and performance planning"
+    ],
+    "action_side_effects_file": "side_effects.json"
+  },
   "runtime": {
     "source_of_truth": "doc_folder",
     "generated_from": [
@@ -742,7 +868,8 @@
       "schema.json",
       "actions.json",
       "settings.json",
-      "logic_seed.json"
+      "logic_seed.json",
+      "side_effects.json"
     ],
     "generator": "plug.apps.doc.file_handler"
   }

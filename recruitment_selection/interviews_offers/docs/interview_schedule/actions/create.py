@@ -8,7 +8,7 @@ ACTION_ID = "create"
 ACTION_RULE = {'allowed_in_states': ['scheduled', 'completed', 'cancelled'], 'transitions_to': None}
 
 STATE_FIELD = 'workflow_state'
-WORKFLOW_HINTS = {'business_objective': 'Schedule and track recruitment interviews against candidate applications.', 'actors': ['HR officer', 'hiring manager', 'panel'], 'primary_transitions': ['interview_schedule: scheduled -> completed or cancelled -> archived']}
+WORKFLOW_HINTS = {'business_objective': 'define a staffing need, attract candidates, assess them, and issue an approved offer to the selected candidate', 'actors': ['hiring manager', 'recruiter', 'interviewer', 'approver'], 'start_condition': 'a staffing requirement is approved', 'ordered_steps': ['Schedule interviews and record evaluations.'], 'primary_actions': ['schedule', 'record', 'review'], 'primary_transitions': ['interview_schedule: draft -> scheduled -> completed'], 'downstream_effects': ['feeds onboarding and employee master creation'], 'action_actors': {'create': ['hiring manager'], 'confirm': ['approver'], 'cancel': ['hiring manager'], 'archive': ['hiring manager']}}
 
 def handle_create(payload: dict, context: dict | None = None) -> dict:
     context = context or {}

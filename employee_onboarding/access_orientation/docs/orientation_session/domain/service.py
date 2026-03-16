@@ -5,9 +5,11 @@ from __future__ import annotations
 
 ARCHETYPE_PROFILE = {'workflow_profile': {'mode': 'event_schedule', 'supports_timing': True}, 'reporting_profile': {'supports_snapshots': True, 'supports_outputs': False}, 'integration_profile': {'external_sync_enabled': False}, 'lifecycle_states': ['scheduled', 'completed', 'archived'], 'is_transactional': False}
 
-CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'start_at': 'schedule_marker', 'end_at': 'schedule_marker', 'session_no': 'reference', 'date_time': 'event_datetime', 'facilitator': 'actor_reference', 'attendees': 'participant_collection', 'completion_note': 'completion_note'}, 'search_fields': ['title', 'reference_no', 'description', 'session_no', 'date_time', 'facilitator'], 'list_columns': ['title', 'start_at', 'end_at', 'workflow_state'], 'initial_state': 'scheduled', 'lifecycle_states': ['scheduled', 'completed', 'archived'], 'terminal_states': ['archived'], 'action_targets': {'confirm': 'completed', 'create': None, 'archive': 'archived', 'close': None}}
+CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'start_at': 'event_start', 'end_at': 'event_end', 'facilitator': 'actor_reference', 'attendees': 'relation_collection', 'completion_note': 'completion_note', 'archive_status': 'status_flag'}, 'search_fields': ['title', 'reference_no', 'description', 'session_number', 'date', 'time'], 'list_columns': ['title', 'start_at', 'end_at', 'workflow_state'], 'initial_state': 'scheduled', 'lifecycle_states': ['scheduled', 'completed', 'archived'], 'terminal_states': ['archived'], 'action_targets': {'create': None, 'confirm': 'completed', 'close': None, 'archive': 'archived'}}
 
-WORKFLOW_HINTS = {'business_objective': 'Schedule, deliver, and record orientation attendance and completion for new employees.', 'actors': ['HR officer', 'facilitator', 'new employee'], 'start_condition': 'Orientation must be scheduled as part of onboarding.', 'ordered_steps': ['Create the orientation session and attendee list.', 'Run the session and record attendance.', 'Confirm completion details.', 'Archive the session record.'], 'primary_actions': ['create', 'confirm', 'close', 'archive'], 'primary_transitions': ['orientation_session: scheduled -> completed -> archived'], 'downstream_effects': ['Orientation completion is available for compliance and onboarding review.']}
+WORKFLOW_HINTS = {'business_objective': 'convert an accepted candidate into an active employee with records, payroll enrollment, orientation, and access', 'actors': ['HR officer', 'hiring manager', 'payroll officer', 'IT/admin support', 'new employee'], 'start_condition': 'an accepted offer exists and onboarding must begin', 'ordered_steps': ['Issue policies, handbook, and orientation scheduling.'], 'primary_actions': ['create', 'confirm', 'close'], 'primary_transitions': ['orientation_session: scheduled -> completed'], 'downstream_effects': ['employee becomes eligible for payroll, training, appraisal, and employee-relations workflows'], 'action_actors': {'create': ['HR officer'], 'confirm': ['hiring manager'], 'close': ['hiring manager'], 'archive': ['hiring manager']}}
+
+SIDE_EFFECT_HINTS = {'downstream_effects': ['employee becomes eligible for payroll, training, appraisal, and employee-relations workflows'], 'related_docs': ['employee_record'], 'action_targets': {'create': None, 'confirm': 'completed', 'close': None, 'archive': 'archived'}, 'action_side_effects_file': 'side_effects.json'}
 
 class DomainService:
     doc_id = "orientation_session"
@@ -63,12 +65,28 @@ class DomainService:
     def after_update(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         return serialized_data
 
+    def after_action(
+        self,
+        instance,
+        action_id: str,
+        payload: dict,
+        action_result: dict,
+        context: dict | None = None,
+    ) -> dict:
+        return {
+            "updates": {},
+            "side_effects": [],
+        }
+
     def shape_retrieve_data(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         serialized_data.setdefault("_business_capabilities", self.business_capabilities())
         return serialized_data
 
     def workflow_objective(self) -> str | None:
         return WORKFLOW_HINTS.get("business_objective")
+
+    def side_effect_hints(self) -> dict:
+        return SIDE_EFFECT_HINTS
 
     def business_capabilities(self) -> dict:
         return {

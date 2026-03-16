@@ -20,7 +20,7 @@
     "submodule": "training_plans",
     "reference_doc_id": "training_plan",
     "evidence_gaps": [
-      "budget fields",
+      "budget",
       "vendor fields"
     ]
   }

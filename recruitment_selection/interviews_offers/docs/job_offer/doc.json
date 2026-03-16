@@ -20,8 +20,8 @@
     "submodule": "interviews_offers",
     "reference_doc_id": "job_offer",
     "evidence_gaps": [
-      "approval flow",
-      "negotiation flow"
+      "negotiation workflow",
+      "approval levels"
     ]
   }
 }

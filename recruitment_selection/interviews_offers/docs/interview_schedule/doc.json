@@ -20,8 +20,8 @@
     "submodule": "interviews_offers",
     "reference_doc_id": "interview_schedule",
     "evidence_gaps": [
-      "panel fields",
-      "room/resource fields"
+      "panel composition",
+      "room or resource fields"
     ]
   }
 }

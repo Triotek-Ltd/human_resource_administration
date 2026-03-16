@@ -25,7 +25,7 @@
     ]
   },
   "related_doc_count": 1,
-  "fetch_rule_count": 1,
+  "fetch_rule_count": 0,
   "action_handler_count": 5,
   "archetype_profile": {
     "workflow_profile": {
@@ -62,7 +62,7 @@
     "field_purposes": {
       "workflow_state": "lifecycle_state",
       "transaction_date": "transaction_date",
-      "party": "party_reference",
+      "party": "primary_party",
       "currency": "currency_code",
       "total_amount": "total_amount",
       "start_date": "schedule_marker",
@@ -72,7 +72,7 @@
       "title",
       "reference_no",
       "description",
-      "offer_no",
+      "offer_number",
       "application",
       "offered_role"
     ],
@@ -97,28 +97,64 @@
       "archived"
     ],
     "action_targets": {
-      "issue": "issued",
       "create": null,
-      "archive": "archived",
+      "issue": "issued",
       "confirm": null,
-      "cancel": null
+      "cancel": null,
+      "archive": "archived"
     }
   },
   "workflow_hints": {
-    "business_objective": "Issue and track employment offers against selected candidate applications.",
+    "business_objective": "define a staffing need, attract candidates, assess them, and issue an approved offer to the selected candidate",
     "actors": [
-      "HR officer",
-      "approver",
-      "candidate"
+      "hiring manager",
+      "recruiter",
+      "interviewer",
+      "approver"
+    ],
+    "start_condition": "a staffing requirement is approved",
+    "ordered_steps": [
+      "Select the candidate and issue the offer."
+    ],
+    "primary_actions": [
+      "create",
+      "approve",
+      "issue",
+      "close"
     ],
     "primary_transitions": [
-      "job_offer: draft -> issued -> accepted or declined or cancelled -> archived"
-    ]
+      "job_offer: draft -> approved -> issued -> closed"
+    ],
+    "downstream_effects": [
+      "feeds onboarding and employee master creation"
+    ],
+    "action_actors": {
+      "create": [
+        "hiring manager"
+      ],
+      "issue": [
+        "hiring manager"
+      ],
+      "confirm": [
+        "approver"
+      ],
+      "cancel": [
+        "hiring manager"
+      ],
+      "archive": [
+        "hiring manager"
+      ]
+    }
   },
+  "downstream_effects": [
+    "feeds onboarding and employee master creation"
+  ],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "candidate_application"
   ],
   "borrowed_fields": [
-    "candidate and vacancy context from candidate_application"
+    "candidate",
+    "role context from candidate_application"
   ]
 }

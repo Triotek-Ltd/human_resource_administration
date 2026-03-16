@@ -59,20 +59,22 @@
       ],
       "content": [
         "description",
-        "assignment_no",
-        "employee",
+        "assignment_number",
         "system_or_resource",
-        "role",
+        "role"
+      ],
+      "relations": [
+        "employee",
         "approver"
       ],
-      "relations": [],
       "amounts": [
         "currency",
         "total_amount"
       ],
       "dates": [
         "transaction_date",
-        "provisioned_date"
+        "provisioned_date",
+        "closed_date"
       ],
       "parties": [
         "party"
@@ -91,6 +93,7 @@
         "default": null,
         "unique": false,
         "options": null,
+        "purpose": null,
         "linked_doc": null,
         "depends_on": null,
         "mandatory_depends_on": null,
@@ -114,6 +117,7 @@
         "default": null,
         "unique": false,
         "options": null,
+        "purpose": null,
         "linked_doc": null,
         "depends_on": null,
         "mandatory_depends_on": null,
@@ -137,6 +141,7 @@
         "default": null,
         "unique": false,
         "options": null,
+        "purpose": null,
         "linked_doc": null,
         "depends_on": null,
         "mandatory_depends_on": null,
@@ -168,6 +173,7 @@
         "default": "draft",
         "unique": false,
         "linked_doc": null,
+        "purpose": "lifecycle_state",
         "depends_on": null,
         "mandatory_depends_on": null,
         "read_only_depends_on": null,
@@ -190,6 +196,7 @@
         "default": "Today",
         "unique": false,
         "options": null,
+        "purpose": "transaction_date",
         "linked_doc": null,
         "depends_on": null,
         "mandatory_depends_on": null,
@@ -213,6 +220,7 @@
         "default": null,
         "unique": false,
         "options": null,
+        "purpose": "primary_party",
         "linked_doc": null,
         "depends_on": null,
         "mandatory_depends_on": null,
@@ -236,6 +244,7 @@
         "default": null,
         "unique": false,
         "options": null,
+        "purpose": "currency_code",
         "linked_doc": null,
         "depends_on": null,
         "mandatory_depends_on": null,
@@ -259,6 +268,7 @@
         "default": null,
         "unique": false,
         "options": null,
+        "purpose": "total_amount",
         "linked_doc": null,
         "depends_on": null,
         "mandatory_depends_on": null,
@@ -274,24 +284,25 @@
         }
       },
       {
-        "field_id": "assignment_no",
-        "label": "Assignment No",
+        "field_id": "assignment_number",
+        "label": "Assignment Number",
         "type": "Data",
         "required": false,
         "read_only": false,
         "default": null,
         "unique": false,
         "options": null,
+        "purpose": null,
         "linked_doc": null,
         "depends_on": null,
         "mandatory_depends_on": null,
         "read_only_depends_on": null,
         "fetch_from": null,
         "allow_on_submit": false,
-        "indexed": false,
+        "indexed": true,
         "ui": {
           "visible": true,
-          "list_visible": false,
+          "list_visible": true,
           "filterable": true,
           "sortable": true
         }
@@ -299,24 +310,25 @@
       {
         "field_id": "employee",
         "label": "Employee",
-        "type": "Data",
+        "type": "Link",
         "required": false,
         "read_only": false,
         "default": null,
         "unique": false,
         "options": null,
-        "linked_doc": null,
+        "purpose": "party_reference",
+        "linked_doc": "employee_record",
         "depends_on": null,
         "mandatory_depends_on": null,
         "read_only_depends_on": null,
         "fetch_from": null,
         "allow_on_submit": false,
-        "indexed": false,
+        "indexed": true,
         "ui": {
           "visible": true,
-          "list_visible": false,
+          "list_visible": true,
           "filterable": true,
-          "sortable": true
+          "sortable": false
         }
       },
       {
@@ -328,6 +340,7 @@
         "default": null,
         "unique": false,
         "options": null,
+        "purpose": null,
         "linked_doc": null,
         "depends_on": null,
         "mandatory_depends_on": null,
@@ -351,6 +364,7 @@
         "default": null,
         "unique": false,
         "options": null,
+        "purpose": null,
         "linked_doc": null,
         "depends_on": null,
         "mandatory_depends_on": null,
@@ -374,7 +388,8 @@
         "default": null,
         "unique": false,
         "options": null,
-        "linked_doc": null,
+        "purpose": "actor_reference",
+        "linked_doc": "employee_record",
         "depends_on": null,
         "mandatory_depends_on": null,
         "read_only_depends_on": null,
@@ -397,6 +412,31 @@
         "default": null,
         "unique": false,
         "options": null,
+        "purpose": "schedule_marker",
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": true,
+        "ui": {
+          "visible": true,
+          "list_visible": true,
+          "filterable": true,
+          "sortable": true
+        }
+      },
+      {
+        "field_id": "closed_date",
+        "label": "Closed Date",
+        "type": "Date",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "schedule_marker",
         "linked_doc": null,
         "depends_on": null,
         "mandatory_depends_on": null,
@@ -417,7 +457,7 @@
       "title",
       "reference_no",
       "description",
-      "assignment_no",
+      "assignment_number",
       "employee",
       "system_or_resource"
     ],
@@ -471,11 +511,9 @@
       },
       "issue": {
         "allowed_in_states": [
-          "draft",
-          "approved",
-          "issued"
+          "approved"
         ],
-        "transitions_to": null
+        "transitions_to": "issued"
       },
       "close": {
         "allowed_in_states": [
@@ -490,17 +528,23 @@
       {
         "role_id": "System Manager",
         "actions": [
-          "create",
-          "update",
           "view",
           "list",
-          "record",
-          "review",
-          "assign",
-          "track",
-          "monitor",
-          "confirm",
-          "archive"
+          "create",
+          "approve",
+          "issue",
+          "close"
+        ]
+      },
+      {
+        "role_id": "hr officer",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "approve",
+          "issue",
+          "close"
         ]
       }
     ],
@@ -572,15 +616,33 @@
         "doc_id": "employee_record",
         "relation_type": "related",
         "show_in_related_panel": true
-      },
-      {
-        "doc_id": "department_team",
-        "relation_type": "related",
-        "show_in_related_panel": true
       }
     ],
-    "lookup_rules": [],
-    "fetch_rules": [],
+    "lookup_rules": [
+      {
+        "field_id": "employee",
+        "doc_id": "employee_record",
+        "lookup_mode": "single",
+        "purpose": "party_reference"
+      }
+    ],
+    "fetch_rules": [
+      {
+        "field_id": "employee",
+        "source_doc_id": "employee_record",
+        "fetch_profile": "employee_profile",
+        "fetch_fields": [
+          "title",
+          "reference_no",
+          "employee_id",
+          "legal_name",
+          "preferred_name",
+          "work_email",
+          "work_phone"
+        ],
+        "purpose": "party_reference"
+      }
+    ],
     "reference_map": {
       "primary_reference_field": "reference_no",
       "reference_labels": []
@@ -592,10 +654,13 @@
     },
     "borrowed_fields": [
       {
-        "description": "employee identity from employee_record"
+        "description": "employee"
       },
       {
-        "description": "team context from department_team"
+        "description": "department"
+      },
+      {
+        "description": "supervisor data from employee_record"
       }
     ],
     "ui_panels": {
@@ -613,33 +678,38 @@
       "supports_related_lookup": true,
       "supports_fetch_rules": true,
       "workflow_hints": {
-        "business_objective": "Approve and provision workstation, system, and resource access for a new employee.",
+        "relation_context": {
+          "related_docs": [
+            "employee_record"
+          ],
+          "borrowed_fields": [
+            "employee",
+            "department",
+            "supervisor data from employee_record"
+          ],
+          "inferred_roles": [
+            "hr officer"
+          ]
+        },
         "actors": [
-          "HR officer",
-          "IT/admin support",
-          "approver"
+          "hr officer"
         ],
-        "start_condition": "The employee requires system or physical access to begin work.",
-        "ordered_steps": [
-          "Create the access assignment request.",
-          "Approve the requested role and resources.",
-          "Issue or provision the required access.",
-          "Close the assignment once provisioned."
-        ],
-        "primary_actions": [
-          "create",
-          "approve",
-          "issue",
-          "close"
-        ],
-        "primary_transitions": [
-          "access_assignment: draft -> approved -> issued -> closed"
-        ],
-        "downstream_effects": [
-          "Provisioning becomes auditable.",
-          "Employee readiness can be confirmed during onboarding."
-        ]
-      }
+        "action_actors": {
+          "create": [
+            "hr officer"
+          ],
+          "approve": [
+            "hr officer"
+          ],
+          "issue": [
+            "hr officer"
+          ],
+          "close": [
+            "hr officer"
+          ]
+        }
+      },
+      "action_side_effects_file": "side_effects.json"
     }
   },
   "classification": {
@@ -719,6 +789,9 @@
       "reports": "reports/service.py",
       "integrations": "integrations/service.py"
     },
+    "runtime_contract": {
+      "side_effects_file": "side_effects.json"
+    },
     "action_handlers": {
       "base_dir": "actions",
       "registry": "actions/registry.py",
@@ -735,6 +808,42 @@
       "doc_kind": "transaction"
     }
   },
+  "testing": {
+    "seeded": true,
+    "api_base_path": "/apis/human_resource_administration/employee_onboarding/access_orientation/access_assignment/",
+    "status_field": "workflow_state",
+    "initial_state": "draft",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "transaction_date"
+    ],
+    "transition_scenarios": [
+      {
+        "action_id": "approve",
+        "source_state": "draft",
+        "target_state": "approved",
+        "disallowed_state": "closed"
+      },
+      {
+        "action_id": "issue",
+        "source_state": "approved",
+        "target_state": "issued",
+        "disallowed_state": "closed"
+      },
+      {
+        "action_id": "close",
+        "source_state": "draft",
+        "target_state": "closed",
+        "disallowed_state": "closed"
+      }
+    ],
+    "related_docs": [
+      "employee_record"
+    ],
+    "downstream_effects": [],
+    "action_side_effects_file": "side_effects.json"
+  },
   "runtime": {
     "source_of_truth": "doc_folder",
     "generated_from": [
@@ -742,7 +851,8 @@
       "schema.json",
       "actions.json",
       "settings.json",
-      "logic_seed.json"
+      "logic_seed.json",
+      "side_effects.json"
     ],
     "generator": "plug.apps.doc.file_handler"
   }

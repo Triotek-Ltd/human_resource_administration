@@ -20,7 +20,8 @@
     "submodule": "training_records",
     "reference_doc_id": "training_attendance",
     "evidence_gaps": [
-      "certification tracking"
+      "certification",
+      "evidence attachment handling"
     ]
   }
 }

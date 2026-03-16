@@ -14,7 +14,7 @@
     "doc_key": "interview_evaluation"
   },
   "doc_key": "interview_evaluation",
-  "doc_title": "interview_evaluation",
+  "doc_title": "Interview Evaluation",
   "allowed_actions": [
     "create",
     "review",
@@ -59,14 +59,15 @@
       ],
       "content": [
         "description",
-        "evaluation_no",
+        "evaluation_number",
         "interviewer",
         "criteria_scores",
         "comments",
         "recommendation"
       ],
       "relations": [
-        "application"
+        "application",
+        "related_interview_schedule"
       ],
       "amounts": [
         "currency",
@@ -283,8 +284,8 @@
         }
       },
       {
-        "field_id": "evaluation_no",
-        "label": "Evaluation No",
+        "field_id": "evaluation_number",
+        "label": "Evaluation Number",
         "type": "Data",
         "required": false,
         "read_only": false,
@@ -298,10 +299,10 @@
         "read_only_depends_on": null,
         "fetch_from": null,
         "allow_on_submit": false,
-        "indexed": false,
+        "indexed": true,
         "ui": {
           "visible": true,
-          "list_visible": false,
+          "list_visible": true,
           "filterable": true,
           "sortable": true
         }
@@ -425,6 +426,30 @@
           "filterable": true,
           "sortable": true
         }
+      },
+      {
+        "field_id": "related_interview_schedule",
+        "label": "Related Interview Schedule",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "interview_schedule",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
       }
     ],
     "title_field": "title",
@@ -432,7 +457,7 @@
       "title",
       "reference_no",
       "description",
-      "evaluation_no",
+      "evaluation_number",
       "application",
       "interviewer"
     ],
@@ -482,7 +507,7 @@
           "reviewed",
           "approved"
         ],
-        "transitions_to": null
+        "transitions_to": "reviewed"
       },
       "approve": {
         "allowed_in_states": [
@@ -505,16 +530,22 @@
       {
         "role_id": "System Manager",
         "actions": [
-          "create",
-          "update",
           "view",
           "list",
-          "record",
+          "create",
           "review",
-          "assign",
-          "track",
-          "monitor",
-          "confirm",
+          "approve",
+          "archive"
+        ]
+      },
+      {
+        "role_id": "hr officer",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "review",
+          "approve",
           "archive"
         ]
       }
@@ -594,7 +625,14 @@
         "show_in_related_panel": true
       }
     ],
-    "lookup_rules": [],
+    "lookup_rules": [
+      {
+        "field_id": "related_interview_schedule",
+        "doc_id": "interview_schedule",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      }
+    ],
     "fetch_rules": [],
     "reference_map": {
       "primary_reference_field": "reference_no",
@@ -602,12 +640,14 @@
     },
     "relation_rules": {
       "parent_doc": null,
-      "child_docs": [],
+      "child_docs": [
+        "interview_schedule"
+      ],
       "show_related_panel": true
     },
     "borrowed_fields": [
       {
-        "description": "candidate and interview context from linked records"
+        "description": "interview context from interview_schedule"
       }
     ],
     "ui_panels": {
@@ -625,16 +665,37 @@
       "supports_related_lookup": true,
       "supports_fetch_rules": true,
       "workflow_hints": {
-        "business_objective": "Capture structured interviewer assessment and recommendation data.",
+        "relation_context": {
+          "related_docs": [
+            "candidate_application",
+            "interview_schedule"
+          ],
+          "borrowed_fields": [
+            "interview context from interview_schedule"
+          ],
+          "inferred_roles": [
+            "hr officer"
+          ]
+        },
         "actors": [
-          "interviewer",
-          "HR officer",
-          "hiring manager"
+          "hr officer"
         ],
-        "primary_transitions": [
-          "interview_evaluation: draft -> reviewed -> approved -> archived"
-        ]
-      }
+        "action_actors": {
+          "create": [
+            "hr officer"
+          ],
+          "review": [
+            "hr officer"
+          ],
+          "approve": [
+            "hr officer"
+          ],
+          "archive": [
+            "hr officer"
+          ]
+        }
+      },
+      "action_side_effects_file": "side_effects.json"
     }
   },
   "classification": {
@@ -714,6 +775,9 @@
       "reports": "reports/service.py",
       "integrations": "integrations/service.py"
     },
+    "runtime_contract": {
+      "side_effects_file": "side_effects.json"
+    },
     "action_handlers": {
       "base_dir": "actions",
       "registry": "actions/registry.py",
@@ -730,6 +794,43 @@
       "doc_kind": "transaction"
     }
   },
+  "testing": {
+    "seeded": true,
+    "api_base_path": "/apis/human_resource_administration/recruitment_selection/interviews_offers/interview_evaluation/",
+    "status_field": "workflow_state",
+    "initial_state": "draft",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "transaction_date"
+    ],
+    "transition_scenarios": [
+      {
+        "action_id": "review",
+        "source_state": "draft",
+        "target_state": "reviewed",
+        "disallowed_state": "archived"
+      },
+      {
+        "action_id": "approve",
+        "source_state": "draft",
+        "target_state": "approved",
+        "disallowed_state": "archived"
+      },
+      {
+        "action_id": "archive",
+        "source_state": "draft",
+        "target_state": "archived",
+        "disallowed_state": "archived"
+      }
+    ],
+    "related_docs": [
+      "candidate_application",
+      "interview_schedule"
+    ],
+    "downstream_effects": [],
+    "action_side_effects_file": "side_effects.json"
+  },
   "runtime": {
     "source_of_truth": "doc_folder",
     "generated_from": [
@@ -737,7 +838,8 @@
       "schema.json",
       "actions.json",
       "settings.json",
-      "logic_seed.json"
+      "logic_seed.json",
+      "side_effects.json"
     ],
     "generator": "plug.apps.doc.file_handler"
   }

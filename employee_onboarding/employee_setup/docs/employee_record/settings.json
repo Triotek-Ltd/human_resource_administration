@@ -1,124 +1,162 @@
 {
-    "display":  {
-                    "title_template":  "{title}",
-                    "subtitle_template":  "{reference_no}",
-                    "list_columns":  [
-                                         "title",
-                                         "reference_no",
-                                         "workflow_state",
-                                         "modified"
-                                     ],
-                    "default_filters":  [
-
-                                        ],
-                    "quick_entry":  false
-                },
-    "related_docs":  [
-                         {
-                             "doc_id":  "employment_contract",
-                             "relation_type":  "related",
-                             "show_in_related_panel":  true
-                         },
-                         {
-                             "doc_id":  "onboarding_case",
-                             "relation_type":  "related",
-                             "show_in_related_panel":  true
-                         },
-                         {
-                             "doc_id":  "access_assignment",
-                             "relation_type":  "related",
-                             "show_in_related_panel":  true
-                         },
-                         {
-                             "doc_id":  "orientation_session",
-                             "relation_type":  "related",
-                             "show_in_related_panel":  true
-                         },
-                         {
-                             "doc_id":  "salary_structure",
-                             "relation_type":  "related",
-                             "show_in_related_panel":  true
-                         }
-                     ],
-    "lookup_rules":  [
-
-                     ],
-    "fetch_rules":  [
-
-                    ],
-    "reference_map":  {
-                          "primary_reference_field":  "reference_no",
-                          "reference_labels":  [
-
-                                               ]
-                      },
-    "relation_rules":  {
-                           "parent_doc":  null,
-                           "child_docs":  [
-
-                                          ],
-                           "show_related_panel":  true
-                       },
-    "borrowed_fields":  [
-                            {
-                                "description":  "department display fields from linked records"
-                            },
-                            {
-                                "description":  "supervisor display fields from linked records"
-                            },
-                            {
-                                "description":  "salary defaults from salary_structure"
-                            }
-                        ],
-    "ui_panels":  {
-                      "show_activity_log":  true,
-                      "show_comments":  true,
-                      "show_assignments":  true,
-                      "show_related_docs":  true
-                  },
-    "integration":  {
-                        "external_refs":  [
-
-                                          ],
-                        "sync_rules":  [
-
-                                       ]
-                    },
-    "runtime_hints":  {
-                          "doc_key":  "employee_record",
-                          "supports_related_lookup":  true,
-                          "supports_fetch_rules":  true,
-                          "workflow_hints":  {
-                                                 "business_objective":  "Convert an accepted candidate into an active employee with records, payroll enrollment, orientation, and access.",
-                                                 "actors":  [
-                                                                "HR officer",
-                                                                "hiring manager",
-                                                                "payroll officer",
-                                                                "IT/admin support",
-                                                                "new employee"
-                                                            ],
-                                                 "start_condition":  "An accepted offer exists and onboarding must begin.",
-                                                 "ordered_steps":  [
-                                                                       "Create the employee master record.",
-                                                                       "Prepare and issue the employment contract.",
-                                                                       "Register employee for payroll and employment controls.",
-                                                                       "Create onboarding tasks and track completion.",
-                                                                       "Issue policies, handbook, and orientation scheduling."
-                                                                   ],
-                                                 "primary_actions":  [
-                                                                         "create",
-                                                                         "activate",
-                                                                         "update",
-                                                                         "review"
-                                                                     ],
-                                                 "primary_transitions":  [
-                                                                             "employee_record: draft -\u003e active"
-                                                                         ],
-                                                 "downstream_effects":  [
-                                                                            "Payroll enrollment becomes possible.",
-                                                                            "Access and onboarding tasks can be assigned.",
-                                                                            "Orientation and policy acknowledgement can be scheduled."
-                                                                        ]
-                                             }
-                      }
+  "display": {
+    "title_template": "{title}",
+    "subtitle_template": "{reference_no}",
+    "list_columns": [
+      "title",
+      "reference_no",
+      "workflow_state",
+      "modified"
+    ],
+    "default_filters": [],
+    "quick_entry": false
+  },
+  "related_docs": [
+    {
+      "doc_id": "employment_contract",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    },
+    {
+      "doc_id": "onboarding_case",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    },
+    {
+      "doc_id": "access_assignment",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    },
+    {
+      "doc_id": "orientation_session",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    },
+    {
+      "doc_id": "salary_structure",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    }
+  ],
+  "lookup_rules": [
+    {
+      "field_id": "related_employment_contract",
+      "doc_id": "employment_contract",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_onboarding_case",
+      "doc_id": "onboarding_case",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_access_assignment",
+      "doc_id": "access_assignment",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_orientation_session",
+      "doc_id": "orientation_session",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_salary_structure",
+      "doc_id": "salary_structure",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    }
+  ],
+  "fetch_rules": [],
+  "reference_map": {
+    "primary_reference_field": "reference_no",
+    "reference_labels": []
+  },
+  "relation_rules": {
+    "parent_doc": null,
+    "child_docs": [
+      "employment_contract",
+      "onboarding_case",
+      "access_assignment",
+      "orientation_session",
+      "salary_structure"
+    ],
+    "show_related_panel": true
+  },
+  "borrowed_fields": [
+    {
+      "description": "department"
+    },
+    {
+      "description": "supervisor display fields from linked records"
+    },
+    {
+      "description": "salary defaults from salary_structure"
+    }
+  ],
+  "ui_panels": {
+    "show_activity_log": true,
+    "show_comments": true,
+    "show_assignments": true,
+    "show_related_docs": true
+  },
+  "integration": {
+    "external_refs": [],
+    "sync_rules": []
+  },
+  "runtime_hints": {
+    "doc_key": "employee_record",
+    "supports_related_lookup": true,
+    "supports_fetch_rules": true,
+    "workflow_hints": {
+      "business_objective": "calculate, approve, pay, document, and post payroll accurately for a pay period",
+      "actors": [
+        "payroll officer",
+        "HR reviewer",
+        "approver",
+        "finance officer",
+        "employee"
+      ],
+      "start_condition": "a payroll period is due for processing",
+      "ordered_steps": [
+        "Collect attendance and salary basis."
+      ],
+      "primary_actions": [
+        "record",
+        "review",
+        "update"
+      ],
+      "primary_transitions": [],
+      "downstream_effects": [
+        "payroll history becomes available for employee records, finance controls, and reporting outputs"
+      ],
+      "action_actors": {
+        "create": [
+          "payroll officer"
+        ],
+        "update": [
+          "payroll officer"
+        ],
+        "review": [
+          "HR reviewer"
+        ],
+        "archive": [
+          "payroll officer"
+        ],
+        "activate": [
+          "payroll officer"
+        ],
+        "assign": [
+          "payroll officer"
+        ],
+        "record": [
+          "payroll officer"
+        ]
+      }
+    },
+    "action_side_effects_file": "side_effects.json"
+  }
 }

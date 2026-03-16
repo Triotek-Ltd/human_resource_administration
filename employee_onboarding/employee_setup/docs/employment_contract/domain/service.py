@@ -5,9 +5,11 @@ from __future__ import annotations
 
 ARCHETYPE_PROFILE = {'workflow_profile': {'mode': 'transaction_flow', 'supports_submission': True}, 'reporting_profile': {'supports_snapshots': True, 'supports_outputs': True}, 'integration_profile': {'external_sync_enabled': True, 'tracks_external_refs': True}, 'lifecycle_states': ['draft', 'approved', 'signed', 'archived'], 'is_transactional': True}
 
-CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state', 'transaction_date'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'transaction_date': 'transaction_date', 'party': 'party_reference', 'currency': 'currency_code', 'total_amount': 'total_amount', 'contract_no': 'reference', 'employee': 'party_reference', 'start_date': 'schedule_marker', 'end_date': 'schedule_marker', 'signature_status': 'signature_status'}, 'search_fields': ['title', 'reference_no', 'description', 'contract_no', 'employee', 'contract_type'], 'list_columns': ['title', 'reference_no', 'transaction_date', 'party', 'total_amount', 'workflow_state'], 'initial_state': 'draft', 'lifecycle_states': ['draft', 'approved', 'signed', 'archived'], 'terminal_states': ['archived'], 'action_targets': {'issue': None, 'submit': 'approved', 'create': None, 'approve': 'approved', 'archive': 'archived'}}
+CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state', 'transaction_date'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'transaction_date': 'transaction_date', 'party': 'primary_party', 'currency': 'currency_code', 'total_amount': 'total_amount', 'employee': 'party_reference', 'start_date': 'schedule_marker', 'end_date': 'schedule_marker', 'signature_status': 'status_flag'}, 'search_fields': ['title', 'reference_no', 'description', 'contract_number', 'employee', 'contract_type'], 'list_columns': ['title', 'reference_no', 'transaction_date', 'party', 'total_amount', 'workflow_state'], 'initial_state': 'draft', 'lifecycle_states': ['draft', 'approved', 'signed', 'archived'], 'terminal_states': ['archived'], 'action_targets': {'create': None, 'submit': 'approved', 'approve': 'approved', 'issue': None, 'archive': 'archived'}}
 
-WORKFLOW_HINTS = {'business_objective': "Prepare, approve, issue, and retain the employee's signed employment agreement.", 'actors': ['HR officer', 'hiring manager', 'employee'], 'start_condition': 'The employee record exists and the formal employment agreement must be issued.', 'ordered_steps': ['Draft the employment contract from employee and compensation details.', 'Submit the contract for review and approval.', 'Issue the approved contract to the employee.', 'Record signed status and archive the final document.'], 'primary_actions': ['create', 'submit', 'approve', 'issue', 'archive'], 'primary_transitions': ['employment_contract: draft -> approved -> signed -> archived'], 'downstream_effects': ['Onboarding can proceed against an issued contract.', 'Employment terms become reference data for payroll and controls.']}
+WORKFLOW_HINTS = {'business_objective': 'convert an accepted candidate into an active employee with records, payroll enrollment, orientation, and access', 'actors': ['HR officer', 'hiring manager', 'payroll officer', 'IT/admin support', 'new employee'], 'start_condition': 'an accepted offer exists and onboarding must begin', 'ordered_steps': ['Prepare and issue the employment contract.'], 'primary_actions': ['create', 'submit', 'approve', 'issue'], 'primary_transitions': ['employment_contract: draft -> approved -> signed'], 'downstream_effects': ['employee becomes eligible for payroll, training, appraisal, and employee-relations workflows'], 'action_actors': {'create': ['HR officer'], 'submit': ['HR officer'], 'approve': ['hiring manager'], 'issue': ['IT/admin support'], 'archive': ['hiring manager']}}
+
+SIDE_EFFECT_HINTS = {'downstream_effects': ['employee becomes eligible for payroll, training, appraisal, and employee-relations workflows'], 'related_docs': ['employee_record'], 'action_targets': {'create': None, 'submit': 'approved', 'approve': 'approved', 'issue': None, 'archive': 'archived'}, 'action_side_effects_file': 'side_effects.json'}
 
 class DomainService:
     doc_id = "employment_contract"
@@ -63,12 +65,28 @@ class DomainService:
     def after_update(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         return serialized_data
 
+    def after_action(
+        self,
+        instance,
+        action_id: str,
+        payload: dict,
+        action_result: dict,
+        context: dict | None = None,
+    ) -> dict:
+        return {
+            "updates": {},
+            "side_effects": [],
+        }
+
     def shape_retrieve_data(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         serialized_data.setdefault("_business_capabilities", self.business_capabilities())
         return serialized_data
 
     def workflow_objective(self) -> str | None:
         return WORKFLOW_HINTS.get("business_objective")
+
+    def side_effect_hints(self) -> dict:
+        return SIDE_EFFECT_HINTS
 
     def business_capabilities(self) -> dict:
         return {

@@ -22,7 +22,7 @@
     ]
   },
   "related_doc_count": 2,
-  "fetch_rule_count": 1,
+  "fetch_rule_count": 0,
   "action_handler_count": 4,
   "archetype_profile": {
     "workflow_profile": {
@@ -57,15 +57,16 @@
     "field_purposes": {
       "workflow_state": "lifecycle_state",
       "transaction_date": "transaction_date",
-      "party": "party_reference",
+      "party": "primary_party",
       "currency": "currency_code",
-      "total_amount": "total_amount"
+      "total_amount": "total_amount",
+      "related_interview_schedule": "relation_collection"
     },
     "search_fields": [
       "title",
       "reference_no",
       "description",
-      "evaluation_no",
+      "evaluation_number",
       "application",
       "interviewer"
     ],
@@ -88,28 +89,50 @@
       "archived"
     ],
     "action_targets": {
-      "archive": "archived",
       "create": null,
+      "review": "reviewed",
       "approve": "approved",
-      "review": "reviewed"
+      "archive": "archived"
     }
   },
   "workflow_hints": {
-    "business_objective": "Capture structured interviewer assessment and recommendation data.",
+    "relation_context": {
+      "related_docs": [
+        "candidate_application",
+        "interview_schedule"
+      ],
+      "borrowed_fields": [
+        "interview context from interview_schedule"
+      ],
+      "inferred_roles": [
+        "hr officer"
+      ]
+    },
     "actors": [
-      "interviewer",
-      "HR officer",
-      "hiring manager"
+      "hr officer"
     ],
-    "primary_transitions": [
-      "interview_evaluation: draft -> reviewed -> approved -> archived"
-    ]
+    "action_actors": {
+      "create": [
+        "hr officer"
+      ],
+      "review": [
+        "hr officer"
+      ],
+      "approve": [
+        "hr officer"
+      ],
+      "archive": [
+        "hr officer"
+      ]
+    }
   },
+  "downstream_effects": [],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "candidate_application",
     "interview_schedule"
   ],
   "borrowed_fields": [
-    "candidate and interview context from linked records"
+    "interview context from interview_schedule"
   ]
 }

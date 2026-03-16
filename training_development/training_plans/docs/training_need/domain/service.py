@@ -5,9 +5,11 @@ from __future__ import annotations
 
 ARCHETYPE_PROFILE = {'workflow_profile': {'mode': 'case_flow', 'supports_assignment': True, 'supports_escalation': True}, 'reporting_profile': {'supports_snapshots': True, 'supports_outputs': False}, 'integration_profile': {'external_sync_enabled': False}, 'lifecycle_states': ['open', 'approved', 'closed', 'archived'], 'is_transactional': False}
 
-CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'requester': 'actor_reference'}, 'search_fields': ['title', 'reference_no', 'description', 'need_no', 'requester', 'employee_or_team'], 'list_columns': ['title', 'reference_no', 'workflow_state', 'modified'], 'initial_state': 'open', 'lifecycle_states': ['open', 'approved', 'closed', 'archived'], 'terminal_states': ['closed', 'archived'], 'action_targets': {'close': 'closed', 'create': None, 'approve': 'approved', 'review': None}}
+CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'requester': 'actor_reference', 'approval_status': 'status_flag', 'related_training_plan': 'relation_collection'}, 'search_fields': ['title', 'reference_no', 'description', 'need_number', 'requester', 'employee_or_team'], 'list_columns': ['title', 'reference_no', 'workflow_state', 'modified'], 'initial_state': 'open', 'lifecycle_states': ['open', 'approved', 'closed', 'archived'], 'terminal_states': ['closed', 'archived'], 'action_targets': {'create': None, 'review': None, 'approve': 'approved', 'close': 'closed'}}
 
-WORKFLOW_HINTS = {'business_objective': 'Capture and assess learning needs before they are turned into approved training plans.', 'actors': ['employee', 'manager', 'HR or L&D officer'], 'primary_transitions': ['training_need: open -> approved -> closed -> archived']}
+WORKFLOW_HINTS = {'business_objective': 'identify capability gaps, plan learning interventions, deliver training, and record outcomes', 'actors': ['HR development owner', 'trainer', 'participant manager'], 'start_condition': 'a training need is identified', 'ordered_steps': ['Capture and assess the training need.'], 'primary_actions': ['create', 'review', 'approve'], 'primary_transitions': ['training_need: draft -> in_review -> approved'], 'downstream_effects': ['supports employee development and performance planning'], 'action_actors': {'create': ['HR development owner'], 'review': ['trainer'], 'approve': ['participant manager'], 'close': ['HR development owner']}}
+
+SIDE_EFFECT_HINTS = {'downstream_effects': ['supports employee development and performance planning'], 'related_docs': ['employee_record', 'training_plan'], 'action_targets': {'create': None, 'review': None, 'approve': 'approved', 'close': 'closed'}, 'action_side_effects_file': 'side_effects.json'}
 
 class DomainService:
     doc_id = "training_need"
@@ -63,12 +65,28 @@ class DomainService:
     def after_update(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         return serialized_data
 
+    def after_action(
+        self,
+        instance,
+        action_id: str,
+        payload: dict,
+        action_result: dict,
+        context: dict | None = None,
+    ) -> dict:
+        return {
+            "updates": {},
+            "side_effects": [],
+        }
+
     def shape_retrieve_data(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         serialized_data.setdefault("_business_capabilities", self.business_capabilities())
         return serialized_data
 
     def workflow_objective(self) -> str | None:
         return WORKFLOW_HINTS.get("business_objective")
+
+    def side_effect_hints(self) -> dict:
+        return SIDE_EFFECT_HINTS
 
     def business_capabilities(self) -> dict:
         return {

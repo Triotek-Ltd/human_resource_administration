@@ -1,0 +1,27 @@
+{
+  "doc_key": "performance_rating",
+  "doc_title": "Performance Rating",
+  "doc_kind": "ledger",
+  "status": "draft",
+  "module_id": "performance_appraisal",
+  "submodule_id": "evaluation_cycles",
+  "app_id": "human_resource_administration",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "ledger",
+  "classification": {
+    "archetype": "ledger",
+    "bundle": "administration"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "administration",
+    "app": "human_resource_administration",
+    "module": "performance_appraisal",
+    "submodule": "evaluation_cycles",
+    "reference_doc_id": "performance_rating",
+    "evidence_gaps": [
+      "criteria catalog",
+      "weight model"
+    ]
+  }
+}

@@ -1,8 +1,8 @@
 {
   "docs": [
-    "relations_case_outcome",
-    "employee_grievance",
     "disciplinary_action",
-    "relations_case_note"
+    "employee_grievance",
+    "relations_case_note",
+    "relations_case_outcome"
   ]
 }

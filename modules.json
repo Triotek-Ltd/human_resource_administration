@@ -1,10 +1,10 @@
 {
   "modules": [
     "employee_onboarding",
-    "training_development",
-    "recruitment_selection",
+    "employee_relations",
     "payroll_administration",
     "performance_appraisal",
-    "employee_relations"
+    "recruitment_selection",
+    "training_development"
   ]
 }

@@ -61,7 +61,7 @@
       ],
       "content": [
         "description",
-        "contract_no",
+        "contract_number",
         "contract_type",
         "salary_terms"
       ],
@@ -286,25 +286,25 @@
         }
       },
       {
-        "field_id": "contract_no",
-        "label": "Contract No",
+        "field_id": "contract_number",
+        "label": "Contract Number",
         "type": "Data",
         "required": false,
         "read_only": false,
         "default": null,
         "unique": false,
         "options": null,
-        "purpose": "reference",
+        "purpose": null,
         "linked_doc": null,
         "depends_on": null,
         "mandatory_depends_on": null,
         "read_only_depends_on": null,
         "fetch_from": null,
         "allow_on_submit": false,
-        "indexed": false,
+        "indexed": true,
         "ui": {
           "visible": true,
-          "list_visible": false,
+          "list_visible": true,
           "filterable": true,
           "sortable": true
         }
@@ -466,7 +466,7 @@
       "title",
       "reference_no",
       "description",
-      "contract_no",
+      "contract_number",
       "employee",
       "contract_type"
     ],
@@ -516,7 +516,7 @@
           "approved",
           "signed"
         ],
-        "transitions_to": null
+        "transitions_to": "approved"
       },
       "approve": {
         "allowed_in_states": [
@@ -528,9 +528,7 @@
       },
       "issue": {
         "allowed_in_states": [
-          "draft",
-          "approved",
-          "signed"
+          "approved"
         ],
         "transitions_to": null
       },
@@ -547,17 +545,53 @@
       {
         "role_id": "System Manager",
         "actions": [
-          "create",
-          "update",
           "view",
           "list",
-          "record",
-          "review",
-          "assign",
-          "track",
-          "monitor",
-          "confirm",
+          "create",
+          "submit",
+          "approve",
+          "issue",
           "archive"
+        ]
+      },
+      {
+        "role_id": "HR officer",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "submit"
+        ]
+      },
+      {
+        "role_id": "hiring manager",
+        "actions": [
+          "view",
+          "list",
+          "approve",
+          "archive"
+        ]
+      },
+      {
+        "role_id": "payroll officer",
+        "actions": [
+          "view",
+          "list"
+        ]
+      },
+      {
+        "role_id": "IT/admin support",
+        "actions": [
+          "view",
+          "list",
+          "issue"
+        ]
+      },
+      {
+        "role_id": "new employee",
+        "actions": [
+          "view",
+          "list"
         ]
       }
     ],
@@ -667,10 +701,10 @@
     },
     "borrowed_fields": [
       {
-        "description": "employee profile details from employee_record"
+        "description": "employee"
       },
       {
-        "description": "salary defaults from salary_structure"
+        "description": "role details from employee_record"
       }
     ],
     "ui_panels": {
@@ -688,34 +722,49 @@
       "supports_related_lookup": true,
       "supports_fetch_rules": true,
       "workflow_hints": {
-        "business_objective": "Prepare, approve, issue, and retain the employee's signed employment agreement.",
+        "business_objective": "convert an accepted candidate into an active employee with records, payroll enrollment, orientation, and access",
         "actors": [
           "HR officer",
           "hiring manager",
-          "employee"
+          "payroll officer",
+          "IT/admin support",
+          "new employee"
         ],
-        "start_condition": "The employee record exists and the formal employment agreement must be issued.",
+        "start_condition": "an accepted offer exists and onboarding must begin",
         "ordered_steps": [
-          "Draft the employment contract from employee and compensation details.",
-          "Submit the contract for review and approval.",
-          "Issue the approved contract to the employee.",
-          "Record signed status and archive the final document."
+          "Prepare and issue the employment contract."
         ],
         "primary_actions": [
           "create",
           "submit",
           "approve",
-          "issue",
-          "archive"
+          "issue"
         ],
         "primary_transitions": [
-          "employment_contract: draft -> approved -> signed -> archived"
+          "employment_contract: draft -> approved -> signed"
         ],
         "downstream_effects": [
-          "Onboarding can proceed against an issued contract.",
-          "Employment terms become reference data for payroll and controls."
-        ]
-      }
+          "employee becomes eligible for payroll, training, appraisal, and employee-relations workflows"
+        ],
+        "action_actors": {
+          "create": [
+            "HR officer"
+          ],
+          "submit": [
+            "HR officer"
+          ],
+          "approve": [
+            "hiring manager"
+          ],
+          "issue": [
+            "IT/admin support"
+          ],
+          "archive": [
+            "hiring manager"
+          ]
+        }
+      },
+      "action_side_effects_file": "side_effects.json"
     }
   },
   "classification": {
@@ -795,6 +844,9 @@
       "reports": "reports/service.py",
       "integrations": "integrations/service.py"
     },
+    "runtime_contract": {
+      "side_effects_file": "side_effects.json"
+    },
     "action_handlers": {
       "base_dir": "actions",
       "registry": "actions/registry.py",
@@ -812,6 +864,44 @@
       "doc_kind": "transaction"
     }
   },
+  "testing": {
+    "seeded": true,
+    "api_base_path": "/apis/human_resource_administration/employee_onboarding/employee_setup/employment_contract/",
+    "status_field": "workflow_state",
+    "initial_state": "draft",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "transaction_date"
+    ],
+    "transition_scenarios": [
+      {
+        "action_id": "submit",
+        "source_state": "draft",
+        "target_state": "approved",
+        "disallowed_state": "archived"
+      },
+      {
+        "action_id": "approve",
+        "source_state": "draft",
+        "target_state": "approved",
+        "disallowed_state": "archived"
+      },
+      {
+        "action_id": "archive",
+        "source_state": "draft",
+        "target_state": "archived",
+        "disallowed_state": "archived"
+      }
+    ],
+    "related_docs": [
+      "employee_record"
+    ],
+    "downstream_effects": [
+      "employee becomes eligible for payroll, training, appraisal, and employee-relations workflows"
+    ],
+    "action_side_effects_file": "side_effects.json"
+  },
   "runtime": {
     "source_of_truth": "doc_folder",
     "generated_from": [
@@ -819,7 +909,8 @@
       "schema.json",
       "actions.json",
       "settings.json",
-      "logic_seed.json"
+      "logic_seed.json",
+      "side_effects.json"
     ],
     "generator": "plug.apps.doc.file_handler"
   }

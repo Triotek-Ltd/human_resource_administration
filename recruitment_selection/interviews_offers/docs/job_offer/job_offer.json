@@ -14,7 +14,7 @@
     "doc_key": "job_offer"
   },
   "doc_key": "job_offer",
-  "doc_title": "job_offer",
+  "doc_title": "Job Offer",
   "allowed_actions": [
     "create",
     "issue",
@@ -61,10 +61,11 @@
       ],
       "content": [
         "description",
-        "offer_no",
+        "offer_number",
         "offered_role",
         "compensation",
-        "response"
+        "response",
+        "status"
       ],
       "relations": [
         "application"
@@ -288,8 +289,8 @@
         }
       },
       {
-        "field_id": "offer_no",
-        "label": "Offer No",
+        "field_id": "offer_number",
+        "label": "Offer Number",
         "type": "Data",
         "required": false,
         "read_only": false,
@@ -303,10 +304,10 @@
         "read_only_depends_on": null,
         "fetch_from": null,
         "allow_on_submit": false,
-        "indexed": false,
+        "indexed": true,
         "ui": {
           "visible": true,
-          "list_visible": false,
+          "list_visible": true,
           "filterable": true,
           "sortable": true
         }
@@ -454,6 +455,30 @@
           "filterable": true,
           "sortable": true
         }
+      },
+      {
+        "field_id": "status",
+        "label": "Status",
+        "type": "Data",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": null,
+        "linked_doc": null,
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": true,
+          "list_visible": false,
+          "filterable": true,
+          "sortable": true
+        }
       }
     ],
     "title_field": "title",
@@ -461,7 +486,7 @@
       "title",
       "reference_no",
       "description",
-      "offer_no",
+      "offer_number",
       "application",
       "offered_role"
     ],
@@ -517,7 +542,7 @@
           "declined",
           "cancelled"
         ],
-        "transitions_to": null
+        "transitions_to": "issued"
       },
       "confirm": {
         "allowed_in_states": [
@@ -554,17 +579,46 @@
       {
         "role_id": "System Manager",
         "actions": [
-          "create",
-          "update",
           "view",
           "list",
-          "record",
-          "review",
-          "assign",
-          "track",
-          "monitor",
+          "create",
+          "issue",
           "confirm",
+          "cancel",
           "archive"
+        ]
+      },
+      {
+        "role_id": "hiring manager",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "issue",
+          "cancel",
+          "archive"
+        ]
+      },
+      {
+        "role_id": "recruiter",
+        "actions": [
+          "view",
+          "list"
+        ]
+      },
+      {
+        "role_id": "interviewer",
+        "actions": [
+          "view",
+          "list"
+        ]
+      },
+      {
+        "role_id": "approver",
+        "actions": [
+          "view",
+          "list",
+          "confirm"
         ]
       }
     ],
@@ -651,7 +705,10 @@
     },
     "borrowed_fields": [
       {
-        "description": "candidate and vacancy context from candidate_application"
+        "description": "candidate"
+      },
+      {
+        "description": "role context from candidate_application"
       }
     ],
     "ui_panels": {
@@ -669,16 +726,48 @@
       "supports_related_lookup": true,
       "supports_fetch_rules": true,
       "workflow_hints": {
-        "business_objective": "Issue and track employment offers against selected candidate applications.",
+        "business_objective": "define a staffing need, attract candidates, assess them, and issue an approved offer to the selected candidate",
         "actors": [
-          "HR officer",
-          "approver",
-          "candidate"
+          "hiring manager",
+          "recruiter",
+          "interviewer",
+          "approver"
+        ],
+        "start_condition": "a staffing requirement is approved",
+        "ordered_steps": [
+          "Select the candidate and issue the offer."
+        ],
+        "primary_actions": [
+          "create",
+          "approve",
+          "issue",
+          "close"
         ],
         "primary_transitions": [
-          "job_offer: draft -> issued -> accepted or declined or cancelled -> archived"
-        ]
-      }
+          "job_offer: draft -> approved -> issued -> closed"
+        ],
+        "downstream_effects": [
+          "feeds onboarding and employee master creation"
+        ],
+        "action_actors": {
+          "create": [
+            "hiring manager"
+          ],
+          "issue": [
+            "hiring manager"
+          ],
+          "confirm": [
+            "approver"
+          ],
+          "cancel": [
+            "hiring manager"
+          ],
+          "archive": [
+            "hiring manager"
+          ]
+        }
+      },
+      "action_side_effects_file": "side_effects.json"
     }
   },
   "classification": {
@@ -758,6 +847,9 @@
       "reports": "reports/service.py",
       "integrations": "integrations/service.py"
     },
+    "runtime_contract": {
+      "side_effects_file": "side_effects.json"
+    },
     "action_handlers": {
       "base_dir": "actions",
       "registry": "actions/registry.py",
@@ -775,6 +867,38 @@
       "doc_kind": "transaction"
     }
   },
+  "testing": {
+    "seeded": true,
+    "api_base_path": "/apis/human_resource_administration/recruitment_selection/interviews_offers/job_offer/",
+    "status_field": "workflow_state",
+    "initial_state": "draft",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "transaction_date"
+    ],
+    "transition_scenarios": [
+      {
+        "action_id": "issue",
+        "source_state": "draft",
+        "target_state": "issued",
+        "disallowed_state": "archived"
+      },
+      {
+        "action_id": "archive",
+        "source_state": "draft",
+        "target_state": "archived",
+        "disallowed_state": "archived"
+      }
+    ],
+    "related_docs": [
+      "candidate_application"
+    ],
+    "downstream_effects": [
+      "feeds onboarding and employee master creation"
+    ],
+    "action_side_effects_file": "side_effects.json"
+  },
   "runtime": {
     "source_of_truth": "doc_folder",
     "generated_from": [
@@ -782,7 +906,8 @@
       "schema.json",
       "actions.json",
       "settings.json",
-      "logic_seed.json"
+      "logic_seed.json",
+      "side_effects.json"
     ],
     "generator": "plug.apps.doc.file_handler"
   }

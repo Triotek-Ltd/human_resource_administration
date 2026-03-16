@@ -20,7 +20,7 @@
     "submodule": "employee_setup",
     "reference_doc_id": "employment_contract",
     "evidence_gaps": [
-      "amendment handling",
+      "amendment",
       "renewal handling"
     ]
   }

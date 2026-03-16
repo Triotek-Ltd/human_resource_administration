@@ -8,10 +8,10 @@ ARCHETYPE = "transaction"
 INITIAL_STATE = 'draft'
 STATES = ['draft', 'reviewed', 'approved', 'archived']
 TERMINAL_STATES = ['archived']
-ACTION_RULES = {'archive': {'allowed_in_states': ['draft', 'reviewed', 'approved'], 'transitions_to': 'archived'}, 'create': {'allowed_in_states': ['draft', 'reviewed', 'approved'], 'transitions_to': None}, 'approve': {'allowed_in_states': ['draft', 'reviewed', 'approved'], 'transitions_to': 'approved'}, 'review': {'allowed_in_states': ['draft', 'reviewed', 'approved'], 'transitions_to': 'reviewed'}}
+ACTION_RULES = {'create': {'allowed_in_states': ['draft', 'reviewed', 'approved'], 'transitions_to': None}, 'review': {'allowed_in_states': ['draft', 'reviewed', 'approved'], 'transitions_to': 'reviewed'}, 'approve': {'allowed_in_states': ['draft', 'reviewed', 'approved'], 'transitions_to': 'approved'}, 'archive': {'allowed_in_states': ['draft', 'reviewed', 'approved'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
-WORKFLOW_HINTS = {'business_objective': 'Capture structured interviewer assessment and recommendation data.', 'actors': ['interviewer', 'HR officer', 'hiring manager'], 'primary_transitions': ['interview_evaluation: draft -> reviewed -> approved -> archived']}
+WORKFLOW_HINTS = {'relation_context': {'related_docs': ['candidate_application', 'interview_schedule'], 'borrowed_fields': ['interview context from interview_schedule'], 'inferred_roles': ['hr officer']}, 'actors': ['hr officer'], 'action_actors': {'create': ['hr officer'], 'review': ['hr officer'], 'approve': ['hr officer'], 'archive': ['hr officer']}}
 
 class WorkflowService:
     def allowed_actions_for_state(self, state: str | None) -> list[str]:

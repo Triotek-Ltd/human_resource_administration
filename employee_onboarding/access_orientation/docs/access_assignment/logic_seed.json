@@ -21,7 +21,7 @@
       "closed"
     ]
   },
-  "related_doc_count": 2,
+  "related_doc_count": 1,
   "fetch_rule_count": 1,
   "action_handler_count": 4,
   "archetype_profile": {
@@ -57,18 +57,19 @@
     "field_purposes": {
       "workflow_state": "lifecycle_state",
       "transaction_date": "transaction_date",
-      "party": "party_reference",
+      "party": "primary_party",
       "currency": "currency_code",
       "total_amount": "total_amount",
       "employee": "party_reference",
       "approver": "actor_reference",
-      "provisioned_date": "schedule_marker"
+      "provisioned_date": "schedule_marker",
+      "closed_date": "schedule_marker"
     },
     "search_fields": [
       "title",
       "reference_no",
       "description",
-      "assignment_no",
+      "assignment_number",
       "employee",
       "system_or_resource"
     ],
@@ -91,46 +92,52 @@
       "closed"
     ],
     "action_targets": {
-      "issue": "issued",
       "create": null,
       "approve": "approved",
+      "issue": "issued",
       "close": "closed"
     }
   },
   "workflow_hints": {
-    "business_objective": "Approve and provision workstation, system, and resource access for a new employee.",
+    "relation_context": {
+      "related_docs": [
+        "employee_record"
+      ],
+      "borrowed_fields": [
+        "employee",
+        "department",
+        "supervisor data from employee_record"
+      ],
+      "inferred_roles": [
+        "hr officer"
+      ]
+    },
     "actors": [
-      "HR officer",
-      "IT/admin support",
-      "approver"
+      "hr officer"
     ],
-    "start_condition": "The employee requires system or physical access to begin work.",
-    "ordered_steps": [
-      "Create the access assignment request.",
-      "Approve the requested role and resources.",
-      "Issue or provision the required access.",
-      "Close the assignment once provisioned."
-    ],
-    "primary_actions": [
-      "create",
-      "approve",
-      "issue",
-      "close"
-    ],
-    "primary_transitions": [
-      "access_assignment: draft -> approved -> issued -> closed"
-    ],
-    "downstream_effects": [
-      "Provisioning becomes auditable.",
-      "Employee readiness can be confirmed during onboarding."
-    ]
+    "action_actors": {
+      "create": [
+        "hr officer"
+      ],
+      "approve": [
+        "hr officer"
+      ],
+      "issue": [
+        "hr officer"
+      ],
+      "close": [
+        "hr officer"
+      ]
+    }
   },
+  "downstream_effects": [],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
-    "employee_record",
-    "department_team"
+    "employee_record"
   ],
   "borrowed_fields": [
-    "employee identity from employee_record",
-    "team context from department_team"
+    "employee",
+    "department",
+    "supervisor data from employee_record"
   ]
 }

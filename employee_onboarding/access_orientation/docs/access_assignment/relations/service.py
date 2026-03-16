@@ -2,14 +2,14 @@
 
 from __future__ import annotations
 
-from manifold.core.services.relation_resolution import RelationResolutionService
+from core.services.relation_resolution import RelationResolutionService
 
 
 DOC_ID = "access_assignment"
-RELATED_DOCS = [{'doc_id': 'employee_record', 'relation_type': 'related', 'show_in_related_panel': True}, {'doc_id': 'department_team', 'relation_type': 'related', 'show_in_related_panel': True}]
-FETCH_RULES = [{'fetch_profile': 'employee_profile', 'field_id': 'party', 'purpose': 'party_reference', 'source_doc_id': 'employee_record', 'fetch_fields': ['title', 'reference_no', 'employee_id', 'legal_name', 'preferred_name', 'work_email', 'work_phone']}]
+RELATED_DOCS = [{'doc_id': 'employee_record', 'relation_type': 'related', 'show_in_related_panel': True}]
+FETCH_RULES = [{'field_id': 'employee', 'source_doc_id': 'employee_record', 'fetch_profile': 'employee_profile', 'fetch_fields': ['title', 'reference_no', 'employee_id', 'legal_name', 'preferred_name', 'work_email', 'work_phone'], 'purpose': 'party_reference'}]
 
-BORROWED_FIELDS = [{'description': 'employee identity from employee_record'}, {'description': 'team context from department_team'}]
+BORROWED_FIELDS = [{'description': 'employee'}, {'description': 'department'}, {'description': 'supervisor data from employee_record'}]
 
 class RelationService:
     def _bridge(self, context: dict | None = None) -> RelationResolutionService | None:

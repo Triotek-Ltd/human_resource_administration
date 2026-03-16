@@ -5,9 +5,11 @@ from __future__ import annotations
 
 ARCHETYPE_PROFILE = {'workflow_profile': {'mode': 'entity_lifecycle', 'case_management': False}, 'reporting_profile': {'supports_snapshots': False, 'supports_outputs': False}, 'integration_profile': {'external_sync_enabled': False}, 'lifecycle_states': ['draft', 'active', 'inactive', 'archived'], 'is_transactional': False}
 
-CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'hire_date': 'schedule_marker', 'employment_status': 'status_flag'}, 'search_fields': ['title', 'reference_no', 'description', 'employee_id', 'legal_name', 'preferred_name'], 'list_columns': ['title', 'reference_no', 'workflow_state', 'modified'], 'initial_state': 'draft', 'lifecycle_states': ['draft', 'active', 'inactive', 'archived'], 'terminal_states': ['inactive', 'archived'], 'action_targets': {'archive': 'archived', 'activate': 'active', 'review': None, 'create': None, 'change_status': None, 'assign': None, 'view': None, 'record': None, 'update': None}}
+CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'hire_date': 'schedule_marker', 'employment_status': 'status_flag', 'related_employment_contract': 'relation_collection', 'related_onboarding_case': 'relation_collection', 'related_access_assignment': 'relation_collection', 'related_orientation_session': 'relation_collection', 'related_salary_structure': 'relation_collection'}, 'search_fields': ['title', 'reference_no', 'description', 'employee_id', 'legal_name', 'preferred_name'], 'list_columns': ['title', 'reference_no', 'workflow_state', 'modified'], 'initial_state': 'draft', 'lifecycle_states': ['draft', 'active', 'inactive', 'archived'], 'terminal_states': ['inactive', 'archived'], 'action_targets': {'create': None, 'update': None, 'review': None, 'view': None, 'archive': 'archived', 'activate': 'active', 'change_status': None, 'assign': None, 'record': None}}
 
-WORKFLOW_HINTS = {'business_objective': 'Convert an accepted candidate into an active employee with records, payroll enrollment, orientation, and access.', 'actors': ['HR officer', 'hiring manager', 'payroll officer', 'IT/admin support', 'new employee'], 'start_condition': 'An accepted offer exists and onboarding must begin.', 'ordered_steps': ['Create the employee master record.', 'Prepare and issue the employment contract.', 'Register employee for payroll and employment controls.', 'Create onboarding tasks and track completion.', 'Issue policies, handbook, and orientation scheduling.'], 'primary_actions': ['create', 'activate', 'update', 'review'], 'primary_transitions': ['employee_record: draft -> active'], 'downstream_effects': ['Payroll enrollment becomes possible.', 'Access and onboarding tasks can be assigned.', 'Orientation and policy acknowledgement can be scheduled.']}
+WORKFLOW_HINTS = {'business_objective': 'calculate, approve, pay, document, and post payroll accurately for a pay period', 'actors': ['payroll officer', 'HR reviewer', 'approver', 'finance officer', 'employee'], 'start_condition': 'a payroll period is due for processing', 'ordered_steps': ['Collect attendance and salary basis.'], 'primary_actions': ['record', 'review', 'update'], 'primary_transitions': [], 'downstream_effects': ['payroll history becomes available for employee records, finance controls, and reporting outputs'], 'action_actors': {'create': ['payroll officer'], 'update': ['payroll officer'], 'review': ['HR reviewer'], 'archive': ['payroll officer'], 'activate': ['payroll officer'], 'assign': ['payroll officer'], 'record': ['payroll officer']}}
+
+SIDE_EFFECT_HINTS = {'downstream_effects': ['payroll history becomes available for employee records, finance controls, and reporting outputs'], 'related_docs': ['employment_contract', 'onboarding_case', 'access_assignment', 'orientation_session', 'salary_structure'], 'action_targets': {'create': None, 'update': None, 'review': None, 'view': None, 'archive': 'archived', 'activate': 'active', 'change_status': None, 'assign': None, 'record': None}, 'action_side_effects_file': 'side_effects.json'}
 
 class DomainService:
     doc_id = "employee_record"
@@ -63,12 +65,28 @@ class DomainService:
     def after_update(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         return serialized_data
 
+    def after_action(
+        self,
+        instance,
+        action_id: str,
+        payload: dict,
+        action_result: dict,
+        context: dict | None = None,
+    ) -> dict:
+        return {
+            "updates": {},
+            "side_effects": [],
+        }
+
     def shape_retrieve_data(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         serialized_data.setdefault("_business_capabilities", self.business_capabilities())
         return serialized_data
 
     def workflow_objective(self) -> str | None:
         return WORKFLOW_HINTS.get("business_objective")
+
+    def side_effect_hints(self) -> dict:
+        return SIDE_EFFECT_HINTS
 
     def business_capabilities(self) -> dict:
         return {

@@ -1,0 +1,8 @@
+{
+  "docs": [
+    "payroll_line",
+    "payroll_run",
+    "payroll_transaction",
+    "payslip"
+  ]
+}

@@ -56,13 +56,15 @@
     ],
     "field_purposes": {
       "workflow_state": "lifecycle_state",
-      "requester": "actor_reference"
+      "requester": "actor_reference",
+      "approval_status": "status_flag",
+      "related_training_plan": "relation_collection"
     },
     "search_fields": [
       "title",
       "reference_no",
       "description",
-      "need_no",
+      "need_number",
       "requester",
       "employee_or_team"
     ],
@@ -84,28 +86,59 @@
       "archived"
     ],
     "action_targets": {
-      "close": "closed",
       "create": null,
+      "review": null,
       "approve": "approved",
-      "review": null
+      "close": "closed"
     }
   },
   "workflow_hints": {
-    "business_objective": "Capture and assess learning needs before they are turned into approved training plans.",
+    "business_objective": "identify capability gaps, plan learning interventions, deliver training, and record outcomes",
     "actors": [
-      "employee",
-      "manager",
-      "HR or L&D officer"
+      "HR development owner",
+      "trainer",
+      "participant manager"
+    ],
+    "start_condition": "a training need is identified",
+    "ordered_steps": [
+      "Capture and assess the training need."
+    ],
+    "primary_actions": [
+      "create",
+      "review",
+      "approve"
     ],
     "primary_transitions": [
-      "training_need: open -> approved -> closed -> archived"
-    ]
+      "training_need: draft -> in_review -> approved"
+    ],
+    "downstream_effects": [
+      "supports employee development and performance planning"
+    ],
+    "action_actors": {
+      "create": [
+        "HR development owner"
+      ],
+      "review": [
+        "trainer"
+      ],
+      "approve": [
+        "participant manager"
+      ],
+      "close": [
+        "HR development owner"
+      ]
+    }
   },
+  "downstream_effects": [
+    "supports employee development and performance planning"
+  ],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "employee_record",
     "training_plan"
   ],
   "borrowed_fields": [
-    "employee details from employee_record"
+    "employee",
+    "team information from employee_record"
   ]
 }

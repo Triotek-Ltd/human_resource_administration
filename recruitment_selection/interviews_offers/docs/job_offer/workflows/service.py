@@ -8,10 +8,10 @@ ARCHETYPE = "transaction"
 INITIAL_STATE = 'draft'
 STATES = ['draft', 'issued', 'accepted', 'declined', 'cancelled', 'archived']
 TERMINAL_STATES = ['archived']
-ACTION_RULES = {'issue': {'allowed_in_states': ['draft', 'issued', 'accepted', 'declined', 'cancelled'], 'transitions_to': 'issued'}, 'create': {'allowed_in_states': ['draft', 'issued', 'accepted', 'declined', 'cancelled'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['draft', 'issued', 'accepted', 'declined', 'cancelled'], 'transitions_to': 'archived'}, 'confirm': {'allowed_in_states': ['draft', 'issued', 'accepted', 'declined', 'cancelled'], 'transitions_to': None}, 'cancel': {'allowed_in_states': ['draft', 'issued', 'accepted', 'declined', 'cancelled'], 'transitions_to': None}}
+ACTION_RULES = {'create': {'allowed_in_states': ['draft', 'issued', 'accepted', 'declined', 'cancelled'], 'transitions_to': None}, 'issue': {'allowed_in_states': ['draft', 'issued', 'accepted', 'declined', 'cancelled'], 'transitions_to': 'issued'}, 'confirm': {'allowed_in_states': ['draft', 'issued', 'accepted', 'declined', 'cancelled'], 'transitions_to': None}, 'cancel': {'allowed_in_states': ['draft', 'issued', 'accepted', 'declined', 'cancelled'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['draft', 'issued', 'accepted', 'declined', 'cancelled'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
-WORKFLOW_HINTS = {'business_objective': 'Issue and track employment offers against selected candidate applications.', 'actors': ['HR officer', 'approver', 'candidate'], 'primary_transitions': ['job_offer: draft -> issued -> accepted or declined or cancelled -> archived']}
+WORKFLOW_HINTS = {'business_objective': 'define a staffing need, attract candidates, assess them, and issue an approved offer to the selected candidate', 'actors': ['hiring manager', 'recruiter', 'interviewer', 'approver'], 'start_condition': 'a staffing requirement is approved', 'ordered_steps': ['Select the candidate and issue the offer.'], 'primary_actions': ['create', 'approve', 'issue', 'close'], 'primary_transitions': ['job_offer: draft -> approved -> issued -> closed'], 'downstream_effects': ['feeds onboarding and employee master creation'], 'action_actors': {'create': ['hiring manager'], 'issue': ['hiring manager'], 'confirm': ['approver'], 'cancel': ['hiring manager'], 'archive': ['hiring manager']}}
 
 class WorkflowService:
     def allowed_actions_for_state(self, state: str | None) -> list[str]:

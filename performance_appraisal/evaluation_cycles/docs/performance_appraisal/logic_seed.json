@@ -1,0 +1,169 @@
+{
+  "doc_id": "performance_appraisal",
+  "doc_title": "Performance Appraisal",
+  "archetype": "workflow_case",
+  "doc_kind": "workflow_case",
+  "actions": [
+    "create",
+    "submit",
+    "review",
+    "approve",
+    "close",
+    "check_in",
+    "acknowledge",
+    "reopen",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "draft",
+    "states": [
+      "draft",
+      "in_review",
+      "approved",
+      "closed",
+      "archived"
+    ],
+    "terminal_states": [
+      "closed",
+      "archived"
+    ]
+  },
+  "related_doc_count": 4,
+  "fetch_rule_count": 1,
+  "action_handler_count": 9,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "case_flow",
+      "supports_assignment": true,
+      "supports_escalation": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": false
+    },
+    "integration_profile": {
+      "external_sync_enabled": false
+    },
+    "lifecycle_states": [
+      "draft",
+      "in_review",
+      "approved",
+      "closed",
+      "archived"
+    ],
+    "is_transactional": false
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "employee": "party_reference",
+      "review_date": "schedule_marker",
+      "related_performance_cycle": "relation_collection",
+      "related_performance_rating": "relation_collection",
+      "related_improvement_plan": "relation_collection"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "appraisal_number",
+      "employee",
+      "review_period_start"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "workflow_state",
+      "modified"
+    ],
+    "initial_state": "draft",
+    "lifecycle_states": [
+      "draft",
+      "in_review",
+      "approved",
+      "closed",
+      "archived"
+    ],
+    "terminal_states": [
+      "closed",
+      "archived"
+    ],
+    "action_targets": {
+      "create": null,
+      "submit": "in_review",
+      "review": "in_review",
+      "approve": "approved",
+      "close": "closed",
+      "check_in": null,
+      "acknowledge": null,
+      "reopen": null,
+      "archive": "archived"
+    }
+  },
+  "workflow_hints": {
+    "business_objective": "run a performance cycle, capture formal appraisals, and manage improvement follow-up where needed",
+    "actors": [
+      "supervisor",
+      "employee",
+      "HR reviewer"
+    ],
+    "start_condition": "a performance cycle opens",
+    "ordered_steps": [
+      "Complete the formal appraisal."
+    ],
+    "primary_actions": [
+      "create",
+      "review",
+      "submit",
+      "approve"
+    ],
+    "primary_transitions": [
+      "performance_appraisal: draft -> in_review -> submitted -> approved"
+    ],
+    "downstream_effects": [
+      "supports employee growth and performance management"
+    ],
+    "action_actors": {
+      "create": [
+        "supervisor"
+      ],
+      "submit": [
+        "supervisor"
+      ],
+      "review": [
+        "HR reviewer"
+      ],
+      "approve": [
+        "HR reviewer"
+      ],
+      "close": [
+        "supervisor"
+      ],
+      "archive": [
+        "supervisor"
+      ]
+    }
+  },
+  "downstream_effects": [
+    "supports employee growth and performance management"
+  ],
+  "action_side_effects_file": "side_effects.json",
+  "related_docs": [
+    "employee_record",
+    "performance_cycle",
+    "performance_rating",
+    "improvement_plan"
+  ],
+  "borrowed_fields": [
+    "employee",
+    "department details from employee_record",
+    "cycle dates from performance_cycle"
+  ]
+}

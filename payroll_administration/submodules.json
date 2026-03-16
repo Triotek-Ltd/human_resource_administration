@@ -1,8 +1,6 @@
 {
   "submodules": [
-    "payroll_setup",
-    "payroll_outputs",
-    "payroll_inputs",
-    "payroll_processing"
+    "payroll_run",
+    "salary_records"
   ]
 }

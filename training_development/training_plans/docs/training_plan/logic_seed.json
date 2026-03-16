@@ -58,15 +58,16 @@
     "field_purposes": {
       "workflow_state": "lifecycle_state",
       "transaction_date": "transaction_date",
-      "party": "party_reference",
+      "party": "primary_party",
       "currency": "currency_code",
-      "total_amount": "total_amount"
+      "total_amount": "total_amount",
+      "related_training_session": "relation_collection"
     },
     "search_fields": [
       "title",
       "reference_no",
       "description",
-      "plan_no",
+      "plan_number",
       "target_group",
       "objectives"
     ],
@@ -89,28 +90,61 @@
       "archived"
     ],
     "action_targets": {
-      "issue": null,
-      "submit": "approved",
       "create": null,
+      "submit": "approved",
       "approve": "approved",
+      "issue": null,
       "archive": "archived"
     }
   },
   "workflow_hints": {
-    "business_objective": "Define approved training plans that can be scheduled and delivered.",
+    "business_objective": "identify capability gaps, plan learning interventions, deliver training, and record outcomes",
     "actors": [
-      "HR or L&D officer",
-      "manager",
-      "approver"
+      "HR development owner",
+      "trainer",
+      "participant manager"
+    ],
+    "start_condition": "a training need is identified",
+    "ordered_steps": [
+      "Build and approve the training plan."
+    ],
+    "primary_actions": [
+      "create",
+      "submit",
+      "approve"
     ],
     "primary_transitions": [
-      "training_plan: draft -> approved -> scheduled -> archived"
-    ]
+      "training_plan: draft -> submitted -> approved"
+    ],
+    "downstream_effects": [
+      "supports employee development and performance planning"
+    ],
+    "action_actors": {
+      "create": [
+        "HR development owner"
+      ],
+      "submit": [
+        "HR development owner"
+      ],
+      "approve": [
+        "participant manager"
+      ],
+      "issue": [
+        "HR development owner"
+      ],
+      "archive": [
+        "HR development owner"
+      ]
+    }
   },
+  "downstream_effects": [
+    "supports employee development and performance planning"
+  ],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "training_session"
   ],
   "borrowed_fields": [
-    "need context from training_need where linked"
+    "target group from linked employee or team records"
   ]
 }

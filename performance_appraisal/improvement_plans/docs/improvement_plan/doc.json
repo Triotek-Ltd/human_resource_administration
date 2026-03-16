@@ -20,7 +20,8 @@
     "submodule": "improvement_plans",
     "reference_doc_id": "improvement_plan",
     "evidence_gaps": [
-      "formal PIP policy details"
+      "formal PIP policy details",
+      "escalation rules"
     ]
   }
 }

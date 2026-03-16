@@ -8,7 +8,7 @@ ACTION_ID = "close"
 ACTION_RULE = {'allowed_in_states': ['draft', 'approved', 'issued'], 'transitions_to': 'closed'}
 
 STATE_FIELD = 'workflow_state'
-WORKFLOW_HINTS = {'business_objective': 'Approve and provision workstation, system, and resource access for a new employee.', 'actors': ['HR officer', 'IT/admin support', 'approver'], 'start_condition': 'The employee requires system or physical access to begin work.', 'ordered_steps': ['Create the access assignment request.', 'Approve the requested role and resources.', 'Issue or provision the required access.', 'Close the assignment once provisioned.'], 'primary_actions': ['create', 'approve', 'issue', 'close'], 'primary_transitions': ['access_assignment: draft -> approved -> issued -> closed'], 'downstream_effects': ['Provisioning becomes auditable.', 'Employee readiness can be confirmed during onboarding.']}
+WORKFLOW_HINTS = {'relation_context': {'related_docs': ['employee_record'], 'borrowed_fields': ['employee', 'department', 'supervisor data from employee_record'], 'inferred_roles': ['hr officer']}, 'actors': ['hr officer'], 'action_actors': {'create': ['hr officer'], 'approve': ['hr officer'], 'issue': ['hr officer'], 'close': ['hr officer']}}
 
 def handle_close(payload: dict, context: dict | None = None) -> dict:
     context = context or {}

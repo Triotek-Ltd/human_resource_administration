@@ -8,10 +8,10 @@ ARCHETYPE = "transaction"
 INITIAL_STATE = 'draft'
 STATES = ['draft', 'confirmed', 'archived']
 TERMINAL_STATES = ['archived']
-ACTION_RULES = {'confirm': {'allowed_in_states': ['draft', 'confirmed'], 'transitions_to': 'confirmed'}, 'create': {'allowed_in_states': ['draft', 'confirmed'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['draft', 'confirmed'], 'transitions_to': 'archived'}, 'review': {'allowed_in_states': ['draft', 'confirmed'], 'transitions_to': None}}
+ACTION_RULES = {'create': {'allowed_in_states': ['draft', 'confirmed'], 'transitions_to': None}, 'review': {'allowed_in_states': ['draft', 'confirmed'], 'transitions_to': None}, 'confirm': {'allowed_in_states': ['draft', 'confirmed'], 'transitions_to': 'confirmed'}, 'archive': {'allowed_in_states': ['draft', 'confirmed'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
-WORKFLOW_HINTS = {'business_objective': 'Record the result and effectiveness of training delivery for follow-up action.', 'actors': ['trainer', 'manager', 'HR or L&D officer'], 'primary_transitions': ['training_outcome: draft -> confirmed -> archived']}
+WORKFLOW_HINTS = {'business_objective': 'identify capability gaps, plan learning interventions, deliver training, and record outcomes', 'actors': ['HR development owner', 'trainer', 'participant manager'], 'start_condition': 'a training need is identified', 'ordered_steps': ['Evaluate and record the training outcome.'], 'primary_actions': ['create', 'review', 'close'], 'primary_transitions': ['training_outcome: draft -> reviewed -> closed'], 'downstream_effects': ['supports employee development and performance planning'], 'action_actors': {'create': ['HR development owner'], 'review': ['trainer'], 'confirm': ['participant manager'], 'archive': ['HR development owner']}}
 
 class WorkflowService:
     def allowed_actions_for_state(self, state: str | None) -> list[str]:

@@ -1,11 +1,11 @@
 {
   "docs": [
-    "job_vacancy",
-    "job_description",
-    "candidate_profile",
     "candidate_application",
-    "interview_schedule",
+    "candidate_profile",
     "interview_evaluation",
-    "job_offer"
+    "interview_schedule",
+    "job_description",
+    "job_offer",
+    "job_vacancy"
   ]
 }

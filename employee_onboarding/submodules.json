@@ -1,6 +1,6 @@
 {
   "submodules": [
-    "employee_setup",
-    "access_orientation"
+    "access_orientation",
+    "employee_setup"
   ]
 }
