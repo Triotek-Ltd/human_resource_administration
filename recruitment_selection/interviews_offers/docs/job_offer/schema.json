@@ -154,7 +154,7 @@
       "unique": false,
       "options": null,
       "purpose": "primary_party",
-      "linked_doc": null,
+      "linked_doc": "candidate_application",
       "depends_on": null,
       "mandatory_depends_on": null,
       "read_only_depends_on": null,
@@ -171,12 +171,39 @@
     {
       "field_id": "currency",
       "label": "Currency",
-      "type": "Data",
+      "type": "Select",
       "required": false,
       "read_only": false,
       "default": null,
       "unique": false,
-      "options": null,
+      "options": {
+        "values": [
+          "USD",
+          "EUR",
+          "GBP",
+          "KES",
+          "UGX",
+          "TZS",
+          "RWF",
+          "NGN",
+          "GHS",
+          "ZAR",
+          "AED",
+          "SAR",
+          "INR",
+          "CNY",
+          "JPY",
+          "CAD",
+          "AUD",
+          "NZD",
+          "CHF",
+          "SEK",
+          "NOK",
+          "DKK",
+          "ZMW",
+          "BWP"
+        ]
+      },
       "purpose": "currency_code",
       "linked_doc": null,
       "depends_on": null,
@@ -243,7 +270,7 @@
     {
       "field_id": "application",
       "label": "Application",
-      "type": "Data",
+      "type": "Link",
       "required": false,
       "read_only": false,
       "default": null,
@@ -547,7 +574,9 @@
         "confirm",
         "cancel",
         "archive"
-      ]
+      ],
+      "scope": "system",
+      "ownership": "platform"
     },
     {
       "role_id": "hiring manager",
@@ -555,24 +584,31 @@
         "view",
         "list",
         "create",
+        "update",
         "issue",
         "cancel",
         "archive"
-      ]
+      ],
+      "scope": "approval",
+      "ownership": "managerial"
     },
     {
       "role_id": "recruiter",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     },
     {
       "role_id": "interviewer",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     },
     {
       "role_id": "approver",
@@ -580,7 +616,9 @@
         "view",
         "list",
         "confirm"
-      ]
+      ],
+      "scope": "approval",
+      "ownership": "managerial"
     }
   ],
   "transaction_behavior": {

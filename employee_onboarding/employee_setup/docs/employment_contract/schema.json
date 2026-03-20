@@ -152,7 +152,7 @@
       "unique": false,
       "options": null,
       "purpose": "primary_party",
-      "linked_doc": null,
+      "linked_doc": "employee_record",
       "depends_on": null,
       "mandatory_depends_on": null,
       "read_only_depends_on": null,
@@ -169,12 +169,39 @@
     {
       "field_id": "currency",
       "label": "Currency",
-      "type": "Data",
+      "type": "Select",
       "required": false,
       "read_only": false,
       "default": null,
       "unique": false,
-      "options": null,
+      "options": {
+        "values": [
+          "USD",
+          "EUR",
+          "GBP",
+          "KES",
+          "UGX",
+          "TZS",
+          "RWF",
+          "NGN",
+          "GHS",
+          "ZAR",
+          "AED",
+          "SAR",
+          "INR",
+          "CNY",
+          "JPY",
+          "CAD",
+          "AUD",
+          "NZD",
+          "CHF",
+          "SEK",
+          "NOK",
+          "DKK",
+          "ZMW",
+          "BWP"
+        ]
+      },
       "purpose": "currency_code",
       "linked_doc": null,
       "depends_on": null,
@@ -513,7 +540,9 @@
         "approve",
         "issue",
         "archive"
-      ]
+      ],
+      "scope": "system",
+      "ownership": "platform"
     },
     {
       "role_id": "HR officer",
@@ -521,8 +550,11 @@
         "view",
         "list",
         "create",
+        "update",
         "submit"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     },
     {
       "role_id": "hiring manager",
@@ -530,15 +562,20 @@
         "view",
         "list",
         "approve",
-        "archive"
-      ]
+        "archive",
+        "update"
+      ],
+      "scope": "approval",
+      "ownership": "managerial"
     },
     {
       "role_id": "payroll officer",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     },
     {
       "role_id": "IT/admin support",
@@ -546,14 +583,18 @@
         "view",
         "list",
         "issue"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     },
     {
       "role_id": "new employee",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     }
   ],
   "transaction_behavior": {

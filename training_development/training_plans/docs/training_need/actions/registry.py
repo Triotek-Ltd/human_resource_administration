@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 
 DOC_ID = "training_need"
 ALLOWED_ACTIONS = ['create', 'review', 'approve', 'close']
-ACTION_RULES = {'create': {'allowed_in_states': ['open', 'approved'], 'transitions_to': None}, 'review': {'allowed_in_states': ['open', 'approved'], 'transitions_to': None}, 'approve': {'allowed_in_states': ['open', 'approved'], 'transitions_to': 'approved'}, 'close': {'allowed_in_states': ['open', 'approved'], 'transitions_to': 'closed'}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'create': {'allowed_in_states': ['open', 'approved'], 'transitions_to': None}, 'review': {'allowed_in_states': ['open', 'approved'], 'transitions_to': None}, 'approve': {'allowed_in_states': ['open', 'approved'], 'transitions_to': 'approved'}, 'close': {'allowed_in_states': ['open', 'approved'], 'transitions_to': 'closed'}}
 
 STATE_FIELD = 'workflow_state'
 

@@ -167,7 +167,7 @@
     {
       "field_id": "appraisal",
       "label": "Appraisal",
-      "type": "Data",
+      "type": "Link",
       "required": false,
       "read_only": false,
       "default": null,
@@ -215,7 +215,7 @@
     {
       "field_id": "score",
       "label": "Score",
-      "type": "Data",
+      "type": "Float",
       "required": false,
       "read_only": false,
       "default": null,
@@ -378,7 +378,9 @@
         "record",
         "review",
         "archive"
-      ]
+      ],
+      "scope": "system",
+      "ownership": "platform"
     }
   ],
   "transaction_behavior": {

@@ -15,6 +15,234 @@
   },
   "doc_key": "interview_schedule",
   "doc_title": "Interview Schedule",
+  "ui": {
+    "icon_key": "activity",
+    "accent": "#7b5e57",
+    "logo_image": null,
+    "cover_image": null,
+    "preferred_views": [
+      "list",
+      "table",
+      "detail",
+      "report"
+    ],
+    "default_density": "comfortable"
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "doc",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "records",
+      "flatten_submodules_in_ui": false,
+      "views": [
+        "list",
+        "table",
+        "detail",
+        "report"
+      ]
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "Interview Schedule KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "interview_schedule",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "Interview Schedule summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "interview_schedule",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "Interview Schedule charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "interview_schedule",
+          "metric_family": "trend"
+        }
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "Interview Schedule reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "interview_schedule",
+          "metric_family": "reporting"
+        }
+      },
+      {
+        "id": "records",
+        "type": "record_table",
+        "title": "Interview Schedule records",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "interview_schedule",
+          "metric_family": "records"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "interview_schedule",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "interview_schedule",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "interview_schedule",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "interview_schedule",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "overview_report",
+        "label": "Interview Schedule Overview",
+        "report_type": "dashboard_summary",
+        "surface": "doc"
+      },
+      {
+        "id": "trend_report",
+        "label": "Interview Schedule Trends",
+        "report_type": "trend_analysis",
+        "surface": "doc"
+      },
+      {
+        "id": "summary_report",
+        "label": "Interview Schedule Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Interview Schedule Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "supports_outputs": false,
+    "supports_print_formats": true,
+    "default_views": [
+      "summary",
+      "trend",
+      "report_table"
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "interview_schedule_trend_line",
+        "label": "Interview Schedule trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "interview_schedule_volume_column",
+        "label": "Interview Schedule volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "interview_schedule_distribution_donut",
+        "label": "Interview Schedule distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "candidate_application"
+    ],
+    "upstream_docs": [
+      "candidate_application"
+    ],
+    "downstream_docs": [],
+    "borrowed_fields": [
+      "candidate",
+      "role details from candidate_application"
+    ],
+    "emits_records": [],
+    "downstream_effects": [
+      "feeds onboarding and employee master creation"
+    ],
+    "actors": [
+      "hiring manager",
+      "recruiter",
+      "interviewer",
+      "approver"
+    ],
+    "handoff_targets": [
+      "candidate_application"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "interview_schedule",
+        "target_doc": "candidate_application",
+        "relation": "references"
+      }
+    ]
+  },
   "allowed_actions": [
     "create",
     "confirm",
@@ -250,7 +478,7 @@
       {
         "field_id": "application",
         "label": "Application",
-        "type": "Data",
+        "type": "Link",
         "required": false,
         "read_only": false,
         "default": null,
@@ -274,7 +502,7 @@
       {
         "field_id": "date",
         "label": "Date",
-        "type": "Data",
+        "type": "Date",
         "required": false,
         "read_only": false,
         "default": null,
@@ -476,7 +704,9 @@
           "confirm",
           "cancel",
           "archive"
-        ]
+        ],
+        "scope": "system",
+        "ownership": "platform"
       },
       {
         "role_id": "hiring manager",
@@ -484,23 +714,30 @@
           "view",
           "list",
           "create",
+          "update",
           "cancel",
           "archive"
-        ]
+        ],
+        "scope": "approval",
+        "ownership": "managerial"
       },
       {
         "role_id": "recruiter",
         "actions": [
           "view",
           "list"
-        ]
+        ],
+        "scope": "document",
+        "ownership": "functional"
       },
       {
         "role_id": "interviewer",
         "actions": [
           "view",
           "list"
-        ]
+        ],
+        "scope": "document",
+        "ownership": "functional"
       },
       {
         "role_id": "approver",
@@ -508,7 +745,9 @@
           "view",
           "list",
           "confirm"
-        ]
+        ],
+        "scope": "approval",
+        "ownership": "managerial"
       }
     ],
     "transaction_behavior": {
@@ -566,7 +805,142 @@
         "workflow_state"
       ],
       "default_filters": [],
-      "quick_entry": false
+      "quick_entry": false,
+      "form_layout": {
+        "version": 1,
+        "tabs": [
+          {
+            "id": "overview",
+            "label": "Overview",
+            "sections": [
+              {
+                "id": "identity",
+                "label": "Identity",
+                "columns": [
+                  {
+                    "id": "identity_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "title"
+                    ]
+                  },
+                  {
+                    "id": "identity_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "reference_no"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "dates",
+                "label": "Dates",
+                "columns": [
+                  {
+                    "id": "dates_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "start_at"
+                    ]
+                  },
+                  {
+                    "id": "dates_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "end_at"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "status",
+                "label": "Workflow",
+                "columns": [
+                  {
+                    "id": "status_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "workflow_state"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "details",
+            "label": "Details",
+            "sections": [
+              {
+                "id": "content",
+                "label": "Details",
+                "columns": [
+                  {
+                    "id": "content_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "interview_number",
+                      "time",
+                      "location_or_meeting_link"
+                    ]
+                  },
+                  {
+                    "id": "content_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "date",
+                      "panel",
+                      "status"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "content_details",
+                "label": "Description",
+                "columns": [
+                  {
+                    "id": "content_details_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "description"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "related",
+            "label": "Related",
+            "sections": [
+              {
+                "id": "relations",
+                "label": "Related Records",
+                "columns": [
+                  {
+                    "id": "relations_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "application"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     "related_docs": [
       {
@@ -598,7 +972,11 @@
       "show_activity_log": true,
       "show_comments": true,
       "show_assignments": true,
-      "show_related_docs": true
+      "show_related_docs": true,
+      "show_kpis": true,
+      "show_summaries": true,
+      "show_charts": true,
+      "show_reports": true
     },
     "integration": {
       "external_refs": [],
@@ -647,6 +1025,17 @@
         }
       },
       "action_side_effects_file": "side_effects.json"
+    },
+    "dashboard": {
+      "metric_blocks": [
+        "kpis",
+        "summaries",
+        "charts",
+        "reports",
+        "records"
+      ],
+      "default_view": "list",
+      "reporting_surface": "doc"
     }
   },
   "classification": {
@@ -746,6 +1135,12 @@
     "api_base_path": "/apis/human_resource_administration/recruitment_selection/interviews_offers/interview_schedule/",
     "status_field": "workflow_state",
     "initial_state": "scheduled",
+    "actions": [
+      "create",
+      "confirm",
+      "cancel",
+      "archive"
+    ],
     "required_fields": [
       "title",
       "workflow_state"
@@ -769,6 +1164,62 @@
     ],
     "downstream_effects": [
       "feeds onboarding and employee master creation"
+    ],
+    "role_action_matrix": [
+      {
+        "role_id": "System Manager",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "confirm",
+          "cancel",
+          "archive"
+        ],
+        "scope": "system",
+        "ownership": "platform"
+      },
+      {
+        "role_id": "hiring manager",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "update",
+          "cancel",
+          "archive"
+        ],
+        "scope": "approval",
+        "ownership": "managerial"
+      },
+      {
+        "role_id": "recruiter",
+        "actions": [
+          "view",
+          "list"
+        ],
+        "scope": "document",
+        "ownership": "functional"
+      },
+      {
+        "role_id": "interviewer",
+        "actions": [
+          "view",
+          "list"
+        ],
+        "scope": "document",
+        "ownership": "functional"
+      },
+      {
+        "role_id": "approver",
+        "actions": [
+          "view",
+          "list",
+          "confirm"
+        ],
+        "scope": "approval",
+        "ownership": "managerial"
+      }
     ],
     "action_side_effects_file": "side_effects.json"
   },

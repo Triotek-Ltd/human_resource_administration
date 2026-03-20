@@ -2,13 +2,15 @@
 
 from __future__ import annotations
 
+from typing import Any, cast
+
 
 DOC_ID = "performance_cycle"
 ARCHETYPE = "configuration"
 INITIAL_STATE = 'draft'
 STATES = ['draft', 'published', 'closed', 'archived']
 TERMINAL_STATES = ['closed', 'archived']
-ACTION_RULES = {'create': {'allowed_in_states': ['draft', 'published'], 'transitions_to': None}, 'update': {'allowed_in_states': ['draft', 'published'], 'transitions_to': None}, 'publish': {'allowed_in_states': ['draft', 'published'], 'transitions_to': 'published'}, 'archive': {'allowed_in_states': ['draft', 'published'], 'transitions_to': 'archived'}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'create': {'allowed_in_states': ['draft', 'published'], 'transitions_to': None}, 'update': {'allowed_in_states': ['draft', 'published'], 'transitions_to': None}, 'publish': {'allowed_in_states': ['draft', 'published'], 'transitions_to': 'published'}, 'archive': {'allowed_in_states': ['draft', 'published'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
 WORKFLOW_HINTS = {'business_objective': 'run a performance cycle, capture formal appraisals, and manage improvement follow-up where needed', 'actors': ['supervisor', 'employee', 'HR reviewer'], 'start_condition': 'a performance cycle opens', 'ordered_steps': ['Open and publish the appraisal cycle.'], 'primary_actions': ['create', 'publish'], 'primary_transitions': ['performance_cycle: draft -> active'], 'downstream_effects': ['supports employee growth and performance management'], 'action_actors': {'create': ['supervisor'], 'update': ['supervisor'], 'publish': ['supervisor'], 'archive': ['supervisor']}}
@@ -29,7 +31,7 @@ class WorkflowService:
 
     def next_state_for(self, action_id: str) -> str | None:
         rule = ACTION_RULES.get(action_id, {})
-        return rule.get("transitions_to")
+        return cast(str | None, rule.get("transitions_to"))
 
     def apply_action(self, action_id: str, state: str | None) -> dict:
         if not self.is_action_allowed(action_id, state):

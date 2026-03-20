@@ -2,13 +2,15 @@
 
 from __future__ import annotations
 
+from typing import Any, cast
+
 
 DOC_ID = "employee_record"
 ARCHETYPE = "master"
 INITIAL_STATE = 'draft'
 STATES = ['draft', 'active', 'inactive', 'archived']
 TERMINAL_STATES = ['inactive', 'archived']
-ACTION_RULES = {'create': {'allowed_in_states': ['draft', 'active', 'inactive'], 'transitions_to': None}, 'update': {'allowed_in_states': ['draft', 'active', 'inactive'], 'transitions_to': None}, 'review': {'allowed_in_states': ['draft', 'active', 'inactive'], 'transitions_to': None}, 'view': {'allowed_in_states': ['draft', 'active', 'inactive'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['draft', 'active', 'inactive'], 'transitions_to': 'archived'}, 'activate': {'allowed_in_states': ['draft'], 'transitions_to': 'active'}, 'change_status': {'allowed_in_states': ['draft', 'active', 'inactive'], 'transitions_to': None}, 'assign': {'allowed_in_states': ['draft', 'active', 'inactive'], 'transitions_to': None}, 'record': {'allowed_in_states': ['draft', 'active', 'inactive'], 'transitions_to': None}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'create': {'allowed_in_states': ['draft', 'active', 'inactive'], 'transitions_to': None}, 'update': {'allowed_in_states': ['draft', 'active', 'inactive'], 'transitions_to': None}, 'review': {'allowed_in_states': ['draft', 'active', 'inactive'], 'transitions_to': None}, 'view': {'allowed_in_states': ['draft', 'active', 'inactive'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['draft', 'active', 'inactive'], 'transitions_to': 'archived'}, 'activate': {'allowed_in_states': ['draft'], 'transitions_to': 'active'}, 'change_status': {'allowed_in_states': ['draft', 'active', 'inactive'], 'transitions_to': None}, 'assign': {'allowed_in_states': ['draft', 'active', 'inactive'], 'transitions_to': None}, 'record': {'allowed_in_states': ['draft', 'active', 'inactive'], 'transitions_to': None}}
 
 STATE_FIELD = 'workflow_state'
 WORKFLOW_HINTS = {'business_objective': 'calculate, approve, pay, document, and post payroll accurately for a pay period', 'actors': ['payroll officer', 'HR reviewer', 'approver', 'finance officer', 'employee'], 'start_condition': 'a payroll period is due for processing', 'ordered_steps': ['Collect attendance and salary basis.'], 'primary_actions': ['record', 'review', 'update'], 'primary_transitions': [], 'downstream_effects': ['payroll history becomes available for employee records, finance controls, and reporting outputs'], 'action_actors': {'create': ['payroll officer'], 'update': ['payroll officer'], 'review': ['HR reviewer'], 'archive': ['payroll officer'], 'activate': ['payroll officer'], 'assign': ['payroll officer'], 'record': ['payroll officer']}}
@@ -29,7 +31,7 @@ class WorkflowService:
 
     def next_state_for(self, action_id: str) -> str | None:
         rule = ACTION_RULES.get(action_id, {})
-        return rule.get("transitions_to")
+        return cast(str | None, rule.get("transitions_to"))
 
     def apply_action(self, action_id: str, state: str | None) -> dict:
         if not self.is_action_allowed(action_id, state):

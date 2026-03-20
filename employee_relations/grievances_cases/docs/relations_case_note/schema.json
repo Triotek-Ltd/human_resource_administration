@@ -167,7 +167,7 @@
     {
       "field_id": "grievance",
       "label": "Grievance",
-      "type": "Data",
+      "type": "Link",
       "required": false,
       "read_only": false,
       "default": null,
@@ -215,7 +215,7 @@
     {
       "field_id": "author",
       "label": "Author",
-      "type": "Data",
+      "type": "Link",
       "required": false,
       "read_only": false,
       "default": null,
@@ -377,23 +377,31 @@
         "list",
         "record",
         "archive"
-      ]
+      ],
+      "scope": "system",
+      "ownership": "platform"
     },
     {
       "role_id": "hr officer",
       "actions": [
         "view",
         "list",
-        "record"
-      ]
+        "record",
+        "create"
+      ],
+      "scope": "document",
+      "ownership": "functional"
     },
     {
       "role_id": "case owner",
       "actions": [
         "view",
         "list",
-        "archive"
-      ]
+        "archive",
+        "update"
+      ],
+      "scope": "document",
+      "ownership": "functional"
     }
   ],
   "transaction_behavior": {

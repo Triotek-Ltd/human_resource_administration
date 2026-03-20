@@ -284,7 +284,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     }
   ],
   "field_groups": {
@@ -394,7 +395,9 @@
         "update",
         "publish",
         "archive"
-      ]
+      ],
+      "scope": "system",
+      "ownership": "platform"
     },
     {
       "role_id": "supervisor",
@@ -405,21 +408,27 @@
         "update",
         "publish",
         "archive"
-      ]
+      ],
+      "scope": "approval",
+      "ownership": "managerial"
     },
     {
       "role_id": "employee",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     },
     {
       "role_id": "HR reviewer",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "review",
+      "ownership": "oversight"
     }
   ],
   "transaction_behavior": {

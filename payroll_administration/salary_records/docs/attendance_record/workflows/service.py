@@ -2,13 +2,15 @@
 
 from __future__ import annotations
 
+from typing import Any, cast
+
 
 DOC_ID = "attendance_record"
 ARCHETYPE = "transaction"
 INITIAL_STATE = 'draft'
 STATES = ['draft', 'approved', 'archived']
 TERMINAL_STATES = ['archived']
-ACTION_RULES = {'create': {'allowed_in_states': ['draft', 'approved'], 'transitions_to': None}, 'review': {'allowed_in_states': ['draft', 'approved'], 'transitions_to': None}, 'approve': {'allowed_in_states': ['draft', 'approved'], 'transitions_to': 'approved'}, 'archive': {'allowed_in_states': ['draft', 'approved'], 'transitions_to': 'archived'}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'create': {'allowed_in_states': ['draft', 'approved'], 'transitions_to': None}, 'review': {'allowed_in_states': ['draft', 'approved'], 'transitions_to': None}, 'approve': {'allowed_in_states': ['draft', 'approved'], 'transitions_to': 'approved'}, 'archive': {'allowed_in_states': ['draft', 'approved'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
 WORKFLOW_HINTS = {'business_objective': 'calculate, approve, pay, document, and post payroll accurately for a pay period', 'actors': ['payroll officer', 'HR reviewer', 'approver', 'finance officer', 'employee'], 'start_condition': 'a payroll period is due for processing', 'ordered_steps': ['Collect attendance and salary basis.'], 'primary_actions': ['record', 'review', 'update'], 'primary_transitions': [], 'downstream_effects': ['payroll history becomes available for employee records, finance controls, and reporting outputs'], 'action_actors': {'create': ['payroll officer'], 'review': ['HR reviewer'], 'approve': ['approver'], 'archive': ['payroll officer']}}
@@ -29,7 +31,7 @@ class WorkflowService:
 
     def next_state_for(self, action_id: str) -> str | None:
         rule = ACTION_RULES.get(action_id, {})
-        return rule.get("transitions_to")
+        return cast(str | None, rule.get("transitions_to"))
 
     def apply_action(self, action_id: str, state: str | None) -> dict:
         if not self.is_action_allowed(action_id, state):

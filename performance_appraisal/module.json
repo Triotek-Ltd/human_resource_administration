@@ -4,5 +4,550 @@
   "app_id": "human_resource_administration",
   "type": "module",
   "status": "draft",
-  "supports_submodules": true
+  "supports_submodules": true,
+  "ui": {
+    "icon_key": "apps",
+    "accent": "#246f89",
+    "logo_image": null,
+    "cover_image": null
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "module",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "docs",
+      "flatten_submodules_in_ui": true
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "Performance Appraisal KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "performance_appraisal",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "Performance Appraisal summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "performance_appraisal",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "Performance Appraisal charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "performance_appraisal",
+          "metric_family": "trend"
+        },
+        "chart_specs": [
+          {
+            "id": "performance_appraisal_trend_line",
+            "label": "Performance Appraisal trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "performance_appraisal_volume_column",
+            "label": "Performance Appraisal volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "performance_appraisal_distribution_donut",
+            "label": "Performance Appraisal distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "performance_cycle_trend_line",
+            "label": "Performance Cycle trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "performance_cycle_volume_column",
+            "label": "Performance Cycle volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "performance_cycle_distribution_donut",
+            "label": "Performance Cycle distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "performance_rating_trend_line",
+            "label": "Performance Rating trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "performance_rating_volume_column",
+            "label": "Performance Rating volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "performance_rating_distribution_donut",
+            "label": "Performance Rating distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "improvement_plan_trend_line",
+            "label": "Improvement Plan trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "improvement_plan_volume_column",
+            "label": "Improvement Plan volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "improvement_plan_distribution_donut",
+            "label": "Improvement Plan distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          }
+        ]
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "Performance Appraisal reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "performance_appraisal",
+          "metric_family": "reporting"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "performance_appraisal",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "performance_appraisal",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "performance_appraisal",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "performance_appraisal",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "overview_report",
+        "label": "Performance Appraisal Overview",
+        "report_type": "dashboard_summary",
+        "surface": "module"
+      },
+      {
+        "id": "trend_report",
+        "label": "Performance Appraisal Trends",
+        "report_type": "trend_analysis",
+        "surface": "module"
+      },
+      {
+        "id": "summary_report",
+        "label": "Performance Appraisal Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Performance Appraisal Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "performance_appraisal_trend_line",
+        "label": "Performance Appraisal trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "performance_appraisal_volume_column",
+        "label": "Performance Appraisal volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "performance_appraisal_distribution_donut",
+        "label": "Performance Appraisal distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "performance_cycle_trend_line",
+        "label": "Performance Cycle trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "performance_cycle_volume_column",
+        "label": "Performance Cycle volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "performance_cycle_distribution_donut",
+        "label": "Performance Cycle distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "performance_rating_trend_line",
+        "label": "Performance Rating trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "performance_rating_volume_column",
+        "label": "Performance Rating volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "performance_rating_distribution_donut",
+        "label": "Performance Rating distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "improvement_plan_trend_line",
+        "label": "Improvement Plan trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "improvement_plan_volume_column",
+        "label": "Improvement Plan volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "improvement_plan_distribution_donut",
+        "label": "Improvement Plan distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ],
+    "source_docs": [],
+    "source_fields": [],
+    "child_sources": [
+      {
+        "id": "performance_appraisal",
+        "title": "Performance Appraisal",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "performance_cycle",
+        "title": "Performance Cycle",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "performance_rating",
+        "title": "Performance Rating",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "improvement_plan",
+        "title": "Improvement Plan",
+        "surface": null,
+        "source_docs": []
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "employee_record",
+      "performance_cycle",
+      "performance_rating",
+      "improvement_plan",
+      "performance_appraisal"
+    ],
+    "upstream_docs": [
+      "employee_record",
+      "performance_cycle",
+      "performance_rating",
+      "improvement_plan",
+      "performance_appraisal"
+    ],
+    "downstream_docs": [
+      "employee_record"
+    ],
+    "actors": [
+      "supervisor",
+      "employee",
+      "HR reviewer"
+    ],
+    "downstream_effects": [
+      "supports employee growth and performance management"
+    ],
+    "emits_records": [
+      {
+        "action_id": "approve",
+        "target_doc": "employee_record",
+        "effect_type": "create_record"
+      }
+    ],
+    "handoff_targets": [
+      "employee_record",
+      "performance_cycle",
+      "performance_rating",
+      "improvement_plan",
+      "performance_appraisal"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "performance_appraisal",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "performance_appraisal",
+        "target_doc": "performance_cycle",
+        "relation": "references"
+      },
+      {
+        "source_doc": "performance_appraisal",
+        "target_doc": "performance_rating",
+        "relation": "references"
+      },
+      {
+        "source_doc": "performance_appraisal",
+        "target_doc": "improvement_plan",
+        "relation": "references"
+      },
+      {
+        "source_doc": "performance_appraisal",
+        "target_doc": "employee_record",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "performance_cycle",
+        "target_doc": "performance_appraisal",
+        "relation": "references"
+      },
+      {
+        "source_doc": "performance_rating",
+        "target_doc": "performance_appraisal",
+        "relation": "references"
+      },
+      {
+        "source_doc": "improvement_plan",
+        "target_doc": "performance_appraisal",
+        "relation": "references"
+      },
+      {
+        "source_doc": "improvement_plan",
+        "target_doc": "employee_record",
+        "relation": "references"
+      }
+    ],
+    "operating_graph": {
+      "nodes": [
+        {
+          "id": "employee_record",
+          "kind": "doc"
+        },
+        {
+          "id": "performance_cycle",
+          "kind": "doc"
+        },
+        {
+          "id": "performance_rating",
+          "kind": "doc"
+        },
+        {
+          "id": "improvement_plan",
+          "kind": "doc"
+        },
+        {
+          "id": "performance_appraisal",
+          "kind": "doc"
+        }
+      ],
+      "edges": [
+        {
+          "source_doc": "performance_appraisal",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "performance_appraisal",
+          "target_doc": "performance_cycle",
+          "relation": "references"
+        },
+        {
+          "source_doc": "performance_appraisal",
+          "target_doc": "performance_rating",
+          "relation": "references"
+        },
+        {
+          "source_doc": "performance_appraisal",
+          "target_doc": "improvement_plan",
+          "relation": "references"
+        },
+        {
+          "source_doc": "performance_appraisal",
+          "target_doc": "employee_record",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "performance_cycle",
+          "target_doc": "performance_appraisal",
+          "relation": "references"
+        },
+        {
+          "source_doc": "performance_rating",
+          "target_doc": "performance_appraisal",
+          "relation": "references"
+        },
+        {
+          "source_doc": "improvement_plan",
+          "target_doc": "performance_appraisal",
+          "relation": "references"
+        },
+        {
+          "source_doc": "improvement_plan",
+          "target_doc": "employee_record",
+          "relation": "references"
+        }
+      ]
+    }
+  },
+  "contract_version": 1
 }

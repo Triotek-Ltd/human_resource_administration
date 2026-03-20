@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 
 DOC_ID = "candidate_application"
 ALLOWED_ACTIONS = ['create', 'review', 'archive', 'screen', 'shortlist', 'reject', 'recommend', 'move_to_interview']
-ACTION_RULES = {'create': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': None}, 'review': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': 'archived'}, 'screen': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': None}, 'shortlist': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': 'shortlisted'}, 'reject': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': 'rejected'}, 'recommend': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': None}, 'move_to_interview': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': None}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'create': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': None}, 'review': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': 'archived'}, 'screen': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': None}, 'shortlist': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': 'shortlisted'}, 'reject': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': 'rejected'}, 'recommend': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': None}, 'move_to_interview': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': None}}
 
 STATE_FIELD = 'workflow_state'
 

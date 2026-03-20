@@ -21,6 +21,18 @@
       "fields": {
         "workflow_state": "confirmed"
       }
+    },
+    {
+      "type": "create_record",
+      "target_doc": "training_session",
+      "values": {
+        "title": {
+          "$template": "Training Session for {title|reference_no|id}"
+        },
+        "reference_no": {
+          "$template": "TRAINING_SESSION-{reference_no|id}"
+        }
+      }
     }
   ],
   "archive": [

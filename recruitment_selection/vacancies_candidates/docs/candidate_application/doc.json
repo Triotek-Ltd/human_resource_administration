@@ -10,7 +10,8 @@
   "doc_archetype": "transaction",
   "classification": {
     "archetype": "transaction",
-    "bundle": "administration"
+    "bundle": "administration",
+    "doc_kind": "transaction"
   },
   "planning_source": {
     "type": "reference_doc_generation_manifest",
@@ -23,5 +24,266 @@
       "diversity or compliance fields",
       "multi-application profile policy"
     ]
-  }
+  },
+  "ui": {
+    "icon_key": "receipt",
+    "accent": "#1f7a8c",
+    "logo_image": null,
+    "cover_image": null,
+    "preferred_views": [
+      "list",
+      "table",
+      "detail",
+      "report"
+    ],
+    "default_density": "comfortable"
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "doc",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "records",
+      "flatten_submodules_in_ui": false,
+      "views": [
+        "list",
+        "table",
+        "detail",
+        "report"
+      ]
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "Candidate Application KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "candidate_application",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "Candidate Application summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "candidate_application",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "Candidate Application charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "candidate_application",
+          "metric_family": "trend"
+        }
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "Candidate Application reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "candidate_application",
+          "metric_family": "reporting"
+        }
+      },
+      {
+        "id": "records",
+        "type": "record_table",
+        "title": "Candidate Application records",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "candidate_application",
+          "metric_family": "records"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "candidate_application",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "candidate_application",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "candidate_application",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "candidate_application",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "overview_report",
+        "label": "Candidate Application Overview",
+        "report_type": "dashboard_summary",
+        "surface": "doc"
+      },
+      {
+        "id": "trend_report",
+        "label": "Candidate Application Trends",
+        "report_type": "trend_analysis",
+        "surface": "doc"
+      },
+      {
+        "id": "summary_report",
+        "label": "Candidate Application Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Candidate Application Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "supports_outputs": true,
+    "supports_print_formats": true,
+    "default_views": [
+      "summary",
+      "trend",
+      "report_table"
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "candidate_application_trend_line",
+        "label": "Candidate Application trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "candidate_application_volume_column",
+        "label": "Candidate Application volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "candidate_application_distribution_donut",
+        "label": "Candidate Application distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "candidate_profile",
+      "job_vacancy",
+      "interview_schedule",
+      "interview_evaluation",
+      "job_offer"
+    ],
+    "upstream_docs": [
+      "candidate_profile",
+      "job_vacancy",
+      "interview_schedule",
+      "interview_evaluation",
+      "job_offer"
+    ],
+    "downstream_docs": [],
+    "borrowed_fields": [
+      "job title",
+      "department from job_vacancy"
+    ],
+    "emits_records": [],
+    "downstream_effects": [
+      "feeds onboarding and employee master creation"
+    ],
+    "actors": [
+      "hiring manager",
+      "recruiter",
+      "interviewer",
+      "approver"
+    ],
+    "handoff_targets": [
+      "candidate_profile",
+      "job_vacancy",
+      "interview_schedule",
+      "interview_evaluation",
+      "job_offer"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "candidate_application",
+        "target_doc": "candidate_profile",
+        "relation": "references"
+      },
+      {
+        "source_doc": "candidate_application",
+        "target_doc": "job_vacancy",
+        "relation": "references"
+      },
+      {
+        "source_doc": "candidate_application",
+        "target_doc": "interview_schedule",
+        "relation": "references"
+      },
+      {
+        "source_doc": "candidate_application",
+        "target_doc": "interview_evaluation",
+        "relation": "references"
+      },
+      {
+        "source_doc": "candidate_application",
+        "target_doc": "job_offer",
+        "relation": "references"
+      }
+    ]
+  },
+  "contract_version": 1
 }

@@ -2,13 +2,15 @@
 
 from __future__ import annotations
 
+from typing import Any, cast
+
 
 DOC_ID = "employee_grievance"
 ARCHETYPE = "workflow_case"
 INITIAL_STATE = 'open'
 STATES = ['open', 'in_review', 'resolved', 'closed', 'archived']
 TERMINAL_STATES = ['closed', 'archived']
-ACTION_RULES = {'create': {'allowed_in_states': ['open', 'in_review', 'resolved'], 'transitions_to': None}, 'assign': {'allowed_in_states': ['open', 'in_review', 'resolved'], 'transitions_to': 'in_review'}, 'review': {'allowed_in_states': ['open', 'in_review', 'resolved'], 'transitions_to': 'in_review'}, 'escalate': {'allowed_in_states': ['open', 'in_review', 'resolved'], 'transitions_to': None}, 'close': {'allowed_in_states': ['open', 'in_review', 'resolved'], 'transitions_to': 'closed'}, 'archive': {'allowed_in_states': ['open', 'in_review', 'resolved'], 'transitions_to': 'archived'}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'create': {'allowed_in_states': ['open', 'in_review', 'resolved'], 'transitions_to': None}, 'assign': {'allowed_in_states': ['open', 'in_review', 'resolved'], 'transitions_to': 'in_review'}, 'review': {'allowed_in_states': ['open', 'in_review', 'resolved'], 'transitions_to': 'in_review'}, 'escalate': {'allowed_in_states': ['open', 'in_review', 'resolved'], 'transitions_to': None}, 'close': {'allowed_in_states': ['open', 'in_review', 'resolved'], 'transitions_to': 'closed'}, 'archive': {'allowed_in_states': ['open', 'in_review', 'resolved'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
 WORKFLOW_HINTS = {'business_objective': 'receive employee concerns, investigate them fairly, and record resolution or disciplinary outcomes', 'actors': ['employee-relations owner', 'manager', 'HR reviewer'], 'start_condition': 'an employee concern or grievance is filed', 'ordered_steps': ['Open the grievance or relations case.', 'Issue disciplinary or closure records where required.'], 'primary_actions': ['create', 'assign', 'approve', 'close'], 'primary_transitions': ['employee_grievance: opened -> in_review', 'employee_grievance: in_review -> resolved -> closed'], 'downstream_effects': ['supports HR compliance and risk management'], 'action_actors': {'create': ['employee-relations owner'], 'assign': ['employee-relations owner'], 'review': ['HR reviewer'], 'close': ['employee-relations owner'], 'archive': ['employee-relations owner']}}
@@ -29,7 +31,7 @@ class WorkflowService:
 
     def next_state_for(self, action_id: str) -> str | None:
         rule = ACTION_RULES.get(action_id, {})
-        return rule.get("transitions_to")
+        return cast(str | None, rule.get("transitions_to"))
 
     def apply_action(self, action_id: str, state: str | None) -> dict:
         if not self.is_action_allowed(action_id, state):

@@ -15,6 +15,231 @@
   },
   "doc_key": "job_description",
   "doc_title": "Job Description",
+  "ui": {
+    "icon_key": "settings",
+    "accent": "#5c677d",
+    "logo_image": null,
+    "cover_image": null,
+    "preferred_views": [
+      "list",
+      "table",
+      "detail",
+      "report"
+    ],
+    "default_density": "comfortable"
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "doc",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "records",
+      "flatten_submodules_in_ui": false,
+      "views": [
+        "list",
+        "table",
+        "detail",
+        "report"
+      ]
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "Job Description KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "job_description",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "Job Description summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "job_description",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "Job Description charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "job_description",
+          "metric_family": "trend"
+        }
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "Job Description reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "job_description",
+          "metric_family": "reporting"
+        }
+      },
+      {
+        "id": "records",
+        "type": "record_table",
+        "title": "Job Description records",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "job_description",
+          "metric_family": "records"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "job_description",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "job_description",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "job_description",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "job_description",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "overview_report",
+        "label": "Job Description Overview",
+        "report_type": "dashboard_summary",
+        "surface": "doc"
+      },
+      {
+        "id": "trend_report",
+        "label": "Job Description Trends",
+        "report_type": "trend_analysis",
+        "surface": "doc"
+      },
+      {
+        "id": "summary_report",
+        "label": "Job Description Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Job Description Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "supports_outputs": false,
+    "supports_print_formats": true,
+    "default_views": [
+      "summary",
+      "trend",
+      "report_table"
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "job_description_trend_line",
+        "label": "Job Description trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "job_description_volume_column",
+        "label": "Job Description volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "job_description_distribution_donut",
+        "label": "Job Description distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "job_vacancy"
+    ],
+    "upstream_docs": [
+      "job_vacancy"
+    ],
+    "downstream_docs": [],
+    "borrowed_fields": [],
+    "emits_records": [],
+    "downstream_effects": [
+      "feeds onboarding and employee master creation"
+    ],
+    "actors": [
+      "hiring manager",
+      "recruiter",
+      "interviewer",
+      "approver"
+    ],
+    "handoff_targets": [
+      "job_vacancy"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "job_description",
+        "target_doc": "job_vacancy",
+        "relation": "references"
+      }
+    ]
+  },
   "allowed_actions": [
     "create",
     "update",
@@ -278,7 +503,7 @@
         "unique": false,
         "options": null,
         "purpose": null,
-        "linked_doc": null,
+        "linked_doc": "job_vacancy",
         "depends_on": null,
         "mandatory_depends_on": null,
         "read_only_depends_on": null,
@@ -362,7 +587,8 @@
           "list_visible": false,
           "filterable": false,
           "sortable": false
-        }
+        },
+        "relation_kind": "explicit"
       }
     ],
     "title_field": "title",
@@ -444,7 +670,9 @@
           "update",
           "review",
           "archive"
-        ]
+        ],
+        "scope": "system",
+        "ownership": "platform"
       },
       {
         "role_id": "hiring manager",
@@ -454,7 +682,9 @@
           "create",
           "update",
           "archive"
-        ]
+        ],
+        "scope": "approval",
+        "ownership": "managerial"
       },
       {
         "role_id": "recruiter",
@@ -462,21 +692,27 @@
           "view",
           "list",
           "review"
-        ]
+        ],
+        "scope": "document",
+        "ownership": "functional"
       },
       {
         "role_id": "interviewer",
         "actions": [
           "view",
           "list"
-        ]
+        ],
+        "scope": "document",
+        "ownership": "functional"
       },
       {
         "role_id": "approver",
         "actions": [
           "view",
           "list"
-        ]
+        ],
+        "scope": "approval",
+        "ownership": "managerial"
       }
     ],
     "transaction_behavior": {
@@ -534,7 +770,120 @@
         "modified"
       ],
       "default_filters": [],
-      "quick_entry": true
+      "quick_entry": true,
+      "form_layout": {
+        "version": 1,
+        "tabs": [
+          {
+            "id": "overview",
+            "label": "Overview",
+            "sections": [
+              {
+                "id": "identity",
+                "label": "Identity",
+                "columns": [
+                  {
+                    "id": "identity_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "title"
+                    ]
+                  },
+                  {
+                    "id": "identity_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "reference_no"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "status",
+                "label": "Workflow",
+                "columns": [
+                  {
+                    "id": "status_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "workflow_state"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "details",
+            "label": "Details",
+            "sections": [
+              {
+                "id": "content",
+                "label": "Details",
+                "columns": [
+                  {
+                    "id": "content_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "role_title",
+                      "qualifications",
+                      "required_skills"
+                    ]
+                  },
+                  {
+                    "id": "content_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "duties",
+                      "grade"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "content_details",
+                "label": "Extended Details",
+                "columns": [
+                  {
+                    "id": "content_details_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "description",
+                      "description_number"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "related",
+            "label": "Related",
+            "sections": [
+              {
+                "id": "relations",
+                "label": "Related Records",
+                "columns": [
+                  {
+                    "id": "relations_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "reporting_line"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     "related_docs": [
       {
@@ -568,7 +917,11 @@
       "show_activity_log": true,
       "show_comments": true,
       "show_assignments": true,
-      "show_related_docs": true
+      "show_related_docs": true,
+      "show_kpis": true,
+      "show_summaries": true,
+      "show_charts": true,
+      "show_reports": true
     },
     "integration": {
       "external_refs": [],
@@ -616,6 +969,17 @@
         }
       },
       "action_side_effects_file": "side_effects.json"
+    },
+    "dashboard": {
+      "metric_blocks": [
+        "kpis",
+        "summaries",
+        "charts",
+        "reports",
+        "records"
+      ],
+      "default_view": "list",
+      "reporting_surface": "doc"
     }
   },
   "classification": {
@@ -669,8 +1033,10 @@
       }
     },
     "report_boundary_classification": "configuration doc",
-    "validation_status": "ready",
-    "validation_warnings": []
+    "validation_status": "warning",
+    "validation_warnings": [
+      "helper_relation_field:related_job_vacancy"
+    ]
   },
   "business_logic": {
     "seeded": true,
@@ -715,6 +1081,12 @@
     "api_base_path": "/apis/human_resource_administration/recruitment_selection/vacancies_candidates/job_description/",
     "status_field": "workflow_state",
     "initial_state": "draft",
+    "actions": [
+      "create",
+      "update",
+      "review",
+      "archive"
+    ],
     "required_fields": [
       "title",
       "workflow_state"
@@ -732,6 +1104,61 @@
     ],
     "downstream_effects": [
       "feeds onboarding and employee master creation"
+    ],
+    "role_action_matrix": [
+      {
+        "role_id": "System Manager",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "update",
+          "review",
+          "archive"
+        ],
+        "scope": "system",
+        "ownership": "platform"
+      },
+      {
+        "role_id": "hiring manager",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "update",
+          "archive"
+        ],
+        "scope": "approval",
+        "ownership": "managerial"
+      },
+      {
+        "role_id": "recruiter",
+        "actions": [
+          "view",
+          "list",
+          "review"
+        ],
+        "scope": "document",
+        "ownership": "functional"
+      },
+      {
+        "role_id": "interviewer",
+        "actions": [
+          "view",
+          "list"
+        ],
+        "scope": "document",
+        "ownership": "functional"
+      },
+      {
+        "role_id": "approver",
+        "actions": [
+          "view",
+          "list"
+        ],
+        "scope": "approval",
+        "ownership": "managerial"
+      }
     ],
     "action_side_effects_file": "side_effects.json"
   },

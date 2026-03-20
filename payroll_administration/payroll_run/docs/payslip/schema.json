@@ -151,7 +151,7 @@
       "unique": false,
       "options": null,
       "purpose": "primary_party",
-      "linked_doc": null,
+      "linked_doc": "party_record",
       "depends_on": null,
       "mandatory_depends_on": null,
       "read_only_depends_on": null,
@@ -168,12 +168,39 @@
     {
       "field_id": "currency",
       "label": "Currency",
-      "type": "Data",
+      "type": "Select",
       "required": false,
       "read_only": false,
       "default": null,
       "unique": false,
-      "options": null,
+      "options": {
+        "values": [
+          "USD",
+          "EUR",
+          "GBP",
+          "KES",
+          "UGX",
+          "TZS",
+          "RWF",
+          "NGN",
+          "GHS",
+          "ZAR",
+          "AED",
+          "SAR",
+          "INR",
+          "CNY",
+          "JPY",
+          "CAD",
+          "AUD",
+          "NZD",
+          "CHF",
+          "SEK",
+          "NOK",
+          "DKK",
+          "ZMW",
+          "BWP"
+        ]
+      },
       "purpose": "currency_code",
       "linked_doc": null,
       "depends_on": null,
@@ -264,7 +291,7 @@
     {
       "field_id": "payroll_run",
       "label": "Payroll Run",
-      "type": "Data",
+      "type": "Link",
       "required": false,
       "read_only": false,
       "default": null,
@@ -460,7 +487,9 @@
         "create",
         "issue",
         "archive"
-      ]
+      ],
+      "scope": "system",
+      "ownership": "platform"
     },
     {
       "role_id": "payroll officer",
@@ -468,37 +497,48 @@
         "view",
         "list",
         "create",
+        "update",
         "issue",
         "archive"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     },
     {
       "role_id": "HR reviewer",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "review",
+      "ownership": "oversight"
     },
     {
       "role_id": "approver",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "approval",
+      "ownership": "managerial"
     },
     {
       "role_id": "finance officer",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "execution",
+      "ownership": "finance"
     },
     {
       "role_id": "employee",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     }
   ],
   "transaction_behavior": {

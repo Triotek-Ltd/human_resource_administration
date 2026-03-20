@@ -15,6 +15,241 @@
   },
   "doc_key": "training_attendance",
   "doc_title": "Training Attendance",
+  "ui": {
+    "icon_key": "report",
+    "accent": "#205072",
+    "logo_image": null,
+    "cover_image": null,
+    "preferred_views": [
+      "list",
+      "table",
+      "detail",
+      "report"
+    ],
+    "default_density": "comfortable"
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "doc",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "records",
+      "flatten_submodules_in_ui": false,
+      "views": [
+        "list",
+        "table",
+        "detail",
+        "report"
+      ]
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "Training Attendance KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "training_attendance",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "Training Attendance summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "training_attendance",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "Training Attendance charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "training_attendance",
+          "metric_family": "trend"
+        }
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "Training Attendance reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "training_attendance",
+          "metric_family": "reporting"
+        }
+      },
+      {
+        "id": "records",
+        "type": "record_table",
+        "title": "Training Attendance records",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "training_attendance",
+          "metric_family": "records"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "training_attendance",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "training_attendance",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "training_attendance",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "training_attendance",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "overview_report",
+        "label": "Training Attendance Overview",
+        "report_type": "dashboard_summary",
+        "surface": "doc"
+      },
+      {
+        "id": "trend_report",
+        "label": "Training Attendance Trends",
+        "report_type": "trend_analysis",
+        "surface": "doc"
+      },
+      {
+        "id": "summary_report",
+        "label": "Training Attendance Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Training Attendance Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "supports_outputs": true,
+    "supports_print_formats": true,
+    "default_views": [
+      "summary",
+      "trend",
+      "report_table"
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "training_attendance_trend_line",
+        "label": "Training Attendance trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "training_attendance_volume_column",
+        "label": "Training Attendance volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "training_attendance_distribution_donut",
+        "label": "Training Attendance distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "training_session",
+      "employee_record"
+    ],
+    "upstream_docs": [
+      "training_session",
+      "employee_record"
+    ],
+    "downstream_docs": [],
+    "borrowed_fields": [
+      "session details from training_session",
+      "employee details from employee_record"
+    ],
+    "emits_records": [],
+    "downstream_effects": [
+      "supports employee development and performance planning"
+    ],
+    "actors": [
+      "HR development owner",
+      "trainer",
+      "participant manager"
+    ],
+    "handoff_targets": [
+      "training_session",
+      "employee_record"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "training_attendance",
+        "target_doc": "training_session",
+        "relation": "references"
+      },
+      {
+        "source_doc": "training_attendance",
+        "target_doc": "employee_record",
+        "relation": "references"
+      }
+    ]
+  },
   "allowed_actions": [
     "record",
     "review",
@@ -220,7 +455,7 @@
       {
         "field_id": "session",
         "label": "Session",
-        "type": "Data",
+        "type": "Link",
         "required": false,
         "read_only": false,
         "default": null,
@@ -323,7 +558,7 @@
       {
         "field_id": "score",
         "label": "Score",
-        "type": "Data",
+        "type": "Float",
         "required": false,
         "read_only": false,
         "default": null,
@@ -412,7 +647,9 @@
           "record",
           "review",
           "archive"
-        ]
+        ],
+        "scope": "system",
+        "ownership": "platform"
       },
       {
         "role_id": "HR development owner",
@@ -420,8 +657,12 @@
           "view",
           "list",
           "record",
-          "archive"
-        ]
+          "create",
+          "archive",
+          "update"
+        ],
+        "scope": "document",
+        "ownership": "functional"
       },
       {
         "role_id": "trainer",
@@ -429,14 +670,18 @@
           "view",
           "list",
           "review"
-        ]
+        ],
+        "scope": "document",
+        "ownership": "functional"
       },
       {
         "role_id": "participant manager",
         "actions": [
           "view",
           "list"
-        ]
+        ],
+        "scope": "approval",
+        "ownership": "managerial"
       }
     ],
     "transaction_behavior": {
@@ -494,7 +739,147 @@
         "workflow_state"
       ],
       "default_filters": [],
-      "quick_entry": false
+      "quick_entry": false,
+      "form_layout": {
+        "version": 1,
+        "tabs": [
+          {
+            "id": "overview",
+            "label": "Overview",
+            "sections": [
+              {
+                "id": "identity",
+                "label": "Identity",
+                "columns": [
+                  {
+                    "id": "identity_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "title"
+                    ]
+                  },
+                  {
+                    "id": "identity_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "reference_no"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "dates",
+                "label": "Dates",
+                "columns": [
+                  {
+                    "id": "dates_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "posting_date"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "status",
+                "label": "Workflow",
+                "columns": [
+                  {
+                    "id": "status_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "workflow_state"
+                    ]
+                  },
+                  {
+                    "id": "status_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "attendance_status"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "details",
+            "label": "Details",
+            "sections": [
+              {
+                "id": "content",
+                "label": "Details",
+                "columns": [
+                  {
+                    "id": "content_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "attendance_number",
+                      "score"
+                    ]
+                  },
+                  {
+                    "id": "content_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "completion_flag"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "content_details",
+                "label": "Description",
+                "columns": [
+                  {
+                    "id": "content_details_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "description"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "related",
+            "label": "Related",
+            "sections": [
+              {
+                "id": "relations",
+                "label": "Related Records",
+                "columns": [
+                  {
+                    "id": "relations_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "session"
+                    ]
+                  },
+                  {
+                    "id": "relations_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "employee"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     "related_docs": [
       {
@@ -554,7 +939,11 @@
       "show_activity_log": true,
       "show_comments": true,
       "show_assignments": true,
-      "show_related_docs": true
+      "show_related_docs": true,
+      "show_kpis": true,
+      "show_summaries": true,
+      "show_charts": true,
+      "show_reports": true
     },
     "integration": {
       "external_refs": [],
@@ -600,6 +989,17 @@
         }
       },
       "action_side_effects_file": "side_effects.json"
+    },
+    "dashboard": {
+      "metric_blocks": [
+        "kpis",
+        "summaries",
+        "charts",
+        "reports",
+        "records"
+      ],
+      "default_view": "list",
+      "reporting_surface": "doc"
     }
   },
   "classification": {
@@ -698,6 +1098,11 @@
     "api_base_path": "/apis/human_resource_administration/training_development/training_records/training_attendance/",
     "status_field": "workflow_state",
     "initial_state": "active",
+    "actions": [
+      "record",
+      "review",
+      "archive"
+    ],
     "required_fields": [
       "title",
       "workflow_state",
@@ -717,6 +1122,52 @@
     ],
     "downstream_effects": [
       "supports employee development and performance planning"
+    ],
+    "role_action_matrix": [
+      {
+        "role_id": "System Manager",
+        "actions": [
+          "view",
+          "list",
+          "record",
+          "review",
+          "archive"
+        ],
+        "scope": "system",
+        "ownership": "platform"
+      },
+      {
+        "role_id": "HR development owner",
+        "actions": [
+          "view",
+          "list",
+          "record",
+          "create",
+          "archive",
+          "update"
+        ],
+        "scope": "document",
+        "ownership": "functional"
+      },
+      {
+        "role_id": "trainer",
+        "actions": [
+          "view",
+          "list",
+          "review"
+        ],
+        "scope": "document",
+        "ownership": "functional"
+      },
+      {
+        "role_id": "participant manager",
+        "actions": [
+          "view",
+          "list"
+        ],
+        "scope": "approval",
+        "ownership": "managerial"
+      }
     ],
     "action_side_effects_file": "side_effects.json"
   },

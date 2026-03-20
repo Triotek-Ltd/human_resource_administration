@@ -309,7 +309,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     },
     {
       "field_id": "related_candidate_application",
@@ -333,7 +334,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     }
   ],
   "field_groups": {
@@ -468,7 +470,9 @@
         "publish",
         "close",
         "archive"
-      ]
+      ],
+      "scope": "system",
+      "ownership": "platform"
     },
     {
       "role_id": "hiring manager",
@@ -476,25 +480,32 @@
         "view",
         "list",
         "create",
+        "update",
         "submit",
         "publish",
         "close",
         "archive"
-      ]
+      ],
+      "scope": "approval",
+      "ownership": "managerial"
     },
     {
       "role_id": "recruiter",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     },
     {
       "role_id": "interviewer",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     },
     {
       "role_id": "approver",
@@ -502,7 +513,9 @@
         "view",
         "list",
         "approve"
-      ]
+      ],
+      "scope": "approval",
+      "ownership": "managerial"
     }
   ],
   "transaction_behavior": {

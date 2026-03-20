@@ -2,17 +2,19 @@
 
 from __future__ import annotations
 
+from typing import Any, cast
+
 
 DOC_ID = "candidate_application"
 ACTION_ID = "move_to_interview"
-ACTION_RULE = {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': None}
+ACTION_RULE: dict[str, Any] = {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': None}
 
 STATE_FIELD = 'workflow_state'
 WORKFLOW_HINTS = {'business_objective': 'define a staffing need, attract candidates, assess them, and issue an approved offer to the selected candidate', 'actors': ['hiring manager', 'recruiter', 'interviewer', 'approver'], 'start_condition': 'a staffing requirement is approved', 'ordered_steps': ['Receive and review candidate applications.'], 'primary_actions': ['create', 'review', 'shortlist', 'reject'], 'primary_transitions': ['candidate_application: draft -> in_review -> shortlisted or rejected'], 'downstream_effects': ['feeds onboarding and employee master creation'], 'action_actors': {'create': ['hiring manager'], 'review': ['recruiter'], 'archive': ['hiring manager'], 'reject': ['approver']}}
 
 def handle_move_to_interview(payload: dict, context: dict | None = None) -> dict:
     context = context or {}
-    next_state = ACTION_RULE.get("transitions_to")
+    next_state = cast(str | None, ACTION_RULE.get("transitions_to"))
     updates = {STATE_FIELD: next_state} if STATE_FIELD and next_state else {}
     return {
         "doc_id": DOC_ID,

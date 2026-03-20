@@ -151,7 +151,7 @@
       "unique": false,
       "options": null,
       "purpose": "primary_party",
-      "linked_doc": null,
+      "linked_doc": "employee_grievance",
       "depends_on": null,
       "mandatory_depends_on": null,
       "read_only_depends_on": null,
@@ -168,12 +168,39 @@
     {
       "field_id": "currency",
       "label": "Currency",
-      "type": "Data",
+      "type": "Select",
       "required": false,
       "read_only": false,
       "default": null,
       "unique": false,
-      "options": null,
+      "options": {
+        "values": [
+          "USD",
+          "EUR",
+          "GBP",
+          "KES",
+          "UGX",
+          "TZS",
+          "RWF",
+          "NGN",
+          "GHS",
+          "ZAR",
+          "AED",
+          "SAR",
+          "INR",
+          "CNY",
+          "JPY",
+          "CAD",
+          "AUD",
+          "NZD",
+          "CHF",
+          "SEK",
+          "NOK",
+          "DKK",
+          "ZMW",
+          "BWP"
+        ]
+      },
       "purpose": "currency_code",
       "linked_doc": null,
       "depends_on": null,
@@ -240,7 +267,7 @@
     {
       "field_id": "grievance",
       "label": "Grievance",
-      "type": "Data",
+      "type": "Link",
       "required": false,
       "read_only": false,
       "default": null,
@@ -467,15 +494,20 @@
         "create",
         "confirm",
         "archive"
-      ]
+      ],
+      "scope": "system",
+      "ownership": "platform"
     },
     {
       "role_id": "hr officer",
       "actions": [
         "view",
         "list",
-        "create"
-      ]
+        "create",
+        "update"
+      ],
+      "scope": "document",
+      "ownership": "functional"
     },
     {
       "role_id": "case owner",
@@ -483,8 +515,11 @@
         "view",
         "list",
         "confirm",
-        "archive"
-      ]
+        "archive",
+        "update"
+      ],
+      "scope": "document",
+      "ownership": "functional"
     }
   ],
   "transaction_behavior": {

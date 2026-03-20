@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 
 DOC_ID = "disciplinary_action"
 ALLOWED_ACTIONS = ['create', 'submit', 'approve', 'issue', 'archive']
-ACTION_RULES = {'create': {'allowed_in_states': ['draft', 'approved', 'issued'], 'transitions_to': None}, 'submit': {'allowed_in_states': ['draft', 'approved', 'issued'], 'transitions_to': 'approved'}, 'approve': {'allowed_in_states': ['draft', 'approved', 'issued'], 'transitions_to': 'approved'}, 'issue': {'allowed_in_states': ['approved'], 'transitions_to': 'issued'}, 'archive': {'allowed_in_states': ['draft', 'approved', 'issued'], 'transitions_to': 'archived'}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'create': {'allowed_in_states': ['draft', 'approved', 'issued'], 'transitions_to': None}, 'submit': {'allowed_in_states': ['draft', 'approved', 'issued'], 'transitions_to': 'approved'}, 'approve': {'allowed_in_states': ['draft', 'approved', 'issued'], 'transitions_to': 'approved'}, 'issue': {'allowed_in_states': ['approved'], 'transitions_to': 'issued'}, 'archive': {'allowed_in_states': ['draft', 'approved', 'issued'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
 

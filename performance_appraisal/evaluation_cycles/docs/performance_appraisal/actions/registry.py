@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 
 DOC_ID = "performance_appraisal"
 ALLOWED_ACTIONS = ['create', 'submit', 'review', 'approve', 'close', 'check_in', 'acknowledge', 'reopen', 'archive']
-ACTION_RULES = {'create': {'allowed_in_states': ['draft', 'in_review', 'approved'], 'transitions_to': None}, 'submit': {'allowed_in_states': ['draft', 'in_review', 'approved'], 'transitions_to': 'in_review'}, 'review': {'allowed_in_states': ['draft', 'in_review', 'approved'], 'transitions_to': 'in_review'}, 'approve': {'allowed_in_states': ['draft', 'in_review', 'approved'], 'transitions_to': 'approved'}, 'close': {'allowed_in_states': ['draft', 'in_review', 'approved'], 'transitions_to': 'closed'}, 'check_in': {'allowed_in_states': ['draft', 'in_review', 'approved'], 'transitions_to': None}, 'acknowledge': {'allowed_in_states': ['draft', 'in_review', 'approved'], 'transitions_to': None}, 'reopen': {'allowed_in_states': ['draft', 'in_review', 'approved'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['draft', 'in_review', 'approved'], 'transitions_to': 'archived'}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'create': {'allowed_in_states': ['draft', 'in_review', 'approved'], 'transitions_to': None}, 'submit': {'allowed_in_states': ['draft', 'in_review', 'approved'], 'transitions_to': 'in_review'}, 'review': {'allowed_in_states': ['draft', 'in_review', 'approved'], 'transitions_to': 'in_review'}, 'approve': {'allowed_in_states': ['draft', 'in_review', 'approved'], 'transitions_to': 'approved'}, 'close': {'allowed_in_states': ['draft', 'in_review', 'approved'], 'transitions_to': 'closed'}, 'check_in': {'allowed_in_states': ['draft', 'in_review', 'approved'], 'transitions_to': None}, 'acknowledge': {'allowed_in_states': ['draft', 'in_review', 'approved'], 'transitions_to': None}, 'reopen': {'allowed_in_states': ['draft', 'in_review', 'approved'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['draft', 'in_review', 'approved'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
 

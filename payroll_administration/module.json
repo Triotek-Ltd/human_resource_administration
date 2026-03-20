@@ -4,5 +4,819 @@
   "app_id": "human_resource_administration",
   "type": "module",
   "status": "draft",
-  "supports_submodules": true
+  "supports_submodules": true,
+  "ui": {
+    "icon_key": "apps",
+    "accent": "#246f89",
+    "logo_image": null,
+    "cover_image": null
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "module",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "docs",
+      "flatten_submodules_in_ui": true
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "Payroll Administration KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "payroll_administration",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "Payroll Administration summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "payroll_administration",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "Payroll Administration charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "payroll_administration",
+          "metric_family": "trend"
+        },
+        "chart_specs": [
+          {
+            "id": "payroll_administration_trend_line",
+            "label": "Payroll Administration trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "payroll_administration_volume_column",
+            "label": "Payroll Administration volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "payroll_administration_distribution_donut",
+            "label": "Payroll Administration distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "payroll_line_trend_line",
+            "label": "Payroll Line trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "payroll_line_volume_column",
+            "label": "Payroll Line volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "payroll_line_distribution_donut",
+            "label": "Payroll Line distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "payroll_run_trend_line",
+            "label": "Payroll Run trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "payroll_run_volume_column",
+            "label": "Payroll Run volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "payroll_run_distribution_donut",
+            "label": "Payroll Run distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "payroll_transaction_trend_line",
+            "label": "Payroll Transaction trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "payroll_transaction_volume_column",
+            "label": "Payroll Transaction volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "payroll_transaction_distribution_donut",
+            "label": "Payroll Transaction distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "payslip_trend_line",
+            "label": "Payslip trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "payslip_volume_column",
+            "label": "Payslip volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "payslip_distribution_donut",
+            "label": "Payslip distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "attendance_record_trend_line",
+            "label": "Attendance Record trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "attendance_record_volume_column",
+            "label": "Attendance Record volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "attendance_record_distribution_donut",
+            "label": "Attendance Record distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "salary_structure_trend_line",
+            "label": "Salary Structure trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "salary_structure_volume_column",
+            "label": "Salary Structure volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "salary_structure_distribution_donut",
+            "label": "Salary Structure distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          }
+        ]
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "Payroll Administration reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "payroll_administration",
+          "metric_family": "reporting"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "payroll_administration",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "payroll_administration",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "payroll_administration",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "payroll_administration",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "overview_report",
+        "label": "Payroll Administration Overview",
+        "report_type": "dashboard_summary",
+        "surface": "module"
+      },
+      {
+        "id": "trend_report",
+        "label": "Payroll Administration Trends",
+        "report_type": "trend_analysis",
+        "surface": "module"
+      },
+      {
+        "id": "summary_report",
+        "label": "Payroll Line Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Payroll Line Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "payroll_administration_trend_line",
+        "label": "Payroll Administration trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "payroll_administration_volume_column",
+        "label": "Payroll Administration volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "payroll_administration_distribution_donut",
+        "label": "Payroll Administration distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "payroll_line_trend_line",
+        "label": "Payroll Line trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "payroll_line_volume_column",
+        "label": "Payroll Line volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "payroll_line_distribution_donut",
+        "label": "Payroll Line distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "payroll_run_trend_line",
+        "label": "Payroll Run trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "payroll_run_volume_column",
+        "label": "Payroll Run volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "payroll_run_distribution_donut",
+        "label": "Payroll Run distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "payroll_transaction_trend_line",
+        "label": "Payroll Transaction trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "payroll_transaction_volume_column",
+        "label": "Payroll Transaction volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "payroll_transaction_distribution_donut",
+        "label": "Payroll Transaction distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "payslip_trend_line",
+        "label": "Payslip trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "payslip_volume_column",
+        "label": "Payslip volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "payslip_distribution_donut",
+        "label": "Payslip distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "attendance_record_trend_line",
+        "label": "Attendance Record trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "attendance_record_volume_column",
+        "label": "Attendance Record volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "attendance_record_distribution_donut",
+        "label": "Attendance Record distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "salary_structure_trend_line",
+        "label": "Salary Structure trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "salary_structure_volume_column",
+        "label": "Salary Structure volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "salary_structure_distribution_donut",
+        "label": "Salary Structure distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ],
+    "source_docs": [],
+    "source_fields": [],
+    "child_sources": [
+      {
+        "id": "payroll_line",
+        "title": "Payroll Line",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "payroll_run",
+        "title": "Payroll Run",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "payroll_transaction",
+        "title": "Payroll Transaction",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "payslip",
+        "title": "Payslip",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "attendance_record",
+        "title": "Attendance Record",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "salary_structure",
+        "title": "Salary Structure",
+        "surface": null,
+        "source_docs": []
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "payroll_run",
+      "employee_record",
+      "payroll_line",
+      "payslip",
+      "attendance_record",
+      "payroll_transaction"
+    ],
+    "upstream_docs": [
+      "payroll_run",
+      "employee_record",
+      "payroll_line",
+      "payslip",
+      "attendance_record",
+      "payroll_transaction"
+    ],
+    "downstream_docs": [
+      "payroll_transaction",
+      "attendance_record",
+      "employee_record"
+    ],
+    "actors": [
+      "payroll officer",
+      "HR reviewer",
+      "approver",
+      "finance officer",
+      "employee"
+    ],
+    "downstream_effects": [
+      "payroll history becomes available for employee records, finance controls, and reporting outputs"
+    ],
+    "emits_records": [
+      {
+        "action_id": "post",
+        "target_doc": "payroll_transaction",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "approve",
+        "target_doc": "attendance_record",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "approve",
+        "target_doc": "employee_record",
+        "effect_type": "create_record"
+      }
+    ],
+    "handoff_targets": [
+      "payroll_run",
+      "employee_record",
+      "payroll_line",
+      "payslip",
+      "attendance_record",
+      "payroll_transaction"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "payroll_line",
+        "target_doc": "payroll_run",
+        "relation": "references"
+      },
+      {
+        "source_doc": "payroll_line",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "payroll_run",
+        "target_doc": "payroll_line",
+        "relation": "references"
+      },
+      {
+        "source_doc": "payroll_run",
+        "target_doc": "payslip",
+        "relation": "references"
+      },
+      {
+        "source_doc": "payroll_run",
+        "target_doc": "attendance_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "payroll_run",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "payroll_run",
+        "target_doc": "payroll_transaction",
+        "relation": "references"
+      },
+      {
+        "source_doc": "payroll_run",
+        "target_doc": "payroll_transaction",
+        "relation": "create_record",
+        "action_id": "post"
+      },
+      {
+        "source_doc": "payroll_run",
+        "target_doc": "attendance_record",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "payroll_transaction",
+        "target_doc": "payroll_run",
+        "relation": "references"
+      },
+      {
+        "source_doc": "payslip",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "payslip",
+        "target_doc": "payroll_run",
+        "relation": "references"
+      },
+      {
+        "source_doc": "attendance_record",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "attendance_record",
+        "target_doc": "payroll_run",
+        "relation": "references"
+      },
+      {
+        "source_doc": "attendance_record",
+        "target_doc": "employee_record",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "salary_structure",
+        "target_doc": "employee_record",
+        "relation": "references"
+      }
+    ],
+    "operating_graph": {
+      "nodes": [
+        {
+          "id": "payroll_run",
+          "kind": "doc"
+        },
+        {
+          "id": "employee_record",
+          "kind": "doc"
+        },
+        {
+          "id": "payroll_line",
+          "kind": "doc"
+        },
+        {
+          "id": "payslip",
+          "kind": "doc"
+        },
+        {
+          "id": "attendance_record",
+          "kind": "doc"
+        },
+        {
+          "id": "payroll_transaction",
+          "kind": "doc"
+        }
+      ],
+      "edges": [
+        {
+          "source_doc": "payroll_line",
+          "target_doc": "payroll_run",
+          "relation": "references"
+        },
+        {
+          "source_doc": "payroll_line",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "payroll_run",
+          "target_doc": "payroll_line",
+          "relation": "references"
+        },
+        {
+          "source_doc": "payroll_run",
+          "target_doc": "payslip",
+          "relation": "references"
+        },
+        {
+          "source_doc": "payroll_run",
+          "target_doc": "attendance_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "payroll_run",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "payroll_run",
+          "target_doc": "payroll_transaction",
+          "relation": "references"
+        },
+        {
+          "source_doc": "payroll_run",
+          "target_doc": "payroll_transaction",
+          "relation": "create_record",
+          "action_id": "post"
+        },
+        {
+          "source_doc": "payroll_run",
+          "target_doc": "attendance_record",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "payroll_transaction",
+          "target_doc": "payroll_run",
+          "relation": "references"
+        },
+        {
+          "source_doc": "payslip",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "payslip",
+          "target_doc": "payroll_run",
+          "relation": "references"
+        },
+        {
+          "source_doc": "attendance_record",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "attendance_record",
+          "target_doc": "payroll_run",
+          "relation": "references"
+        },
+        {
+          "source_doc": "attendance_record",
+          "target_doc": "employee_record",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "salary_structure",
+          "target_doc": "employee_record",
+          "relation": "references"
+        }
+      ]
+    }
+  },
+  "contract_version": 1
 }

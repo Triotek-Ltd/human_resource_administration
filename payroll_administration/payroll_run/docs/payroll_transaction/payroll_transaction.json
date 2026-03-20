@@ -15,6 +15,235 @@
   },
   "doc_key": "payroll_transaction",
   "doc_title": "Payroll Transaction",
+  "ui": {
+    "icon_key": "report",
+    "accent": "#205072",
+    "logo_image": null,
+    "cover_image": null,
+    "preferred_views": [
+      "list",
+      "table",
+      "detail",
+      "report"
+    ],
+    "default_density": "comfortable"
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "doc",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "records",
+      "flatten_submodules_in_ui": false,
+      "views": [
+        "list",
+        "table",
+        "detail",
+        "report"
+      ]
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "Payroll Transaction KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "payroll_transaction",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "Payroll Transaction summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "payroll_transaction",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "Payroll Transaction charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "payroll_transaction",
+          "metric_family": "trend"
+        }
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "Payroll Transaction reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "payroll_transaction",
+          "metric_family": "reporting"
+        }
+      },
+      {
+        "id": "records",
+        "type": "record_table",
+        "title": "Payroll Transaction records",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "payroll_transaction",
+          "metric_family": "records"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "payroll_transaction",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "payroll_transaction",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "payroll_transaction",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "payroll_transaction",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "overview_report",
+        "label": "Payroll Transaction Overview",
+        "report_type": "dashboard_summary",
+        "surface": "doc"
+      },
+      {
+        "id": "trend_report",
+        "label": "Payroll Transaction Trends",
+        "report_type": "trend_analysis",
+        "surface": "doc"
+      },
+      {
+        "id": "summary_report",
+        "label": "Payroll Transaction Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Payroll Transaction Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "supports_outputs": true,
+    "supports_print_formats": true,
+    "default_views": [
+      "summary",
+      "trend",
+      "report_table"
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "payroll_transaction_trend_line",
+        "label": "Payroll Transaction trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "payroll_transaction_volume_column",
+        "label": "Payroll Transaction volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "payroll_transaction_distribution_donut",
+        "label": "Payroll Transaction distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "payroll_run"
+    ],
+    "upstream_docs": [
+      "payroll_run"
+    ],
+    "downstream_docs": [],
+    "borrowed_fields": [
+      "period",
+      "amount context from payroll_run"
+    ],
+    "emits_records": [],
+    "downstream_effects": [
+      "payroll history becomes available for employee records, finance controls, and reporting outputs"
+    ],
+    "actors": [
+      "payroll officer",
+      "HR reviewer",
+      "approver",
+      "finance officer",
+      "employee"
+    ],
+    "handoff_targets": [
+      "payroll_run"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "payroll_transaction",
+        "target_doc": "payroll_run",
+        "relation": "references"
+      }
+    ]
+  },
   "allowed_actions": [
     "record",
     "post",
@@ -223,7 +452,7 @@
       {
         "field_id": "payroll_run",
         "label": "Payroll Run",
-        "type": "Data",
+        "type": "Link",
         "required": false,
         "read_only": false,
         "default": null,
@@ -271,7 +500,7 @@
       {
         "field_id": "amount",
         "label": "Amount",
-        "type": "Data",
+        "type": "Currency",
         "required": false,
         "read_only": false,
         "default": null,
@@ -408,7 +637,9 @@
           "post",
           "reconcile",
           "archive"
-        ]
+        ],
+        "scope": "system",
+        "ownership": "platform"
       },
       {
         "role_id": "payroll officer",
@@ -416,22 +647,30 @@
           "view",
           "list",
           "record",
-          "archive"
-        ]
+          "create",
+          "archive",
+          "update"
+        ],
+        "scope": "document",
+        "ownership": "functional"
       },
       {
         "role_id": "HR reviewer",
         "actions": [
           "view",
           "list"
-        ]
+        ],
+        "scope": "review",
+        "ownership": "oversight"
       },
       {
         "role_id": "approver",
         "actions": [
           "view",
           "list"
-        ]
+        ],
+        "scope": "approval",
+        "ownership": "managerial"
       },
       {
         "role_id": "finance officer",
@@ -440,14 +679,18 @@
           "list",
           "post",
           "reconcile"
-        ]
+        ],
+        "scope": "execution",
+        "ownership": "finance"
       },
       {
         "role_id": "employee",
         "actions": [
           "view",
           "list"
-        ]
+        ],
+        "scope": "document",
+        "ownership": "functional"
       }
     ],
     "transaction_behavior": {
@@ -505,7 +748,139 @@
         "workflow_state"
       ],
       "default_filters": [],
-      "quick_entry": false
+      "quick_entry": false,
+      "form_layout": {
+        "version": 1,
+        "tabs": [
+          {
+            "id": "overview",
+            "label": "Overview",
+            "sections": [
+              {
+                "id": "identity",
+                "label": "Identity",
+                "columns": [
+                  {
+                    "id": "identity_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "title"
+                    ]
+                  },
+                  {
+                    "id": "identity_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "reference_no"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "dates",
+                "label": "Dates",
+                "columns": [
+                  {
+                    "id": "dates_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "posting_date"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "status",
+                "label": "Workflow",
+                "columns": [
+                  {
+                    "id": "status_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "workflow_state"
+                    ]
+                  },
+                  {
+                    "id": "status_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "reconciliation_status"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "details",
+            "label": "Details",
+            "sections": [
+              {
+                "id": "content",
+                "label": "Details",
+                "columns": [
+                  {
+                    "id": "content_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "transaction_number",
+                      "amount"
+                    ]
+                  },
+                  {
+                    "id": "content_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "account_references"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "content_details",
+                "label": "Description",
+                "columns": [
+                  {
+                    "id": "content_details_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "description"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "related",
+            "label": "Related",
+            "sections": [
+              {
+                "id": "relations",
+                "label": "Related Records",
+                "columns": [
+                  {
+                    "id": "relations_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "payroll_run"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     "related_docs": [
       {
@@ -537,7 +912,11 @@
       "show_activity_log": true,
       "show_comments": true,
       "show_assignments": true,
-      "show_related_docs": true
+      "show_related_docs": true,
+      "show_kpis": true,
+      "show_summaries": true,
+      "show_charts": true,
+      "show_reports": true
     },
     "integration": {
       "external_refs": [],
@@ -587,6 +966,17 @@
         }
       },
       "action_side_effects_file": "side_effects.json"
+    },
+    "dashboard": {
+      "metric_blocks": [
+        "kpis",
+        "summaries",
+        "charts",
+        "reports",
+        "records"
+      ],
+      "default_view": "list",
+      "reporting_surface": "doc"
     }
   },
   "classification": {
@@ -686,6 +1076,12 @@
     "api_base_path": "/apis/human_resource_administration/payroll_administration/payroll_run/payroll_transaction/",
     "status_field": "workflow_state",
     "initial_state": "draft",
+    "actions": [
+      "record",
+      "post",
+      "reconcile",
+      "archive"
+    ],
     "required_fields": [
       "title",
       "workflow_state",
@@ -704,6 +1100,72 @@
     ],
     "downstream_effects": [
       "payroll history becomes available for employee records, finance controls, and reporting outputs"
+    ],
+    "role_action_matrix": [
+      {
+        "role_id": "System Manager",
+        "actions": [
+          "view",
+          "list",
+          "record",
+          "post",
+          "reconcile",
+          "archive"
+        ],
+        "scope": "system",
+        "ownership": "platform"
+      },
+      {
+        "role_id": "payroll officer",
+        "actions": [
+          "view",
+          "list",
+          "record",
+          "create",
+          "archive",
+          "update"
+        ],
+        "scope": "document",
+        "ownership": "functional"
+      },
+      {
+        "role_id": "HR reviewer",
+        "actions": [
+          "view",
+          "list"
+        ],
+        "scope": "review",
+        "ownership": "oversight"
+      },
+      {
+        "role_id": "approver",
+        "actions": [
+          "view",
+          "list"
+        ],
+        "scope": "approval",
+        "ownership": "managerial"
+      },
+      {
+        "role_id": "finance officer",
+        "actions": [
+          "view",
+          "list",
+          "post",
+          "reconcile"
+        ],
+        "scope": "execution",
+        "ownership": "finance"
+      },
+      {
+        "role_id": "employee",
+        "actions": [
+          "view",
+          "list"
+        ],
+        "scope": "document",
+        "ownership": "functional"
+      }
     ],
     "action_side_effects_file": "side_effects.json"
   },

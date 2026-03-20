@@ -2,13 +2,15 @@
 
 from __future__ import annotations
 
+from typing import Any, cast
+
 
 DOC_ID = "interview_evaluation"
 ARCHETYPE = "transaction"
 INITIAL_STATE = 'draft'
 STATES = ['draft', 'reviewed', 'approved', 'archived']
 TERMINAL_STATES = ['archived']
-ACTION_RULES = {'create': {'allowed_in_states': ['draft', 'reviewed', 'approved'], 'transitions_to': None}, 'review': {'allowed_in_states': ['draft', 'reviewed', 'approved'], 'transitions_to': 'reviewed'}, 'approve': {'allowed_in_states': ['draft', 'reviewed', 'approved'], 'transitions_to': 'approved'}, 'archive': {'allowed_in_states': ['draft', 'reviewed', 'approved'], 'transitions_to': 'archived'}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'create': {'allowed_in_states': ['draft', 'reviewed', 'approved'], 'transitions_to': None}, 'review': {'allowed_in_states': ['draft', 'reviewed', 'approved'], 'transitions_to': 'reviewed'}, 'approve': {'allowed_in_states': ['draft', 'reviewed', 'approved'], 'transitions_to': 'approved'}, 'archive': {'allowed_in_states': ['draft', 'reviewed', 'approved'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
 WORKFLOW_HINTS = {'relation_context': {'related_docs': ['candidate_application', 'interview_schedule'], 'borrowed_fields': ['interview context from interview_schedule'], 'inferred_roles': ['hr officer']}, 'actors': ['hr officer'], 'action_actors': {'create': ['hr officer'], 'review': ['hr officer'], 'approve': ['hr officer'], 'archive': ['hr officer']}}
@@ -29,7 +31,7 @@ class WorkflowService:
 
     def next_state_for(self, action_id: str) -> str | None:
         rule = ACTION_RULES.get(action_id, {})
-        return rule.get("transitions_to")
+        return cast(str | None, rule.get("transitions_to"))
 
     def apply_action(self, action_id: str, state: str | None) -> dict:
         if not self.is_action_allowed(action_id, state):

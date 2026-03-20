@@ -2,13 +2,15 @@
 
 from __future__ import annotations
 
+from typing import Any, cast
+
 
 DOC_ID = "orientation_session"
 ARCHETYPE = "event"
 INITIAL_STATE = 'scheduled'
 STATES = ['scheduled', 'completed', 'archived']
 TERMINAL_STATES = ['archived']
-ACTION_RULES = {'create': {'allowed_in_states': ['scheduled', 'completed'], 'transitions_to': None}, 'confirm': {'allowed_in_states': ['scheduled', 'completed'], 'transitions_to': 'completed'}, 'close': {'allowed_in_states': ['scheduled', 'completed'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['scheduled', 'completed'], 'transitions_to': 'archived'}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'create': {'allowed_in_states': ['scheduled', 'completed'], 'transitions_to': None}, 'confirm': {'allowed_in_states': ['scheduled', 'completed'], 'transitions_to': 'completed'}, 'close': {'allowed_in_states': ['scheduled', 'completed'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['scheduled', 'completed'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
 WORKFLOW_HINTS = {'business_objective': 'convert an accepted candidate into an active employee with records, payroll enrollment, orientation, and access', 'actors': ['HR officer', 'hiring manager', 'payroll officer', 'IT/admin support', 'new employee'], 'start_condition': 'an accepted offer exists and onboarding must begin', 'ordered_steps': ['Issue policies, handbook, and orientation scheduling.'], 'primary_actions': ['create', 'confirm', 'close'], 'primary_transitions': ['orientation_session: scheduled -> completed'], 'downstream_effects': ['employee becomes eligible for payroll, training, appraisal, and employee-relations workflows'], 'action_actors': {'create': ['HR officer'], 'confirm': ['hiring manager'], 'close': ['hiring manager'], 'archive': ['hiring manager']}}
@@ -29,7 +31,7 @@ class WorkflowService:
 
     def next_state_for(self, action_id: str) -> str | None:
         rule = ACTION_RULES.get(action_id, {})
-        return rule.get("transitions_to")
+        return cast(str | None, rule.get("transitions_to"))
 
     def apply_action(self, action_id: str, state: str | None) -> dict:
         if not self.is_action_allowed(action_id, state):

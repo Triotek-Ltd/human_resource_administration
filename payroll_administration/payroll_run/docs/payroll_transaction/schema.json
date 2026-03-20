@@ -169,7 +169,7 @@
     {
       "field_id": "payroll_run",
       "label": "Payroll Run",
-      "type": "Data",
+      "type": "Link",
       "required": false,
       "read_only": false,
       "default": null,
@@ -217,7 +217,7 @@
     {
       "field_id": "amount",
       "label": "Amount",
-      "type": "Data",
+      "type": "Currency",
       "required": false,
       "read_only": false,
       "default": null,
@@ -379,7 +379,9 @@
         "post",
         "reconcile",
         "archive"
-      ]
+      ],
+      "scope": "system",
+      "ownership": "platform"
     },
     {
       "role_id": "payroll officer",
@@ -387,22 +389,30 @@
         "view",
         "list",
         "record",
-        "archive"
-      ]
+        "create",
+        "archive",
+        "update"
+      ],
+      "scope": "document",
+      "ownership": "functional"
     },
     {
       "role_id": "HR reviewer",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "review",
+      "ownership": "oversight"
     },
     {
       "role_id": "approver",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "approval",
+      "ownership": "managerial"
     },
     {
       "role_id": "finance officer",
@@ -411,14 +421,18 @@
         "list",
         "post",
         "reconcile"
-      ]
+      ],
+      "scope": "execution",
+      "ownership": "finance"
     },
     {
       "role_id": "employee",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     }
   ],
   "transaction_behavior": {

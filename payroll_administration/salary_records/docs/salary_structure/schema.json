@@ -290,7 +290,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     }
   ],
   "field_groups": {
@@ -398,7 +399,9 @@
         "update",
         "review",
         "archive"
-      ]
+      ],
+      "scope": "system",
+      "ownership": "platform"
     },
     {
       "role_id": "payroll officer",
@@ -408,7 +411,9 @@
         "create",
         "update",
         "archive"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     },
     {
       "role_id": "HR reviewer",
@@ -416,28 +421,36 @@
         "view",
         "list",
         "review"
-      ]
+      ],
+      "scope": "review",
+      "ownership": "oversight"
     },
     {
       "role_id": "approver",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "approval",
+      "ownership": "managerial"
     },
     {
       "role_id": "finance officer",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "execution",
+      "ownership": "finance"
     },
     {
       "role_id": "employee",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     }
   ],
   "transaction_behavior": {

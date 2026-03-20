@@ -2,13 +2,15 @@
 
 from __future__ import annotations
 
+from typing import Any, cast
+
 
 DOC_ID = "candidate_application"
 ARCHETYPE = "transaction"
 INITIAL_STATE = 'received'
 STATES = ['received', 'screening', 'shortlisted', 'rejected', 'archived']
 TERMINAL_STATES = ['archived']
-ACTION_RULES = {'create': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': None}, 'review': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': 'archived'}, 'screen': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': None}, 'shortlist': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': 'shortlisted'}, 'reject': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': 'rejected'}, 'recommend': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': None}, 'move_to_interview': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': None}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'create': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': None}, 'review': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': 'archived'}, 'screen': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': None}, 'shortlist': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': 'shortlisted'}, 'reject': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': 'rejected'}, 'recommend': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': None}, 'move_to_interview': {'allowed_in_states': ['received', 'screening', 'shortlisted', 'rejected'], 'transitions_to': None}}
 
 STATE_FIELD = 'workflow_state'
 WORKFLOW_HINTS = {'business_objective': 'define a staffing need, attract candidates, assess them, and issue an approved offer to the selected candidate', 'actors': ['hiring manager', 'recruiter', 'interviewer', 'approver'], 'start_condition': 'a staffing requirement is approved', 'ordered_steps': ['Receive and review candidate applications.'], 'primary_actions': ['create', 'review', 'shortlist', 'reject'], 'primary_transitions': ['candidate_application: draft -> in_review -> shortlisted or rejected'], 'downstream_effects': ['feeds onboarding and employee master creation'], 'action_actors': {'create': ['hiring manager'], 'review': ['recruiter'], 'archive': ['hiring manager'], 'reject': ['approver']}}
@@ -29,7 +31,7 @@ class WorkflowService:
 
     def next_state_for(self, action_id: str) -> str | None:
         rule = ACTION_RULES.get(action_id, {})
-        return rule.get("transitions_to")
+        return cast(str | None, rule.get("transitions_to"))
 
     def apply_action(self, action_id: str, state: str | None) -> dict:
         if not self.is_action_allowed(action_id, state):

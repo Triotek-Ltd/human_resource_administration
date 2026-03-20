@@ -192,7 +192,7 @@
     {
       "field_id": "date",
       "label": "Date",
-      "type": "Data",
+      "type": "Date",
       "required": false,
       "read_only": false,
       "default": null,
@@ -240,7 +240,7 @@
     {
       "field_id": "facilitator",
       "label": "Facilitator",
-      "type": "Data",
+      "type": "Link",
       "required": false,
       "read_only": false,
       "default": null,
@@ -448,15 +448,20 @@
         "confirm",
         "close",
         "archive"
-      ]
+      ],
+      "scope": "system",
+      "ownership": "platform"
     },
     {
       "role_id": "HR officer",
       "actions": [
         "view",
         "list",
-        "create"
-      ]
+        "create",
+        "update"
+      ],
+      "scope": "document",
+      "ownership": "functional"
     },
     {
       "role_id": "hiring manager",
@@ -465,29 +470,38 @@
         "list",
         "confirm",
         "close",
+        "update",
         "archive"
-      ]
+      ],
+      "scope": "approval",
+      "ownership": "managerial"
     },
     {
       "role_id": "payroll officer",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     },
     {
       "role_id": "IT/admin support",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     },
     {
       "role_id": "new employee",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     }
   ],
   "transaction_behavior": {

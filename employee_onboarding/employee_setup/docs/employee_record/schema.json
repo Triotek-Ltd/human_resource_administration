@@ -265,14 +265,14 @@
     {
       "field_id": "job_title",
       "label": "Job Title",
-      "type": "Data",
+      "type": "Link",
       "required": false,
       "read_only": false,
       "default": null,
       "unique": false,
       "options": null,
       "purpose": null,
-      "linked_doc": null,
+      "linked_doc": "position_record",
       "depends_on": null,
       "mandatory_depends_on": null,
       "read_only_depends_on": null,
@@ -344,14 +344,14 @@
     {
       "field_id": "supervisor",
       "label": "Supervisor",
-      "type": "Data",
+      "type": "Link",
       "required": false,
       "read_only": false,
       "default": null,
       "unique": false,
       "options": null,
       "purpose": null,
-      "linked_doc": null,
+      "linked_doc": "employee_record",
       "depends_on": null,
       "mandatory_depends_on": null,
       "read_only_depends_on": null,
@@ -459,7 +459,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     },
     {
       "field_id": "related_onboarding_case",
@@ -483,7 +484,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     },
     {
       "field_id": "related_access_assignment",
@@ -507,7 +509,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     },
     {
       "field_id": "related_orientation_session",
@@ -531,7 +534,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     },
     {
       "field_id": "related_salary_structure",
@@ -555,7 +559,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     }
   ],
   "field_groups": {
@@ -723,7 +728,9 @@
         "change_status",
         "assign",
         "record"
-      ]
+      ],
+      "scope": "system",
+      "ownership": "platform"
     },
     {
       "role_id": "payroll officer",
@@ -736,7 +743,9 @@
         "activate",
         "assign",
         "record"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     },
     {
       "role_id": "HR reviewer",
@@ -744,28 +753,36 @@
         "view",
         "list",
         "review"
-      ]
+      ],
+      "scope": "review",
+      "ownership": "oversight"
     },
     {
       "role_id": "approver",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "approval",
+      "ownership": "managerial"
     },
     {
       "role_id": "finance officer",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "execution",
+      "ownership": "finance"
     },
     {
       "role_id": "employee",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     }
   ],
   "transaction_behavior": {

@@ -2,17 +2,19 @@
 
 from __future__ import annotations
 
+from typing import Any, cast
+
 
 DOC_ID = "employee_record"
 ACTION_ID = "archive"
-ACTION_RULE = {'allowed_in_states': ['draft', 'active', 'inactive'], 'transitions_to': 'archived'}
+ACTION_RULE: dict[str, Any] = {'allowed_in_states': ['draft', 'active', 'inactive'], 'transitions_to': 'archived'}
 
 STATE_FIELD = 'workflow_state'
 WORKFLOW_HINTS = {'business_objective': 'calculate, approve, pay, document, and post payroll accurately for a pay period', 'actors': ['payroll officer', 'HR reviewer', 'approver', 'finance officer', 'employee'], 'start_condition': 'a payroll period is due for processing', 'ordered_steps': ['Collect attendance and salary basis.'], 'primary_actions': ['record', 'review', 'update'], 'primary_transitions': [], 'downstream_effects': ['payroll history becomes available for employee records, finance controls, and reporting outputs'], 'action_actors': {'create': ['payroll officer'], 'update': ['payroll officer'], 'review': ['HR reviewer'], 'archive': ['payroll officer'], 'activate': ['payroll officer'], 'assign': ['payroll officer'], 'record': ['payroll officer']}}
 
 def handle_archive(payload: dict, context: dict | None = None) -> dict:
     context = context or {}
-    next_state = ACTION_RULE.get("transitions_to")
+    next_state = cast(str | None, ACTION_RULE.get("transitions_to"))
     updates = {STATE_FIELD: next_state} if STATE_FIELD and next_state else {}
     return {
         "doc_id": DOC_ID,

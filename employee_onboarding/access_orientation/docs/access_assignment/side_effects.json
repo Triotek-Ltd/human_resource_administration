@@ -13,6 +13,18 @@
       "fields": {
         "workflow_state": "approved"
       }
+    },
+    {
+      "type": "create_record",
+      "target_doc": "employee_record",
+      "values": {
+        "title": {
+          "$template": "Employee Record for {title|reference_no|id}"
+        },
+        "reference_no": {
+          "$template": "EMPLOYEE_RECORD-{reference_no|id}"
+        }
+      }
     }
   ],
   "issue": [

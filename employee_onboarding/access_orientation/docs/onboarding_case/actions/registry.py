@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 
 DOC_ID = "onboarding_case"
 ALLOWED_ACTIONS = ['create', 'assign', 'track', 'confirm', 'close']
-ACTION_RULES = {'create': {'allowed_in_states': ['open', 'in_progress', 'completed'], 'transitions_to': None}, 'assign': {'allowed_in_states': ['open', 'in_progress', 'completed'], 'transitions_to': 'in_progress'}, 'track': {'allowed_in_states': ['open', 'in_progress', 'completed'], 'transitions_to': None}, 'confirm': {'allowed_in_states': ['open', 'in_progress', 'completed'], 'transitions_to': 'completed'}, 'close': {'allowed_in_states': ['open', 'in_progress', 'completed'], 'transitions_to': 'closed'}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'create': {'allowed_in_states': ['open', 'in_progress', 'completed'], 'transitions_to': None}, 'assign': {'allowed_in_states': ['open', 'in_progress', 'completed'], 'transitions_to': 'in_progress'}, 'track': {'allowed_in_states': ['open', 'in_progress', 'completed'], 'transitions_to': None}, 'confirm': {'allowed_in_states': ['open', 'in_progress', 'completed'], 'transitions_to': 'completed'}, 'close': {'allowed_in_states': ['open', 'in_progress', 'completed'], 'transitions_to': 'closed'}}
 
 STATE_FIELD = 'workflow_state'
 

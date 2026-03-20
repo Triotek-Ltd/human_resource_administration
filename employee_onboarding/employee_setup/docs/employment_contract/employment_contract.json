@@ -15,6 +15,249 @@
   },
   "doc_key": "employment_contract",
   "doc_title": "Employment Contract",
+  "ui": {
+    "icon_key": "receipt",
+    "accent": "#1f7a8c",
+    "logo_image": null,
+    "cover_image": null,
+    "preferred_views": [
+      "list",
+      "table",
+      "detail",
+      "report"
+    ],
+    "default_density": "comfortable"
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "doc",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "records",
+      "flatten_submodules_in_ui": false,
+      "views": [
+        "list",
+        "table",
+        "detail",
+        "report"
+      ]
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "Employment Contract KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "employment_contract",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "Employment Contract summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "employment_contract",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "Employment Contract charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "employment_contract",
+          "metric_family": "trend"
+        }
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "Employment Contract reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "employment_contract",
+          "metric_family": "reporting"
+        }
+      },
+      {
+        "id": "records",
+        "type": "record_table",
+        "title": "Employment Contract records",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "employment_contract",
+          "metric_family": "records"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "employment_contract",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "employment_contract",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "employment_contract",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "employment_contract",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "overview_report",
+        "label": "Employment Contract Overview",
+        "report_type": "dashboard_summary",
+        "surface": "doc"
+      },
+      {
+        "id": "trend_report",
+        "label": "Employment Contract Trends",
+        "report_type": "trend_analysis",
+        "surface": "doc"
+      },
+      {
+        "id": "summary_report",
+        "label": "Employment Contract Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Employment Contract Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "supports_outputs": true,
+    "supports_print_formats": true,
+    "default_views": [
+      "summary",
+      "trend",
+      "report_table"
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "employment_contract_trend_line",
+        "label": "Employment Contract trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "employment_contract_volume_column",
+        "label": "Employment Contract volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "employment_contract_distribution_donut",
+        "label": "Employment Contract distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "employee_record"
+    ],
+    "upstream_docs": [
+      "employee_record"
+    ],
+    "downstream_docs": [
+      "employee_record"
+    ],
+    "borrowed_fields": [
+      "employee",
+      "role details from employee_record"
+    ],
+    "emits_records": [
+      {
+        "action_id": "approve",
+        "target_doc": "employee_record",
+        "effect_type": "create_record"
+      }
+    ],
+    "downstream_effects": [
+      "employee becomes eligible for payroll, training, appraisal, and employee-relations workflows"
+    ],
+    "actors": [
+      "HR officer",
+      "hiring manager",
+      "payroll officer",
+      "IT/admin support",
+      "new employee"
+    ],
+    "handoff_targets": [
+      "employee_record"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "employment_contract",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "employment_contract",
+        "target_doc": "employee_record",
+        "relation": "create_record",
+        "action_id": "approve"
+      }
+    ]
+  },
   "allowed_actions": [
     "create",
     "submit",
@@ -223,7 +466,7 @@
         "unique": false,
         "options": null,
         "purpose": "primary_party",
-        "linked_doc": null,
+        "linked_doc": "employee_record",
         "depends_on": null,
         "mandatory_depends_on": null,
         "read_only_depends_on": null,
@@ -240,12 +483,39 @@
       {
         "field_id": "currency",
         "label": "Currency",
-        "type": "Data",
+        "type": "Select",
         "required": false,
         "read_only": false,
         "default": null,
         "unique": false,
-        "options": null,
+        "options": {
+          "values": [
+            "USD",
+            "EUR",
+            "GBP",
+            "KES",
+            "UGX",
+            "TZS",
+            "RWF",
+            "NGN",
+            "GHS",
+            "ZAR",
+            "AED",
+            "SAR",
+            "INR",
+            "CNY",
+            "JPY",
+            "CAD",
+            "AUD",
+            "NZD",
+            "CHF",
+            "SEK",
+            "NOK",
+            "DKK",
+            "ZMW",
+            "BWP"
+          ]
+        },
         "purpose": "currency_code",
         "linked_doc": null,
         "depends_on": null,
@@ -552,7 +822,9 @@
           "approve",
           "issue",
           "archive"
-        ]
+        ],
+        "scope": "system",
+        "ownership": "platform"
       },
       {
         "role_id": "HR officer",
@@ -560,8 +832,11 @@
           "view",
           "list",
           "create",
+          "update",
           "submit"
-        ]
+        ],
+        "scope": "document",
+        "ownership": "functional"
       },
       {
         "role_id": "hiring manager",
@@ -569,15 +844,20 @@
           "view",
           "list",
           "approve",
-          "archive"
-        ]
+          "archive",
+          "update"
+        ],
+        "scope": "approval",
+        "ownership": "managerial"
       },
       {
         "role_id": "payroll officer",
         "actions": [
           "view",
           "list"
-        ]
+        ],
+        "scope": "document",
+        "ownership": "functional"
       },
       {
         "role_id": "IT/admin support",
@@ -585,14 +865,18 @@
           "view",
           "list",
           "issue"
-        ]
+        ],
+        "scope": "document",
+        "ownership": "functional"
       },
       {
         "role_id": "new employee",
         "actions": [
           "view",
           "list"
-        ]
+        ],
+        "scope": "document",
+        "ownership": "functional"
       }
     ],
     "transaction_behavior": {
@@ -656,7 +940,184 @@
         "workflow_state"
       ],
       "default_filters": [],
-      "quick_entry": false
+      "quick_entry": false,
+      "form_layout": {
+        "version": 1,
+        "tabs": [
+          {
+            "id": "overview",
+            "label": "Overview",
+            "sections": [
+              {
+                "id": "identity",
+                "label": "Identity",
+                "columns": [
+                  {
+                    "id": "identity_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "title"
+                    ]
+                  },
+                  {
+                    "id": "identity_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "reference_no"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "parties",
+                "label": "Parties",
+                "columns": [
+                  {
+                    "id": "parties_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "party"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "dates",
+                "label": "Dates",
+                "columns": [
+                  {
+                    "id": "dates_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "transaction_date",
+                      "end_date"
+                    ]
+                  },
+                  {
+                    "id": "dates_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "start_date"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "status",
+                "label": "Workflow",
+                "columns": [
+                  {
+                    "id": "status_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "workflow_state"
+                    ]
+                  },
+                  {
+                    "id": "status_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "signature_status"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "details",
+            "label": "Details",
+            "sections": [
+              {
+                "id": "content",
+                "label": "Details",
+                "columns": [
+                  {
+                    "id": "content_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "contract_number",
+                      "salary_terms"
+                    ]
+                  },
+                  {
+                    "id": "content_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "contract_type"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "content_details",
+                "label": "Description",
+                "columns": [
+                  {
+                    "id": "content_details_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "description"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "amounts",
+                "label": "Amounts",
+                "columns": [
+                  {
+                    "id": "amounts_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "currency"
+                    ]
+                  },
+                  {
+                    "id": "amounts_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "total_amount"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "related",
+            "label": "Related",
+            "sections": [
+              {
+                "id": "relations",
+                "label": "Related Records",
+                "columns": [
+                  {
+                    "id": "relations_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "employee"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     "related_docs": [
       {
@@ -711,7 +1172,11 @@
       "show_activity_log": true,
       "show_comments": true,
       "show_assignments": true,
-      "show_related_docs": true
+      "show_related_docs": true,
+      "show_kpis": true,
+      "show_summaries": true,
+      "show_charts": true,
+      "show_reports": true
     },
     "integration": {
       "external_refs": [],
@@ -765,6 +1230,17 @@
         }
       },
       "action_side_effects_file": "side_effects.json"
+    },
+    "dashboard": {
+      "metric_blocks": [
+        "kpis",
+        "summaries",
+        "charts",
+        "reports",
+        "records"
+      ],
+      "default_view": "list",
+      "reporting_surface": "doc"
     }
   },
   "classification": {
@@ -869,6 +1345,13 @@
     "api_base_path": "/apis/human_resource_administration/employee_onboarding/employee_setup/employment_contract/",
     "status_field": "workflow_state",
     "initial_state": "draft",
+    "actions": [
+      "create",
+      "submit",
+      "approve",
+      "issue",
+      "archive"
+    ],
     "required_fields": [
       "title",
       "workflow_state",
@@ -899,6 +1382,74 @@
     ],
     "downstream_effects": [
       "employee becomes eligible for payroll, training, appraisal, and employee-relations workflows"
+    ],
+    "role_action_matrix": [
+      {
+        "role_id": "System Manager",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "submit",
+          "approve",
+          "issue",
+          "archive"
+        ],
+        "scope": "system",
+        "ownership": "platform"
+      },
+      {
+        "role_id": "HR officer",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "update",
+          "submit"
+        ],
+        "scope": "document",
+        "ownership": "functional"
+      },
+      {
+        "role_id": "hiring manager",
+        "actions": [
+          "view",
+          "list",
+          "approve",
+          "archive",
+          "update"
+        ],
+        "scope": "approval",
+        "ownership": "managerial"
+      },
+      {
+        "role_id": "payroll officer",
+        "actions": [
+          "view",
+          "list"
+        ],
+        "scope": "document",
+        "ownership": "functional"
+      },
+      {
+        "role_id": "IT/admin support",
+        "actions": [
+          "view",
+          "list",
+          "issue"
+        ],
+        "scope": "document",
+        "ownership": "functional"
+      },
+      {
+        "role_id": "new employee",
+        "actions": [
+          "view",
+          "list"
+        ],
+        "scope": "document",
+        "ownership": "functional"
+      }
     ],
     "action_side_effects_file": "side_effects.json"
   },

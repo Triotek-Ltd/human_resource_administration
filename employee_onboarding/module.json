@@ -4,5 +4,766 @@
   "app_id": "human_resource_administration",
   "type": "module",
   "status": "draft",
-  "supports_submodules": true
+  "supports_submodules": true,
+  "ui": {
+    "icon_key": "apps",
+    "accent": "#246f89",
+    "logo_image": null,
+    "cover_image": null
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "module",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "docs",
+      "flatten_submodules_in_ui": true
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "Employee Onboarding KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "employee_onboarding",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "Employee Onboarding summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "employee_onboarding",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "Employee Onboarding charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "employee_onboarding",
+          "metric_family": "trend"
+        },
+        "chart_specs": [
+          {
+            "id": "employee_onboarding_trend_line",
+            "label": "Employee Onboarding trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "employee_onboarding_volume_column",
+            "label": "Employee Onboarding volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "employee_onboarding_distribution_donut",
+            "label": "Employee Onboarding distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "access_assignment_trend_line",
+            "label": "Access Assignment trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "access_assignment_volume_column",
+            "label": "Access Assignment volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "access_assignment_distribution_donut",
+            "label": "Access Assignment distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "onboarding_case_trend_line",
+            "label": "Onboarding Case trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "onboarding_case_volume_column",
+            "label": "Onboarding Case volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "onboarding_case_distribution_donut",
+            "label": "Onboarding Case distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "orientation_session_trend_line",
+            "label": "Orientation Session trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "orientation_session_volume_column",
+            "label": "Orientation Session volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "orientation_session_distribution_donut",
+            "label": "Orientation Session distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "employee_record_trend_line",
+            "label": "Employee Record trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "employee_record_volume_column",
+            "label": "Employee Record volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "employee_record_distribution_donut",
+            "label": "Employee Record distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "employment_contract_trend_line",
+            "label": "Employment Contract trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "employment_contract_volume_column",
+            "label": "Employment Contract volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "employment_contract_distribution_donut",
+            "label": "Employment Contract distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          }
+        ]
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "Employee Onboarding reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "employee_onboarding",
+          "metric_family": "reporting"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "employee_onboarding",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "employee_onboarding",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "employee_onboarding",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "employee_onboarding",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "overview_report",
+        "label": "Employee Onboarding Overview",
+        "report_type": "dashboard_summary",
+        "surface": "module"
+      },
+      {
+        "id": "trend_report",
+        "label": "Employee Onboarding Trends",
+        "report_type": "trend_analysis",
+        "surface": "module"
+      },
+      {
+        "id": "summary_report",
+        "label": "Access Assignment Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Access Assignment Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "employee_onboarding_trend_line",
+        "label": "Employee Onboarding trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "employee_onboarding_volume_column",
+        "label": "Employee Onboarding volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "employee_onboarding_distribution_donut",
+        "label": "Employee Onboarding distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "access_assignment_trend_line",
+        "label": "Access Assignment trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "access_assignment_volume_column",
+        "label": "Access Assignment volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "access_assignment_distribution_donut",
+        "label": "Access Assignment distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "onboarding_case_trend_line",
+        "label": "Onboarding Case trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "onboarding_case_volume_column",
+        "label": "Onboarding Case volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "onboarding_case_distribution_donut",
+        "label": "Onboarding Case distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "orientation_session_trend_line",
+        "label": "Orientation Session trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "orientation_session_volume_column",
+        "label": "Orientation Session volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "orientation_session_distribution_donut",
+        "label": "Orientation Session distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "employee_record_trend_line",
+        "label": "Employee Record trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "employee_record_volume_column",
+        "label": "Employee Record volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "employee_record_distribution_donut",
+        "label": "Employee Record distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "employment_contract_trend_line",
+        "label": "Employment Contract trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "employment_contract_volume_column",
+        "label": "Employment Contract volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "employment_contract_distribution_donut",
+        "label": "Employment Contract distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ],
+    "source_docs": [],
+    "source_fields": [],
+    "child_sources": [
+      {
+        "id": "access_assignment",
+        "title": "Access Assignment",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "onboarding_case",
+        "title": "Onboarding Case",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "orientation_session",
+        "title": "Orientation Session",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "employee_record",
+        "title": "Employee Record",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "employment_contract",
+        "title": "Employment Contract",
+        "surface": null,
+        "source_docs": []
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "employee_record",
+      "employment_contract",
+      "onboarding_case",
+      "access_assignment",
+      "orientation_session",
+      "salary_structure"
+    ],
+    "upstream_docs": [
+      "employee_record",
+      "employment_contract",
+      "onboarding_case",
+      "access_assignment",
+      "orientation_session",
+      "salary_structure"
+    ],
+    "downstream_docs": [
+      "employee_record",
+      "access_assignment"
+    ],
+    "actors": [
+      "hr officer",
+      "case owner",
+      "HR officer",
+      "hiring manager",
+      "payroll officer",
+      "IT/admin support",
+      "new employee",
+      "HR reviewer",
+      "approver",
+      "finance officer",
+      "employee"
+    ],
+    "downstream_effects": [
+      "employee becomes eligible for payroll, training, appraisal, and employee-relations workflows",
+      "payroll history becomes available for employee records, finance controls, and reporting outputs"
+    ],
+    "emits_records": [
+      {
+        "action_id": "approve",
+        "target_doc": "employee_record",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "confirm",
+        "target_doc": "employee_record",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "activate",
+        "target_doc": "access_assignment",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "assign",
+        "target_doc": "access_assignment",
+        "effect_type": "create_record"
+      }
+    ],
+    "handoff_targets": [
+      "employee_record",
+      "employment_contract",
+      "onboarding_case",
+      "access_assignment",
+      "orientation_session",
+      "salary_structure"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "access_assignment",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "access_assignment",
+        "target_doc": "employee_record",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "onboarding_case",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "onboarding_case",
+        "target_doc": "employee_record",
+        "relation": "create_record",
+        "action_id": "confirm"
+      },
+      {
+        "source_doc": "orientation_session",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "orientation_session",
+        "target_doc": "employee_record",
+        "relation": "create_record",
+        "action_id": "confirm"
+      },
+      {
+        "source_doc": "employee_record",
+        "target_doc": "employment_contract",
+        "relation": "references"
+      },
+      {
+        "source_doc": "employee_record",
+        "target_doc": "onboarding_case",
+        "relation": "references"
+      },
+      {
+        "source_doc": "employee_record",
+        "target_doc": "access_assignment",
+        "relation": "references"
+      },
+      {
+        "source_doc": "employee_record",
+        "target_doc": "orientation_session",
+        "relation": "references"
+      },
+      {
+        "source_doc": "employee_record",
+        "target_doc": "salary_structure",
+        "relation": "references"
+      },
+      {
+        "source_doc": "employee_record",
+        "target_doc": "access_assignment",
+        "relation": "create_record",
+        "action_id": "activate"
+      },
+      {
+        "source_doc": "employee_record",
+        "target_doc": "access_assignment",
+        "relation": "create_record",
+        "action_id": "assign"
+      },
+      {
+        "source_doc": "employment_contract",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "employment_contract",
+        "target_doc": "employee_record",
+        "relation": "create_record",
+        "action_id": "approve"
+      }
+    ],
+    "operating_graph": {
+      "nodes": [
+        {
+          "id": "employee_record",
+          "kind": "doc"
+        },
+        {
+          "id": "employment_contract",
+          "kind": "doc"
+        },
+        {
+          "id": "onboarding_case",
+          "kind": "doc"
+        },
+        {
+          "id": "access_assignment",
+          "kind": "doc"
+        },
+        {
+          "id": "orientation_session",
+          "kind": "doc"
+        },
+        {
+          "id": "salary_structure",
+          "kind": "doc"
+        }
+      ],
+      "edges": [
+        {
+          "source_doc": "access_assignment",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "access_assignment",
+          "target_doc": "employee_record",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "onboarding_case",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "onboarding_case",
+          "target_doc": "employee_record",
+          "relation": "create_record",
+          "action_id": "confirm"
+        },
+        {
+          "source_doc": "orientation_session",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "orientation_session",
+          "target_doc": "employee_record",
+          "relation": "create_record",
+          "action_id": "confirm"
+        },
+        {
+          "source_doc": "employee_record",
+          "target_doc": "employment_contract",
+          "relation": "references"
+        },
+        {
+          "source_doc": "employee_record",
+          "target_doc": "onboarding_case",
+          "relation": "references"
+        },
+        {
+          "source_doc": "employee_record",
+          "target_doc": "access_assignment",
+          "relation": "references"
+        },
+        {
+          "source_doc": "employee_record",
+          "target_doc": "orientation_session",
+          "relation": "references"
+        },
+        {
+          "source_doc": "employee_record",
+          "target_doc": "salary_structure",
+          "relation": "references"
+        },
+        {
+          "source_doc": "employee_record",
+          "target_doc": "access_assignment",
+          "relation": "create_record",
+          "action_id": "activate"
+        },
+        {
+          "source_doc": "employee_record",
+          "target_doc": "access_assignment",
+          "relation": "create_record",
+          "action_id": "assign"
+        },
+        {
+          "source_doc": "employment_contract",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "employment_contract",
+          "target_doc": "employee_record",
+          "relation": "create_record",
+          "action_id": "approve"
+        }
+      ]
+    }
+  },
+  "contract_version": 1
 }

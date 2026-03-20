@@ -216,7 +216,7 @@
     {
       "field_id": "date",
       "label": "Date",
-      "type": "Data",
+      "type": "Date",
       "required": false,
       "read_only": false,
       "default": null,
@@ -264,14 +264,14 @@
     {
       "field_id": "trainer",
       "label": "Trainer",
-      "type": "Data",
+      "type": "Link",
       "required": false,
       "read_only": false,
       "default": null,
       "unique": false,
       "options": null,
       "purpose": "actor_reference",
-      "linked_doc": null,
+      "linked_doc": "employee_record",
       "depends_on": null,
       "mandatory_depends_on": null,
       "read_only_depends_on": null,
@@ -379,7 +379,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     }
   ],
   "field_groups": {
@@ -491,7 +492,9 @@
         "confirm",
         "close",
         "archive"
-      ]
+      ],
+      "scope": "system",
+      "ownership": "platform"
     },
     {
       "role_id": "HR development owner",
@@ -499,16 +502,21 @@
         "view",
         "list",
         "create",
+        "update",
         "close",
         "archive"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     },
     {
       "role_id": "trainer",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     },
     {
       "role_id": "participant manager",
@@ -516,7 +524,9 @@
         "view",
         "list",
         "confirm"
-      ]
+      ],
+      "scope": "approval",
+      "ownership": "managerial"
     }
   ],
   "transaction_behavior": {

@@ -8,5 +8,3247 @@
     "id": "CUSTOM-PROPRIETARY",
     "type": "proprietary_custom",
     "terms_ref": "LICENSE"
+  },
+  "ui": {
+    "icon_key": "apps",
+    "accent": "#246f89",
+    "logo_image": null,
+    "cover_image": null
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "app",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "modules",
+      "flatten_submodules_in_ui": false
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "My Plug App KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "app",
+          "entity_id": "human_resource_administration",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "My Plug App summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "app",
+          "entity_id": "human_resource_administration",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "My Plug App charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "app",
+          "entity_id": "human_resource_administration",
+          "metric_family": "trend"
+        },
+        "chart_specs": [
+          {
+            "id": "human_resource_administration_trend_line",
+            "label": "My Plug App trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "human_resource_administration_volume_column",
+            "label": "My Plug App volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "human_resource_administration_distribution_donut",
+            "label": "My Plug App distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "employee_onboarding_trend_line",
+            "label": "Employee Onboarding trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "employee_onboarding_volume_column",
+            "label": "Employee Onboarding volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "employee_onboarding_distribution_donut",
+            "label": "Employee Onboarding distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "access_assignment_trend_line",
+            "label": "Access Assignment trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "access_assignment_volume_column",
+            "label": "Access Assignment volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "access_assignment_distribution_donut",
+            "label": "Access Assignment distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "onboarding_case_trend_line",
+            "label": "Onboarding Case trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "onboarding_case_volume_column",
+            "label": "Onboarding Case volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "onboarding_case_distribution_donut",
+            "label": "Onboarding Case distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "orientation_session_trend_line",
+            "label": "Orientation Session trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "orientation_session_volume_column",
+            "label": "Orientation Session volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "orientation_session_distribution_donut",
+            "label": "Orientation Session distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "employee_record_trend_line",
+            "label": "Employee Record trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "employee_record_volume_column",
+            "label": "Employee Record volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "employee_record_distribution_donut",
+            "label": "Employee Record distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "employment_contract_trend_line",
+            "label": "Employment Contract trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "employment_contract_volume_column",
+            "label": "Employment Contract volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "employment_contract_distribution_donut",
+            "label": "Employment Contract distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "employee_relations_trend_line",
+            "label": "Employee Relations trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "employee_relations_volume_column",
+            "label": "Employee Relations volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "employee_relations_distribution_donut",
+            "label": "Employee Relations distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "disciplinary_action_trend_line",
+            "label": "Disciplinary Action trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "disciplinary_action_volume_column",
+            "label": "Disciplinary Action volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "disciplinary_action_distribution_donut",
+            "label": "Disciplinary Action distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "relations_case_outcome_trend_line",
+            "label": "Relations Case Outcome trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "relations_case_outcome_volume_column",
+            "label": "Relations Case Outcome volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "relations_case_outcome_distribution_donut",
+            "label": "Relations Case Outcome distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "employee_grievance_trend_line",
+            "label": "Employee Grievance trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "employee_grievance_volume_column",
+            "label": "Employee Grievance volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "employee_grievance_distribution_donut",
+            "label": "Employee Grievance distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "relations_case_note_trend_line",
+            "label": "Relations Case Note trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "relations_case_note_volume_column",
+            "label": "Relations Case Note volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "relations_case_note_distribution_donut",
+            "label": "Relations Case Note distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "payroll_administration_trend_line",
+            "label": "Payroll Administration trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "payroll_administration_volume_column",
+            "label": "Payroll Administration volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "payroll_administration_distribution_donut",
+            "label": "Payroll Administration distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "payroll_line_trend_line",
+            "label": "Payroll Line trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "payroll_line_volume_column",
+            "label": "Payroll Line volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "payroll_line_distribution_donut",
+            "label": "Payroll Line distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "payroll_run_trend_line",
+            "label": "Payroll Run trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "payroll_run_volume_column",
+            "label": "Payroll Run volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "payroll_run_distribution_donut",
+            "label": "Payroll Run distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "payroll_transaction_trend_line",
+            "label": "Payroll Transaction trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "payroll_transaction_volume_column",
+            "label": "Payroll Transaction volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "payroll_transaction_distribution_donut",
+            "label": "Payroll Transaction distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "payslip_trend_line",
+            "label": "Payslip trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "payslip_volume_column",
+            "label": "Payslip volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "payslip_distribution_donut",
+            "label": "Payslip distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "attendance_record_trend_line",
+            "label": "Attendance Record trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "attendance_record_volume_column",
+            "label": "Attendance Record volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "attendance_record_distribution_donut",
+            "label": "Attendance Record distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "salary_structure_trend_line",
+            "label": "Salary Structure trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "salary_structure_volume_column",
+            "label": "Salary Structure volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "salary_structure_distribution_donut",
+            "label": "Salary Structure distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "performance_appraisal_trend_line",
+            "label": "Performance Appraisal trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "performance_appraisal_volume_column",
+            "label": "Performance Appraisal volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "performance_appraisal_distribution_donut",
+            "label": "Performance Appraisal distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "performance_cycle_trend_line",
+            "label": "Performance Cycle trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "performance_cycle_volume_column",
+            "label": "Performance Cycle volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "performance_cycle_distribution_donut",
+            "label": "Performance Cycle distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "performance_rating_trend_line",
+            "label": "Performance Rating trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "performance_rating_volume_column",
+            "label": "Performance Rating volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "performance_rating_distribution_donut",
+            "label": "Performance Rating distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "improvement_plan_trend_line",
+            "label": "Improvement Plan trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "improvement_plan_volume_column",
+            "label": "Improvement Plan volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "improvement_plan_distribution_donut",
+            "label": "Improvement Plan distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "recruitment_selection_trend_line",
+            "label": "Recruitment Selection trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "recruitment_selection_volume_column",
+            "label": "Recruitment Selection volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "recruitment_selection_distribution_donut",
+            "label": "Recruitment Selection distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "interview_evaluation_trend_line",
+            "label": "Interview Evaluation trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "interview_evaluation_volume_column",
+            "label": "Interview Evaluation volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "interview_evaluation_distribution_donut",
+            "label": "Interview Evaluation distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "interview_schedule_trend_line",
+            "label": "Interview Schedule trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "interview_schedule_volume_column",
+            "label": "Interview Schedule volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "interview_schedule_distribution_donut",
+            "label": "Interview Schedule distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "job_offer_trend_line",
+            "label": "Job Offer trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "job_offer_volume_column",
+            "label": "Job Offer volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "job_offer_distribution_donut",
+            "label": "Job Offer distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "candidate_application_trend_line",
+            "label": "Candidate Application trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "candidate_application_volume_column",
+            "label": "Candidate Application volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "candidate_application_distribution_donut",
+            "label": "Candidate Application distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "candidate_profile_trend_line",
+            "label": "Candidate Profile trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "candidate_profile_volume_column",
+            "label": "Candidate Profile volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "candidate_profile_distribution_donut",
+            "label": "Candidate Profile distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "job_description_trend_line",
+            "label": "Job Description trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "job_description_volume_column",
+            "label": "Job Description volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "job_description_distribution_donut",
+            "label": "Job Description distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "job_vacancy_trend_line",
+            "label": "Job Vacancy trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "job_vacancy_volume_column",
+            "label": "Job Vacancy volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "job_vacancy_distribution_donut",
+            "label": "Job Vacancy distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "training_development_trend_line",
+            "label": "Training Development trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "training_development_volume_column",
+            "label": "Training Development volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "training_development_distribution_donut",
+            "label": "Training Development distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "training_need_trend_line",
+            "label": "Training Need trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "training_need_volume_column",
+            "label": "Training Need volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "training_need_distribution_donut",
+            "label": "Training Need distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "training_plan_trend_line",
+            "label": "Training Plan trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "training_plan_volume_column",
+            "label": "Training Plan volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "training_plan_distribution_donut",
+            "label": "Training Plan distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "training_attendance_trend_line",
+            "label": "Training Attendance trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "training_attendance_volume_column",
+            "label": "Training Attendance volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "training_attendance_distribution_donut",
+            "label": "Training Attendance distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "training_outcome_trend_line",
+            "label": "Training Outcome trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "training_outcome_volume_column",
+            "label": "Training Outcome volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "training_outcome_distribution_donut",
+            "label": "Training Outcome distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "training_session_trend_line",
+            "label": "Training Session trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "training_session_volume_column",
+            "label": "Training Session volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "training_session_distribution_donut",
+            "label": "Training Session distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          }
+        ]
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "My Plug App reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "app",
+          "entity_id": "human_resource_administration",
+          "metric_family": "reporting"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "app",
+        "entity_id": "human_resource_administration",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "app",
+        "entity_id": "human_resource_administration",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "app",
+        "entity_id": "human_resource_administration",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "app",
+        "entity_id": "human_resource_administration",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "overview_report",
+        "label": "My Plug App Overview",
+        "report_type": "dashboard_summary",
+        "surface": "app"
+      },
+      {
+        "id": "trend_report",
+        "label": "My Plug App Trends",
+        "report_type": "trend_analysis",
+        "surface": "app"
+      },
+      {
+        "id": "summary_report",
+        "label": "Access Assignment Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Access Assignment Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "human_resource_administration_trend_line",
+        "label": "My Plug App trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "human_resource_administration_volume_column",
+        "label": "My Plug App volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "human_resource_administration_distribution_donut",
+        "label": "My Plug App distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "employee_onboarding_trend_line",
+        "label": "Employee Onboarding trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "employee_onboarding_volume_column",
+        "label": "Employee Onboarding volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "employee_onboarding_distribution_donut",
+        "label": "Employee Onboarding distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "access_assignment_trend_line",
+        "label": "Access Assignment trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "access_assignment_volume_column",
+        "label": "Access Assignment volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "access_assignment_distribution_donut",
+        "label": "Access Assignment distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "onboarding_case_trend_line",
+        "label": "Onboarding Case trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "onboarding_case_volume_column",
+        "label": "Onboarding Case volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "onboarding_case_distribution_donut",
+        "label": "Onboarding Case distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "orientation_session_trend_line",
+        "label": "Orientation Session trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "orientation_session_volume_column",
+        "label": "Orientation Session volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "orientation_session_distribution_donut",
+        "label": "Orientation Session distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "employee_record_trend_line",
+        "label": "Employee Record trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "employee_record_volume_column",
+        "label": "Employee Record volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "employee_record_distribution_donut",
+        "label": "Employee Record distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "employment_contract_trend_line",
+        "label": "Employment Contract trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "employment_contract_volume_column",
+        "label": "Employment Contract volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "employment_contract_distribution_donut",
+        "label": "Employment Contract distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "employee_relations_trend_line",
+        "label": "Employee Relations trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "employee_relations_volume_column",
+        "label": "Employee Relations volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "employee_relations_distribution_donut",
+        "label": "Employee Relations distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "disciplinary_action_trend_line",
+        "label": "Disciplinary Action trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "disciplinary_action_volume_column",
+        "label": "Disciplinary Action volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "disciplinary_action_distribution_donut",
+        "label": "Disciplinary Action distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "relations_case_outcome_trend_line",
+        "label": "Relations Case Outcome trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "relations_case_outcome_volume_column",
+        "label": "Relations Case Outcome volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "relations_case_outcome_distribution_donut",
+        "label": "Relations Case Outcome distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "employee_grievance_trend_line",
+        "label": "Employee Grievance trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "employee_grievance_volume_column",
+        "label": "Employee Grievance volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "employee_grievance_distribution_donut",
+        "label": "Employee Grievance distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "relations_case_note_trend_line",
+        "label": "Relations Case Note trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "relations_case_note_volume_column",
+        "label": "Relations Case Note volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "relations_case_note_distribution_donut",
+        "label": "Relations Case Note distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "payroll_administration_trend_line",
+        "label": "Payroll Administration trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "payroll_administration_volume_column",
+        "label": "Payroll Administration volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "payroll_administration_distribution_donut",
+        "label": "Payroll Administration distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "payroll_line_trend_line",
+        "label": "Payroll Line trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "payroll_line_volume_column",
+        "label": "Payroll Line volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "payroll_line_distribution_donut",
+        "label": "Payroll Line distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "payroll_run_trend_line",
+        "label": "Payroll Run trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "payroll_run_volume_column",
+        "label": "Payroll Run volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "payroll_run_distribution_donut",
+        "label": "Payroll Run distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "payroll_transaction_trend_line",
+        "label": "Payroll Transaction trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "payroll_transaction_volume_column",
+        "label": "Payroll Transaction volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "payroll_transaction_distribution_donut",
+        "label": "Payroll Transaction distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "payslip_trend_line",
+        "label": "Payslip trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "payslip_volume_column",
+        "label": "Payslip volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "payslip_distribution_donut",
+        "label": "Payslip distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "attendance_record_trend_line",
+        "label": "Attendance Record trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "attendance_record_volume_column",
+        "label": "Attendance Record volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "attendance_record_distribution_donut",
+        "label": "Attendance Record distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "salary_structure_trend_line",
+        "label": "Salary Structure trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "salary_structure_volume_column",
+        "label": "Salary Structure volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "salary_structure_distribution_donut",
+        "label": "Salary Structure distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "performance_appraisal_trend_line",
+        "label": "Performance Appraisal trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "performance_appraisal_volume_column",
+        "label": "Performance Appraisal volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "performance_appraisal_distribution_donut",
+        "label": "Performance Appraisal distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "performance_cycle_trend_line",
+        "label": "Performance Cycle trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "performance_cycle_volume_column",
+        "label": "Performance Cycle volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "performance_cycle_distribution_donut",
+        "label": "Performance Cycle distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "performance_rating_trend_line",
+        "label": "Performance Rating trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "performance_rating_volume_column",
+        "label": "Performance Rating volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "performance_rating_distribution_donut",
+        "label": "Performance Rating distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "improvement_plan_trend_line",
+        "label": "Improvement Plan trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "improvement_plan_volume_column",
+        "label": "Improvement Plan volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "improvement_plan_distribution_donut",
+        "label": "Improvement Plan distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "recruitment_selection_trend_line",
+        "label": "Recruitment Selection trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "recruitment_selection_volume_column",
+        "label": "Recruitment Selection volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "recruitment_selection_distribution_donut",
+        "label": "Recruitment Selection distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "interview_evaluation_trend_line",
+        "label": "Interview Evaluation trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "interview_evaluation_volume_column",
+        "label": "Interview Evaluation volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "interview_evaluation_distribution_donut",
+        "label": "Interview Evaluation distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "interview_schedule_trend_line",
+        "label": "Interview Schedule trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "interview_schedule_volume_column",
+        "label": "Interview Schedule volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "interview_schedule_distribution_donut",
+        "label": "Interview Schedule distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "job_offer_trend_line",
+        "label": "Job Offer trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "job_offer_volume_column",
+        "label": "Job Offer volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "job_offer_distribution_donut",
+        "label": "Job Offer distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "candidate_application_trend_line",
+        "label": "Candidate Application trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "candidate_application_volume_column",
+        "label": "Candidate Application volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "candidate_application_distribution_donut",
+        "label": "Candidate Application distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "candidate_profile_trend_line",
+        "label": "Candidate Profile trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "candidate_profile_volume_column",
+        "label": "Candidate Profile volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "candidate_profile_distribution_donut",
+        "label": "Candidate Profile distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "job_description_trend_line",
+        "label": "Job Description trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "job_description_volume_column",
+        "label": "Job Description volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "job_description_distribution_donut",
+        "label": "Job Description distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "job_vacancy_trend_line",
+        "label": "Job Vacancy trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "job_vacancy_volume_column",
+        "label": "Job Vacancy volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "job_vacancy_distribution_donut",
+        "label": "Job Vacancy distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "training_development_trend_line",
+        "label": "Training Development trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "training_development_volume_column",
+        "label": "Training Development volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "training_development_distribution_donut",
+        "label": "Training Development distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "training_need_trend_line",
+        "label": "Training Need trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "training_need_volume_column",
+        "label": "Training Need volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "training_need_distribution_donut",
+        "label": "Training Need distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "training_plan_trend_line",
+        "label": "Training Plan trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "training_plan_volume_column",
+        "label": "Training Plan volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "training_plan_distribution_donut",
+        "label": "Training Plan distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "training_attendance_trend_line",
+        "label": "Training Attendance trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "training_attendance_volume_column",
+        "label": "Training Attendance volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "training_attendance_distribution_donut",
+        "label": "Training Attendance distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "training_outcome_trend_line",
+        "label": "Training Outcome trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "training_outcome_volume_column",
+        "label": "Training Outcome volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "training_outcome_distribution_donut",
+        "label": "Training Outcome distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "training_session_trend_line",
+        "label": "Training Session trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "training_session_volume_column",
+        "label": "Training Session volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "training_session_distribution_donut",
+        "label": "Training Session distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ],
+    "source_docs": [],
+    "source_fields": [],
+    "child_sources": [
+      {
+        "id": "employee_onboarding",
+        "title": "Employee Onboarding",
+        "surface": "module",
+        "source_docs": []
+      },
+      {
+        "id": "employee_relations",
+        "title": "Employee Relations",
+        "surface": "module",
+        "source_docs": []
+      },
+      {
+        "id": "payroll_administration",
+        "title": "Payroll Administration",
+        "surface": "module",
+        "source_docs": []
+      },
+      {
+        "id": "performance_appraisal",
+        "title": "Performance Appraisal",
+        "surface": "module",
+        "source_docs": []
+      },
+      {
+        "id": "recruitment_selection",
+        "title": "Recruitment Selection",
+        "surface": "module",
+        "source_docs": []
+      },
+      {
+        "id": "training_development",
+        "title": "Training Development",
+        "surface": "module",
+        "source_docs": []
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "employee_record",
+      "employment_contract",
+      "onboarding_case",
+      "access_assignment",
+      "orientation_session",
+      "salary_structure",
+      "employee_grievance",
+      "relations_case_note",
+      "payroll_run",
+      "payroll_line",
+      "payslip",
+      "attendance_record",
+      "payroll_transaction",
+      "performance_cycle",
+      "performance_rating",
+      "improvement_plan",
+      "performance_appraisal",
+      "candidate_application",
+      "interview_schedule",
+      "candidate_profile",
+      "job_vacancy",
+      "interview_evaluation",
+      "job_offer",
+      "job_description",
+      "training_plan",
+      "training_session",
+      "training_attendance"
+    ],
+    "upstream_docs": [
+      "employee_record",
+      "employment_contract",
+      "onboarding_case",
+      "access_assignment",
+      "orientation_session",
+      "salary_structure",
+      "employee_grievance",
+      "relations_case_note",
+      "payroll_run",
+      "payroll_line",
+      "payslip",
+      "attendance_record",
+      "payroll_transaction",
+      "performance_cycle",
+      "performance_rating",
+      "improvement_plan",
+      "performance_appraisal",
+      "candidate_application",
+      "interview_schedule",
+      "candidate_profile",
+      "job_vacancy",
+      "interview_evaluation",
+      "job_offer",
+      "job_description",
+      "training_plan",
+      "training_session",
+      "training_attendance"
+    ],
+    "downstream_docs": [
+      "employee_record",
+      "access_assignment",
+      "relations_case_note",
+      "payroll_transaction",
+      "attendance_record",
+      "training_session"
+    ],
+    "actors": [
+      "hr officer",
+      "case owner",
+      "HR officer",
+      "hiring manager",
+      "payroll officer",
+      "IT/admin support",
+      "new employee",
+      "HR reviewer",
+      "approver",
+      "finance officer",
+      "employee",
+      "employee-relations owner",
+      "manager",
+      "supervisor",
+      "recruiter",
+      "interviewer",
+      "HR development owner",
+      "trainer",
+      "participant manager"
+    ],
+    "downstream_effects": [
+      "employee becomes eligible for payroll, training, appraisal, and employee-relations workflows",
+      "payroll history becomes available for employee records, finance controls, and reporting outputs",
+      "supports HR compliance and risk management",
+      "supports employee growth and performance management",
+      "feeds onboarding and employee master creation",
+      "supports employee development and performance planning"
+    ],
+    "emits_records": [
+      {
+        "action_id": "approve",
+        "target_doc": "employee_record",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "confirm",
+        "target_doc": "employee_record",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "activate",
+        "target_doc": "access_assignment",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "assign",
+        "target_doc": "access_assignment",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "close",
+        "target_doc": "relations_case_note",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "assign",
+        "target_doc": "relations_case_note",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "post",
+        "target_doc": "payroll_transaction",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "approve",
+        "target_doc": "attendance_record",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "confirm",
+        "target_doc": "training_session",
+        "effect_type": "create_record"
+      }
+    ],
+    "handoff_targets": [
+      "employee_record",
+      "employment_contract",
+      "onboarding_case",
+      "access_assignment",
+      "orientation_session",
+      "salary_structure",
+      "employee_grievance",
+      "relations_case_note",
+      "payroll_run",
+      "payroll_line",
+      "payslip",
+      "attendance_record",
+      "payroll_transaction",
+      "performance_cycle",
+      "performance_rating",
+      "improvement_plan",
+      "performance_appraisal",
+      "candidate_application",
+      "interview_schedule",
+      "candidate_profile",
+      "job_vacancy",
+      "interview_evaluation",
+      "job_offer",
+      "job_description",
+      "training_plan",
+      "training_session",
+      "training_attendance"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "access_assignment",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "access_assignment",
+        "target_doc": "employee_record",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "onboarding_case",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "onboarding_case",
+        "target_doc": "employee_record",
+        "relation": "create_record",
+        "action_id": "confirm"
+      },
+      {
+        "source_doc": "orientation_session",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "orientation_session",
+        "target_doc": "employee_record",
+        "relation": "create_record",
+        "action_id": "confirm"
+      },
+      {
+        "source_doc": "employee_record",
+        "target_doc": "employment_contract",
+        "relation": "references"
+      },
+      {
+        "source_doc": "employee_record",
+        "target_doc": "onboarding_case",
+        "relation": "references"
+      },
+      {
+        "source_doc": "employee_record",
+        "target_doc": "access_assignment",
+        "relation": "references"
+      },
+      {
+        "source_doc": "employee_record",
+        "target_doc": "orientation_session",
+        "relation": "references"
+      },
+      {
+        "source_doc": "employee_record",
+        "target_doc": "salary_structure",
+        "relation": "references"
+      },
+      {
+        "source_doc": "employee_record",
+        "target_doc": "access_assignment",
+        "relation": "create_record",
+        "action_id": "activate"
+      },
+      {
+        "source_doc": "employee_record",
+        "target_doc": "access_assignment",
+        "relation": "create_record",
+        "action_id": "assign"
+      },
+      {
+        "source_doc": "employment_contract",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "employment_contract",
+        "target_doc": "employee_record",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "disciplinary_action",
+        "target_doc": "employee_grievance",
+        "relation": "references"
+      },
+      {
+        "source_doc": "disciplinary_action",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "disciplinary_action",
+        "target_doc": "employee_record",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "relations_case_outcome",
+        "target_doc": "employee_grievance",
+        "relation": "references"
+      },
+      {
+        "source_doc": "employee_grievance",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "employee_grievance",
+        "target_doc": "relations_case_note",
+        "relation": "references"
+      },
+      {
+        "source_doc": "employee_grievance",
+        "target_doc": "relations_case_note",
+        "relation": "create_record",
+        "action_id": "close"
+      },
+      {
+        "source_doc": "employee_grievance",
+        "target_doc": "relations_case_note",
+        "relation": "create_record",
+        "action_id": "assign"
+      },
+      {
+        "source_doc": "relations_case_note",
+        "target_doc": "employee_grievance",
+        "relation": "references"
+      },
+      {
+        "source_doc": "payroll_line",
+        "target_doc": "payroll_run",
+        "relation": "references"
+      },
+      {
+        "source_doc": "payroll_line",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "payroll_run",
+        "target_doc": "payroll_line",
+        "relation": "references"
+      },
+      {
+        "source_doc": "payroll_run",
+        "target_doc": "payslip",
+        "relation": "references"
+      },
+      {
+        "source_doc": "payroll_run",
+        "target_doc": "attendance_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "payroll_run",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "payroll_run",
+        "target_doc": "payroll_transaction",
+        "relation": "references"
+      },
+      {
+        "source_doc": "payroll_run",
+        "target_doc": "payroll_transaction",
+        "relation": "create_record",
+        "action_id": "post"
+      },
+      {
+        "source_doc": "payroll_run",
+        "target_doc": "attendance_record",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "payroll_transaction",
+        "target_doc": "payroll_run",
+        "relation": "references"
+      },
+      {
+        "source_doc": "payslip",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "payslip",
+        "target_doc": "payroll_run",
+        "relation": "references"
+      },
+      {
+        "source_doc": "attendance_record",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "attendance_record",
+        "target_doc": "payroll_run",
+        "relation": "references"
+      },
+      {
+        "source_doc": "attendance_record",
+        "target_doc": "employee_record",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "salary_structure",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "performance_appraisal",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "performance_appraisal",
+        "target_doc": "performance_cycle",
+        "relation": "references"
+      },
+      {
+        "source_doc": "performance_appraisal",
+        "target_doc": "performance_rating",
+        "relation": "references"
+      },
+      {
+        "source_doc": "performance_appraisal",
+        "target_doc": "improvement_plan",
+        "relation": "references"
+      },
+      {
+        "source_doc": "performance_appraisal",
+        "target_doc": "employee_record",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "performance_cycle",
+        "target_doc": "performance_appraisal",
+        "relation": "references"
+      },
+      {
+        "source_doc": "performance_rating",
+        "target_doc": "performance_appraisal",
+        "relation": "references"
+      },
+      {
+        "source_doc": "improvement_plan",
+        "target_doc": "performance_appraisal",
+        "relation": "references"
+      },
+      {
+        "source_doc": "improvement_plan",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "interview_evaluation",
+        "target_doc": "candidate_application",
+        "relation": "references"
+      },
+      {
+        "source_doc": "interview_evaluation",
+        "target_doc": "interview_schedule",
+        "relation": "references"
+      },
+      {
+        "source_doc": "interview_schedule",
+        "target_doc": "candidate_application",
+        "relation": "references"
+      },
+      {
+        "source_doc": "job_offer",
+        "target_doc": "candidate_application",
+        "relation": "references"
+      },
+      {
+        "source_doc": "candidate_application",
+        "target_doc": "candidate_profile",
+        "relation": "references"
+      },
+      {
+        "source_doc": "candidate_application",
+        "target_doc": "job_vacancy",
+        "relation": "references"
+      },
+      {
+        "source_doc": "candidate_application",
+        "target_doc": "interview_schedule",
+        "relation": "references"
+      },
+      {
+        "source_doc": "candidate_application",
+        "target_doc": "interview_evaluation",
+        "relation": "references"
+      },
+      {
+        "source_doc": "candidate_application",
+        "target_doc": "job_offer",
+        "relation": "references"
+      },
+      {
+        "source_doc": "candidate_profile",
+        "target_doc": "candidate_application",
+        "relation": "references"
+      },
+      {
+        "source_doc": "job_description",
+        "target_doc": "job_vacancy",
+        "relation": "references"
+      },
+      {
+        "source_doc": "job_vacancy",
+        "target_doc": "job_description",
+        "relation": "references"
+      },
+      {
+        "source_doc": "job_vacancy",
+        "target_doc": "candidate_application",
+        "relation": "references"
+      },
+      {
+        "source_doc": "training_need",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "training_need",
+        "target_doc": "training_plan",
+        "relation": "references"
+      },
+      {
+        "source_doc": "training_need",
+        "target_doc": "employee_record",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "training_plan",
+        "target_doc": "training_session",
+        "relation": "references"
+      },
+      {
+        "source_doc": "training_attendance",
+        "target_doc": "training_session",
+        "relation": "references"
+      },
+      {
+        "source_doc": "training_attendance",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "training_outcome",
+        "target_doc": "training_session",
+        "relation": "references"
+      },
+      {
+        "source_doc": "training_outcome",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "training_outcome",
+        "target_doc": "training_session",
+        "relation": "create_record",
+        "action_id": "confirm"
+      },
+      {
+        "source_doc": "training_session",
+        "target_doc": "training_attendance",
+        "relation": "references"
+      }
+    ],
+    "operating_graph": {
+      "nodes": [
+        {
+          "id": "employee_onboarding",
+          "kind": "module",
+          "title": "Employee Onboarding"
+        },
+        {
+          "id": "employee_relations",
+          "kind": "module",
+          "title": "Employee Relations"
+        },
+        {
+          "id": "payroll_administration",
+          "kind": "module",
+          "title": "Payroll Administration"
+        },
+        {
+          "id": "performance_appraisal",
+          "kind": "module",
+          "title": "Performance Appraisal"
+        },
+        {
+          "id": "recruitment_selection",
+          "kind": "module",
+          "title": "Recruitment Selection"
+        },
+        {
+          "id": "training_development",
+          "kind": "module",
+          "title": "Training Development"
+        },
+        {
+          "id": "employee_record",
+          "kind": "doc"
+        },
+        {
+          "id": "employment_contract",
+          "kind": "doc"
+        },
+        {
+          "id": "onboarding_case",
+          "kind": "doc"
+        },
+        {
+          "id": "access_assignment",
+          "kind": "doc"
+        },
+        {
+          "id": "orientation_session",
+          "kind": "doc"
+        },
+        {
+          "id": "salary_structure",
+          "kind": "doc"
+        },
+        {
+          "id": "employee_grievance",
+          "kind": "doc"
+        },
+        {
+          "id": "relations_case_note",
+          "kind": "doc"
+        },
+        {
+          "id": "payroll_run",
+          "kind": "doc"
+        },
+        {
+          "id": "payroll_line",
+          "kind": "doc"
+        },
+        {
+          "id": "payslip",
+          "kind": "doc"
+        },
+        {
+          "id": "attendance_record",
+          "kind": "doc"
+        },
+        {
+          "id": "payroll_transaction",
+          "kind": "doc"
+        },
+        {
+          "id": "performance_cycle",
+          "kind": "doc"
+        },
+        {
+          "id": "performance_rating",
+          "kind": "doc"
+        },
+        {
+          "id": "improvement_plan",
+          "kind": "doc"
+        },
+        {
+          "id": "candidate_application",
+          "kind": "doc"
+        },
+        {
+          "id": "interview_schedule",
+          "kind": "doc"
+        },
+        {
+          "id": "candidate_profile",
+          "kind": "doc"
+        },
+        {
+          "id": "job_vacancy",
+          "kind": "doc"
+        },
+        {
+          "id": "interview_evaluation",
+          "kind": "doc"
+        },
+        {
+          "id": "job_offer",
+          "kind": "doc"
+        },
+        {
+          "id": "job_description",
+          "kind": "doc"
+        },
+        {
+          "id": "training_plan",
+          "kind": "doc"
+        },
+        {
+          "id": "training_session",
+          "kind": "doc"
+        },
+        {
+          "id": "training_attendance",
+          "kind": "doc"
+        }
+      ],
+      "edges": [
+        {
+          "source_doc": "access_assignment",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "access_assignment",
+          "target_doc": "employee_record",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "onboarding_case",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "onboarding_case",
+          "target_doc": "employee_record",
+          "relation": "create_record",
+          "action_id": "confirm"
+        },
+        {
+          "source_doc": "orientation_session",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "orientation_session",
+          "target_doc": "employee_record",
+          "relation": "create_record",
+          "action_id": "confirm"
+        },
+        {
+          "source_doc": "employee_record",
+          "target_doc": "employment_contract",
+          "relation": "references"
+        },
+        {
+          "source_doc": "employee_record",
+          "target_doc": "onboarding_case",
+          "relation": "references"
+        },
+        {
+          "source_doc": "employee_record",
+          "target_doc": "access_assignment",
+          "relation": "references"
+        },
+        {
+          "source_doc": "employee_record",
+          "target_doc": "orientation_session",
+          "relation": "references"
+        },
+        {
+          "source_doc": "employee_record",
+          "target_doc": "salary_structure",
+          "relation": "references"
+        },
+        {
+          "source_doc": "employee_record",
+          "target_doc": "access_assignment",
+          "relation": "create_record",
+          "action_id": "activate"
+        },
+        {
+          "source_doc": "employee_record",
+          "target_doc": "access_assignment",
+          "relation": "create_record",
+          "action_id": "assign"
+        },
+        {
+          "source_doc": "employment_contract",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "employment_contract",
+          "target_doc": "employee_record",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "disciplinary_action",
+          "target_doc": "employee_grievance",
+          "relation": "references"
+        },
+        {
+          "source_doc": "disciplinary_action",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "disciplinary_action",
+          "target_doc": "employee_record",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "relations_case_outcome",
+          "target_doc": "employee_grievance",
+          "relation": "references"
+        },
+        {
+          "source_doc": "employee_grievance",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "employee_grievance",
+          "target_doc": "relations_case_note",
+          "relation": "references"
+        },
+        {
+          "source_doc": "employee_grievance",
+          "target_doc": "relations_case_note",
+          "relation": "create_record",
+          "action_id": "close"
+        },
+        {
+          "source_doc": "employee_grievance",
+          "target_doc": "relations_case_note",
+          "relation": "create_record",
+          "action_id": "assign"
+        },
+        {
+          "source_doc": "relations_case_note",
+          "target_doc": "employee_grievance",
+          "relation": "references"
+        },
+        {
+          "source_doc": "payroll_line",
+          "target_doc": "payroll_run",
+          "relation": "references"
+        },
+        {
+          "source_doc": "payroll_line",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "payroll_run",
+          "target_doc": "payroll_line",
+          "relation": "references"
+        },
+        {
+          "source_doc": "payroll_run",
+          "target_doc": "payslip",
+          "relation": "references"
+        },
+        {
+          "source_doc": "payroll_run",
+          "target_doc": "attendance_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "payroll_run",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "payroll_run",
+          "target_doc": "payroll_transaction",
+          "relation": "references"
+        },
+        {
+          "source_doc": "payroll_run",
+          "target_doc": "payroll_transaction",
+          "relation": "create_record",
+          "action_id": "post"
+        },
+        {
+          "source_doc": "payroll_run",
+          "target_doc": "attendance_record",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "payroll_transaction",
+          "target_doc": "payroll_run",
+          "relation": "references"
+        },
+        {
+          "source_doc": "payslip",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "payslip",
+          "target_doc": "payroll_run",
+          "relation": "references"
+        },
+        {
+          "source_doc": "attendance_record",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "attendance_record",
+          "target_doc": "payroll_run",
+          "relation": "references"
+        },
+        {
+          "source_doc": "attendance_record",
+          "target_doc": "employee_record",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "salary_structure",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "performance_appraisal",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "performance_appraisal",
+          "target_doc": "performance_cycle",
+          "relation": "references"
+        },
+        {
+          "source_doc": "performance_appraisal",
+          "target_doc": "performance_rating",
+          "relation": "references"
+        },
+        {
+          "source_doc": "performance_appraisal",
+          "target_doc": "improvement_plan",
+          "relation": "references"
+        },
+        {
+          "source_doc": "performance_appraisal",
+          "target_doc": "employee_record",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "performance_cycle",
+          "target_doc": "performance_appraisal",
+          "relation": "references"
+        },
+        {
+          "source_doc": "performance_rating",
+          "target_doc": "performance_appraisal",
+          "relation": "references"
+        },
+        {
+          "source_doc": "improvement_plan",
+          "target_doc": "performance_appraisal",
+          "relation": "references"
+        },
+        {
+          "source_doc": "improvement_plan",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "interview_evaluation",
+          "target_doc": "candidate_application",
+          "relation": "references"
+        },
+        {
+          "source_doc": "interview_evaluation",
+          "target_doc": "interview_schedule",
+          "relation": "references"
+        },
+        {
+          "source_doc": "interview_schedule",
+          "target_doc": "candidate_application",
+          "relation": "references"
+        },
+        {
+          "source_doc": "job_offer",
+          "target_doc": "candidate_application",
+          "relation": "references"
+        },
+        {
+          "source_doc": "candidate_application",
+          "target_doc": "candidate_profile",
+          "relation": "references"
+        },
+        {
+          "source_doc": "candidate_application",
+          "target_doc": "job_vacancy",
+          "relation": "references"
+        },
+        {
+          "source_doc": "candidate_application",
+          "target_doc": "interview_schedule",
+          "relation": "references"
+        },
+        {
+          "source_doc": "candidate_application",
+          "target_doc": "interview_evaluation",
+          "relation": "references"
+        },
+        {
+          "source_doc": "candidate_application",
+          "target_doc": "job_offer",
+          "relation": "references"
+        },
+        {
+          "source_doc": "candidate_profile",
+          "target_doc": "candidate_application",
+          "relation": "references"
+        },
+        {
+          "source_doc": "job_description",
+          "target_doc": "job_vacancy",
+          "relation": "references"
+        },
+        {
+          "source_doc": "job_vacancy",
+          "target_doc": "job_description",
+          "relation": "references"
+        },
+        {
+          "source_doc": "job_vacancy",
+          "target_doc": "candidate_application",
+          "relation": "references"
+        },
+        {
+          "source_doc": "training_need",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "training_need",
+          "target_doc": "training_plan",
+          "relation": "references"
+        },
+        {
+          "source_doc": "training_need",
+          "target_doc": "employee_record",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "training_plan",
+          "target_doc": "training_session",
+          "relation": "references"
+        },
+        {
+          "source_doc": "training_attendance",
+          "target_doc": "training_session",
+          "relation": "references"
+        },
+        {
+          "source_doc": "training_attendance",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "training_outcome",
+          "target_doc": "training_session",
+          "relation": "references"
+        },
+        {
+          "source_doc": "training_outcome",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "training_outcome",
+          "target_doc": "training_session",
+          "relation": "create_record",
+          "action_id": "confirm"
+        },
+        {
+          "source_doc": "training_session",
+          "target_doc": "training_attendance",
+          "relation": "references"
+        }
+      ]
+    }
   }
 }

@@ -4,5 +4,830 @@
   "app_id": "human_resource_administration",
   "type": "module",
   "status": "draft",
-  "supports_submodules": true
+  "supports_submodules": true,
+  "ui": {
+    "icon_key": "apps",
+    "accent": "#246f89",
+    "logo_image": null,
+    "cover_image": null
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "module",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "docs",
+      "flatten_submodules_in_ui": true
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "Recruitment Selection KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "recruitment_selection",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "Recruitment Selection summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "recruitment_selection",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "Recruitment Selection charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "recruitment_selection",
+          "metric_family": "trend"
+        },
+        "chart_specs": [
+          {
+            "id": "recruitment_selection_trend_line",
+            "label": "Recruitment Selection trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "recruitment_selection_volume_column",
+            "label": "Recruitment Selection volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "recruitment_selection_distribution_donut",
+            "label": "Recruitment Selection distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "interview_evaluation_trend_line",
+            "label": "Interview Evaluation trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "interview_evaluation_volume_column",
+            "label": "Interview Evaluation volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "interview_evaluation_distribution_donut",
+            "label": "Interview Evaluation distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "interview_schedule_trend_line",
+            "label": "Interview Schedule trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "interview_schedule_volume_column",
+            "label": "Interview Schedule volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "interview_schedule_distribution_donut",
+            "label": "Interview Schedule distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "job_offer_trend_line",
+            "label": "Job Offer trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "job_offer_volume_column",
+            "label": "Job Offer volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "job_offer_distribution_donut",
+            "label": "Job Offer distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "candidate_application_trend_line",
+            "label": "Candidate Application trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "candidate_application_volume_column",
+            "label": "Candidate Application volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "candidate_application_distribution_donut",
+            "label": "Candidate Application distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "candidate_profile_trend_line",
+            "label": "Candidate Profile trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "candidate_profile_volume_column",
+            "label": "Candidate Profile volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "candidate_profile_distribution_donut",
+            "label": "Candidate Profile distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "job_description_trend_line",
+            "label": "Job Description trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "job_description_volume_column",
+            "label": "Job Description volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "job_description_distribution_donut",
+            "label": "Job Description distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "job_vacancy_trend_line",
+            "label": "Job Vacancy trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "job_vacancy_volume_column",
+            "label": "Job Vacancy volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "job_vacancy_distribution_donut",
+            "label": "Job Vacancy distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          }
+        ]
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "Recruitment Selection reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "recruitment_selection",
+          "metric_family": "reporting"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "recruitment_selection",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "recruitment_selection",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "recruitment_selection",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "recruitment_selection",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "overview_report",
+        "label": "Recruitment Selection Overview",
+        "report_type": "dashboard_summary",
+        "surface": "module"
+      },
+      {
+        "id": "trend_report",
+        "label": "Recruitment Selection Trends",
+        "report_type": "trend_analysis",
+        "surface": "module"
+      },
+      {
+        "id": "summary_report",
+        "label": "Interview Evaluation Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Interview Evaluation Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "recruitment_selection_trend_line",
+        "label": "Recruitment Selection trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "recruitment_selection_volume_column",
+        "label": "Recruitment Selection volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "recruitment_selection_distribution_donut",
+        "label": "Recruitment Selection distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "interview_evaluation_trend_line",
+        "label": "Interview Evaluation trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "interview_evaluation_volume_column",
+        "label": "Interview Evaluation volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "interview_evaluation_distribution_donut",
+        "label": "Interview Evaluation distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "interview_schedule_trend_line",
+        "label": "Interview Schedule trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "interview_schedule_volume_column",
+        "label": "Interview Schedule volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "interview_schedule_distribution_donut",
+        "label": "Interview Schedule distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "job_offer_trend_line",
+        "label": "Job Offer trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "job_offer_volume_column",
+        "label": "Job Offer volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "job_offer_distribution_donut",
+        "label": "Job Offer distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "candidate_application_trend_line",
+        "label": "Candidate Application trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "candidate_application_volume_column",
+        "label": "Candidate Application volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "candidate_application_distribution_donut",
+        "label": "Candidate Application distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "candidate_profile_trend_line",
+        "label": "Candidate Profile trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "candidate_profile_volume_column",
+        "label": "Candidate Profile volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "candidate_profile_distribution_donut",
+        "label": "Candidate Profile distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "job_description_trend_line",
+        "label": "Job Description trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "job_description_volume_column",
+        "label": "Job Description volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "job_description_distribution_donut",
+        "label": "Job Description distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "job_vacancy_trend_line",
+        "label": "Job Vacancy trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "job_vacancy_volume_column",
+        "label": "Job Vacancy volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "job_vacancy_distribution_donut",
+        "label": "Job Vacancy distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ],
+    "source_docs": [],
+    "source_fields": [],
+    "child_sources": [
+      {
+        "id": "interview_evaluation",
+        "title": "Interview Evaluation",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "interview_schedule",
+        "title": "Interview Schedule",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "job_offer",
+        "title": "Job Offer",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "candidate_application",
+        "title": "Candidate Application",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "candidate_profile",
+        "title": "Candidate Profile",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "job_description",
+        "title": "Job Description",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "job_vacancy",
+        "title": "Job Vacancy",
+        "surface": null,
+        "source_docs": []
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "candidate_application",
+      "interview_schedule",
+      "candidate_profile",
+      "job_vacancy",
+      "interview_evaluation",
+      "job_offer",
+      "job_description"
+    ],
+    "upstream_docs": [
+      "candidate_application",
+      "interview_schedule",
+      "candidate_profile",
+      "job_vacancy",
+      "interview_evaluation",
+      "job_offer",
+      "job_description"
+    ],
+    "downstream_docs": [],
+    "actors": [
+      "hr officer",
+      "hiring manager",
+      "recruiter",
+      "interviewer",
+      "approver"
+    ],
+    "downstream_effects": [
+      "feeds onboarding and employee master creation"
+    ],
+    "emits_records": [],
+    "handoff_targets": [
+      "candidate_application",
+      "interview_schedule",
+      "candidate_profile",
+      "job_vacancy",
+      "interview_evaluation",
+      "job_offer",
+      "job_description"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "interview_evaluation",
+        "target_doc": "candidate_application",
+        "relation": "references"
+      },
+      {
+        "source_doc": "interview_evaluation",
+        "target_doc": "interview_schedule",
+        "relation": "references"
+      },
+      {
+        "source_doc": "interview_schedule",
+        "target_doc": "candidate_application",
+        "relation": "references"
+      },
+      {
+        "source_doc": "job_offer",
+        "target_doc": "candidate_application",
+        "relation": "references"
+      },
+      {
+        "source_doc": "candidate_application",
+        "target_doc": "candidate_profile",
+        "relation": "references"
+      },
+      {
+        "source_doc": "candidate_application",
+        "target_doc": "job_vacancy",
+        "relation": "references"
+      },
+      {
+        "source_doc": "candidate_application",
+        "target_doc": "interview_schedule",
+        "relation": "references"
+      },
+      {
+        "source_doc": "candidate_application",
+        "target_doc": "interview_evaluation",
+        "relation": "references"
+      },
+      {
+        "source_doc": "candidate_application",
+        "target_doc": "job_offer",
+        "relation": "references"
+      },
+      {
+        "source_doc": "candidate_profile",
+        "target_doc": "candidate_application",
+        "relation": "references"
+      },
+      {
+        "source_doc": "job_description",
+        "target_doc": "job_vacancy",
+        "relation": "references"
+      },
+      {
+        "source_doc": "job_vacancy",
+        "target_doc": "job_description",
+        "relation": "references"
+      },
+      {
+        "source_doc": "job_vacancy",
+        "target_doc": "candidate_application",
+        "relation": "references"
+      }
+    ],
+    "operating_graph": {
+      "nodes": [
+        {
+          "id": "candidate_application",
+          "kind": "doc"
+        },
+        {
+          "id": "interview_schedule",
+          "kind": "doc"
+        },
+        {
+          "id": "candidate_profile",
+          "kind": "doc"
+        },
+        {
+          "id": "job_vacancy",
+          "kind": "doc"
+        },
+        {
+          "id": "interview_evaluation",
+          "kind": "doc"
+        },
+        {
+          "id": "job_offer",
+          "kind": "doc"
+        },
+        {
+          "id": "job_description",
+          "kind": "doc"
+        }
+      ],
+      "edges": [
+        {
+          "source_doc": "interview_evaluation",
+          "target_doc": "candidate_application",
+          "relation": "references"
+        },
+        {
+          "source_doc": "interview_evaluation",
+          "target_doc": "interview_schedule",
+          "relation": "references"
+        },
+        {
+          "source_doc": "interview_schedule",
+          "target_doc": "candidate_application",
+          "relation": "references"
+        },
+        {
+          "source_doc": "job_offer",
+          "target_doc": "candidate_application",
+          "relation": "references"
+        },
+        {
+          "source_doc": "candidate_application",
+          "target_doc": "candidate_profile",
+          "relation": "references"
+        },
+        {
+          "source_doc": "candidate_application",
+          "target_doc": "job_vacancy",
+          "relation": "references"
+        },
+        {
+          "source_doc": "candidate_application",
+          "target_doc": "interview_schedule",
+          "relation": "references"
+        },
+        {
+          "source_doc": "candidate_application",
+          "target_doc": "interview_evaluation",
+          "relation": "references"
+        },
+        {
+          "source_doc": "candidate_application",
+          "target_doc": "job_offer",
+          "relation": "references"
+        },
+        {
+          "source_doc": "candidate_profile",
+          "target_doc": "candidate_application",
+          "relation": "references"
+        },
+        {
+          "source_doc": "job_description",
+          "target_doc": "job_vacancy",
+          "relation": "references"
+        },
+        {
+          "source_doc": "job_vacancy",
+          "target_doc": "job_description",
+          "relation": "references"
+        },
+        {
+          "source_doc": "job_vacancy",
+          "target_doc": "candidate_application",
+          "relation": "references"
+        }
+      ]
+    }
+  },
+  "contract_version": 1
 }

@@ -217,7 +217,7 @@
     {
       "field_id": "owner",
       "label": "Owner",
-      "type": "Data",
+      "type": "Link",
       "required": false,
       "read_only": false,
       "default": null,
@@ -406,7 +406,9 @@
         "track",
         "confirm",
         "close"
-      ]
+      ],
+      "scope": "system",
+      "ownership": "platform"
     },
     {
       "role_id": "hr officer",
@@ -414,9 +416,12 @@
         "view",
         "list",
         "create",
+        "update",
         "assign",
         "track"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     },
     {
       "role_id": "case owner",
@@ -424,8 +429,11 @@
         "view",
         "list",
         "confirm",
-        "close"
-      ]
+        "close",
+        "update"
+      ],
+      "scope": "document",
+      "ownership": "functional"
     }
   ],
   "transaction_behavior": {

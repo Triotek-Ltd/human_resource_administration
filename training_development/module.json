@@ -4,5 +4,675 @@
   "app_id": "human_resource_administration",
   "type": "module",
   "status": "draft",
-  "supports_submodules": true
+  "supports_submodules": true,
+  "ui": {
+    "icon_key": "apps",
+    "accent": "#246f89",
+    "logo_image": null,
+    "cover_image": null
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "module",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "docs",
+      "flatten_submodules_in_ui": true
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "Training Development KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "training_development",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "Training Development summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "training_development",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "Training Development charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "training_development",
+          "metric_family": "trend"
+        },
+        "chart_specs": [
+          {
+            "id": "training_development_trend_line",
+            "label": "Training Development trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "training_development_volume_column",
+            "label": "Training Development volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "training_development_distribution_donut",
+            "label": "Training Development distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "training_need_trend_line",
+            "label": "Training Need trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "training_need_volume_column",
+            "label": "Training Need volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "training_need_distribution_donut",
+            "label": "Training Need distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "training_plan_trend_line",
+            "label": "Training Plan trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "training_plan_volume_column",
+            "label": "Training Plan volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "training_plan_distribution_donut",
+            "label": "Training Plan distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "training_attendance_trend_line",
+            "label": "Training Attendance trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "training_attendance_volume_column",
+            "label": "Training Attendance volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "training_attendance_distribution_donut",
+            "label": "Training Attendance distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "training_outcome_trend_line",
+            "label": "Training Outcome trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "training_outcome_volume_column",
+            "label": "Training Outcome volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "training_outcome_distribution_donut",
+            "label": "Training Outcome distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "training_session_trend_line",
+            "label": "Training Session trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "training_session_volume_column",
+            "label": "Training Session volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "training_session_distribution_donut",
+            "label": "Training Session distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          }
+        ]
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "Training Development reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "training_development",
+          "metric_family": "reporting"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "training_development",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "training_development",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "training_development",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "training_development",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "overview_report",
+        "label": "Training Development Overview",
+        "report_type": "dashboard_summary",
+        "surface": "module"
+      },
+      {
+        "id": "trend_report",
+        "label": "Training Development Trends",
+        "report_type": "trend_analysis",
+        "surface": "module"
+      },
+      {
+        "id": "summary_report",
+        "label": "Training Need Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Training Need Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "training_development_trend_line",
+        "label": "Training Development trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "training_development_volume_column",
+        "label": "Training Development volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "training_development_distribution_donut",
+        "label": "Training Development distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "training_need_trend_line",
+        "label": "Training Need trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "training_need_volume_column",
+        "label": "Training Need volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "training_need_distribution_donut",
+        "label": "Training Need distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "training_plan_trend_line",
+        "label": "Training Plan trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "training_plan_volume_column",
+        "label": "Training Plan volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "training_plan_distribution_donut",
+        "label": "Training Plan distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "training_attendance_trend_line",
+        "label": "Training Attendance trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "training_attendance_volume_column",
+        "label": "Training Attendance volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "training_attendance_distribution_donut",
+        "label": "Training Attendance distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "training_outcome_trend_line",
+        "label": "Training Outcome trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "training_outcome_volume_column",
+        "label": "Training Outcome volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "training_outcome_distribution_donut",
+        "label": "Training Outcome distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "training_session_trend_line",
+        "label": "Training Session trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "training_session_volume_column",
+        "label": "Training Session volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "training_session_distribution_donut",
+        "label": "Training Session distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ],
+    "source_docs": [],
+    "source_fields": [],
+    "child_sources": [
+      {
+        "id": "training_need",
+        "title": "Training Need",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "training_plan",
+        "title": "Training Plan",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "training_attendance",
+        "title": "Training Attendance",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "training_outcome",
+        "title": "Training Outcome",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "training_session",
+        "title": "Training Session",
+        "surface": null,
+        "source_docs": []
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "employee_record",
+      "training_plan",
+      "training_session",
+      "training_attendance"
+    ],
+    "upstream_docs": [
+      "employee_record",
+      "training_plan",
+      "training_session",
+      "training_attendance"
+    ],
+    "downstream_docs": [
+      "employee_record",
+      "training_session"
+    ],
+    "actors": [
+      "HR development owner",
+      "trainer",
+      "participant manager"
+    ],
+    "downstream_effects": [
+      "supports employee development and performance planning"
+    ],
+    "emits_records": [
+      {
+        "action_id": "approve",
+        "target_doc": "employee_record",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "confirm",
+        "target_doc": "training_session",
+        "effect_type": "create_record"
+      }
+    ],
+    "handoff_targets": [
+      "employee_record",
+      "training_plan",
+      "training_session",
+      "training_attendance"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "training_need",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "training_need",
+        "target_doc": "training_plan",
+        "relation": "references"
+      },
+      {
+        "source_doc": "training_need",
+        "target_doc": "employee_record",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "training_plan",
+        "target_doc": "training_session",
+        "relation": "references"
+      },
+      {
+        "source_doc": "training_attendance",
+        "target_doc": "training_session",
+        "relation": "references"
+      },
+      {
+        "source_doc": "training_attendance",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "training_outcome",
+        "target_doc": "training_session",
+        "relation": "references"
+      },
+      {
+        "source_doc": "training_outcome",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "training_outcome",
+        "target_doc": "training_session",
+        "relation": "create_record",
+        "action_id": "confirm"
+      },
+      {
+        "source_doc": "training_session",
+        "target_doc": "training_attendance",
+        "relation": "references"
+      }
+    ],
+    "operating_graph": {
+      "nodes": [
+        {
+          "id": "employee_record",
+          "kind": "doc"
+        },
+        {
+          "id": "training_plan",
+          "kind": "doc"
+        },
+        {
+          "id": "training_session",
+          "kind": "doc"
+        },
+        {
+          "id": "training_attendance",
+          "kind": "doc"
+        }
+      ],
+      "edges": [
+        {
+          "source_doc": "training_need",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "training_need",
+          "target_doc": "training_plan",
+          "relation": "references"
+        },
+        {
+          "source_doc": "training_need",
+          "target_doc": "employee_record",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "training_plan",
+          "target_doc": "training_session",
+          "relation": "references"
+        },
+        {
+          "source_doc": "training_attendance",
+          "target_doc": "training_session",
+          "relation": "references"
+        },
+        {
+          "source_doc": "training_attendance",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "training_outcome",
+          "target_doc": "training_session",
+          "relation": "references"
+        },
+        {
+          "source_doc": "training_outcome",
+          "target_doc": "employee_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "training_outcome",
+          "target_doc": "training_session",
+          "relation": "create_record",
+          "action_id": "confirm"
+        },
+        {
+          "source_doc": "training_session",
+          "target_doc": "training_attendance",
+          "relation": "references"
+        }
+      ]
+    }
+  },
+  "contract_version": 1
 }

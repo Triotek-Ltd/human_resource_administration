@@ -10,7 +10,8 @@
   "doc_archetype": "master",
   "classification": {
     "archetype": "master",
-    "bundle": "administration"
+    "bundle": "administration",
+    "doc_kind": "master"
   },
   "planning_source": {
     "type": "reference_doc_generation_manifest",
@@ -23,5 +24,293 @@
       "confidential-data split",
       "payroll identifier boundaries"
     ]
-  }
+  },
+  "ui": {
+    "icon_key": "user",
+    "accent": "#246f89",
+    "logo_image": null,
+    "cover_image": null,
+    "preferred_views": [
+      "list",
+      "table",
+      "detail",
+      "report"
+    ],
+    "default_density": "comfortable"
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "doc",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "records",
+      "flatten_submodules_in_ui": false,
+      "views": [
+        "list",
+        "table",
+        "detail",
+        "report"
+      ]
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "Employee Record KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "employee_record",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "Employee Record summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "employee_record",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "Employee Record charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "employee_record",
+          "metric_family": "trend"
+        }
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "Employee Record reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "employee_record",
+          "metric_family": "reporting"
+        }
+      },
+      {
+        "id": "records",
+        "type": "record_table",
+        "title": "Employee Record records",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "employee_record",
+          "metric_family": "records"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "employee_record",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "employee_record",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "employee_record",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "employee_record",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "overview_report",
+        "label": "Employee Record Overview",
+        "report_type": "dashboard_summary",
+        "surface": "doc"
+      },
+      {
+        "id": "trend_report",
+        "label": "Employee Record Trends",
+        "report_type": "trend_analysis",
+        "surface": "doc"
+      },
+      {
+        "id": "summary_report",
+        "label": "Employee Record Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Employee Record Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "supports_outputs": false,
+    "supports_print_formats": true,
+    "default_views": [
+      "summary",
+      "trend",
+      "report_table"
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "employee_record_trend_line",
+        "label": "Employee Record trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "employee_record_volume_column",
+        "label": "Employee Record volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "employee_record_distribution_donut",
+        "label": "Employee Record distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "employment_contract",
+      "onboarding_case",
+      "access_assignment",
+      "orientation_session",
+      "salary_structure"
+    ],
+    "upstream_docs": [
+      "employment_contract",
+      "onboarding_case",
+      "access_assignment",
+      "orientation_session",
+      "salary_structure"
+    ],
+    "downstream_docs": [
+      "access_assignment"
+    ],
+    "borrowed_fields": [
+      "department",
+      "supervisor display fields from linked records",
+      "salary defaults from salary_structure"
+    ],
+    "emits_records": [
+      {
+        "action_id": "activate",
+        "target_doc": "access_assignment",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "assign",
+        "target_doc": "access_assignment",
+        "effect_type": "create_record"
+      }
+    ],
+    "downstream_effects": [
+      "payroll history becomes available for employee records, finance controls, and reporting outputs"
+    ],
+    "actors": [
+      "payroll officer",
+      "HR reviewer",
+      "approver",
+      "finance officer",
+      "employee"
+    ],
+    "handoff_targets": [
+      "employment_contract",
+      "onboarding_case",
+      "access_assignment",
+      "orientation_session",
+      "salary_structure"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "employee_record",
+        "target_doc": "employment_contract",
+        "relation": "references"
+      },
+      {
+        "source_doc": "employee_record",
+        "target_doc": "onboarding_case",
+        "relation": "references"
+      },
+      {
+        "source_doc": "employee_record",
+        "target_doc": "access_assignment",
+        "relation": "references"
+      },
+      {
+        "source_doc": "employee_record",
+        "target_doc": "orientation_session",
+        "relation": "references"
+      },
+      {
+        "source_doc": "employee_record",
+        "target_doc": "salary_structure",
+        "relation": "references"
+      },
+      {
+        "source_doc": "employee_record",
+        "target_doc": "access_assignment",
+        "relation": "create_record",
+        "action_id": "activate"
+      },
+      {
+        "source_doc": "employee_record",
+        "target_doc": "access_assignment",
+        "relation": "create_record",
+        "action_id": "assign"
+      }
+    ]
+  },
+  "contract_version": 1
 }

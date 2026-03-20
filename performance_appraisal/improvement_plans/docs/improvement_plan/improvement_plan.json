@@ -15,6 +15,242 @@
   },
   "doc_key": "improvement_plan",
   "doc_title": "Improvement Plan",
+  "ui": {
+    "icon_key": "checklist",
+    "accent": "#2d6a4f",
+    "logo_image": null,
+    "cover_image": null,
+    "preferred_views": [
+      "list",
+      "table",
+      "detail",
+      "report"
+    ],
+    "default_density": "comfortable"
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "doc",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "records",
+      "flatten_submodules_in_ui": false,
+      "views": [
+        "list",
+        "table",
+        "detail",
+        "report"
+      ]
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "Improvement Plan KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "improvement_plan",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "Improvement Plan summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "improvement_plan",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "Improvement Plan charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "improvement_plan",
+          "metric_family": "trend"
+        }
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "Improvement Plan reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "improvement_plan",
+          "metric_family": "reporting"
+        }
+      },
+      {
+        "id": "records",
+        "type": "record_table",
+        "title": "Improvement Plan records",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "improvement_plan",
+          "metric_family": "records"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "improvement_plan",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "improvement_plan",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "improvement_plan",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "improvement_plan",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "overview_report",
+        "label": "Improvement Plan Overview",
+        "report_type": "dashboard_summary",
+        "surface": "doc"
+      },
+      {
+        "id": "trend_report",
+        "label": "Improvement Plan Trends",
+        "report_type": "trend_analysis",
+        "surface": "doc"
+      },
+      {
+        "id": "summary_report",
+        "label": "Improvement Plan Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Improvement Plan Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "supports_outputs": true,
+    "supports_print_formats": true,
+    "default_views": [
+      "summary",
+      "trend",
+      "report_table"
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "improvement_plan_trend_line",
+        "label": "Improvement Plan trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "improvement_plan_volume_column",
+        "label": "Improvement Plan volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "improvement_plan_distribution_donut",
+        "label": "Improvement Plan distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "performance_appraisal",
+      "employee_record"
+    ],
+    "upstream_docs": [
+      "performance_appraisal",
+      "employee_record"
+    ],
+    "downstream_docs": [],
+    "borrowed_fields": [
+      "employee",
+      "manager",
+      "appraisal summary from linked records"
+    ],
+    "emits_records": [],
+    "downstream_effects": [
+      "supports employee growth and performance management"
+    ],
+    "actors": [
+      "supervisor",
+      "employee",
+      "HR reviewer"
+    ],
+    "handoff_targets": [
+      "performance_appraisal",
+      "employee_record"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "improvement_plan",
+        "target_doc": "performance_appraisal",
+        "relation": "references"
+      },
+      {
+        "source_doc": "improvement_plan",
+        "target_doc": "employee_record",
+        "relation": "references"
+      }
+    ]
+  },
   "allowed_actions": [
     "create",
     "assign",
@@ -207,7 +443,7 @@
       {
         "field_id": "appraisal",
         "label": "Appraisal",
-        "type": "Data",
+        "type": "Link",
         "required": false,
         "read_only": false,
         "default": null,
@@ -279,7 +515,7 @@
       {
         "field_id": "owner",
         "label": "Owner",
-        "type": "Data",
+        "type": "Link",
         "required": false,
         "read_only": false,
         "default": null,
@@ -430,7 +666,9 @@
           "assign",
           "track",
           "close"
-        ]
+        ],
+        "scope": "system",
+        "ownership": "platform"
       },
       {
         "role_id": "supervisor",
@@ -438,24 +676,31 @@
           "view",
           "list",
           "create",
+          "update",
           "assign",
           "track",
           "close"
-        ]
+        ],
+        "scope": "approval",
+        "ownership": "managerial"
       },
       {
         "role_id": "employee",
         "actions": [
           "view",
           "list"
-        ]
+        ],
+        "scope": "document",
+        "ownership": "functional"
       },
       {
         "role_id": "HR reviewer",
         "actions": [
           "view",
           "list"
-        ]
+        ],
+        "scope": "review",
+        "ownership": "oversight"
       }
     ],
     "transaction_behavior": {
@@ -513,7 +758,127 @@
         "modified"
       ],
       "default_filters": [],
-      "quick_entry": false
+      "quick_entry": false,
+      "form_layout": {
+        "version": 1,
+        "tabs": [
+          {
+            "id": "overview",
+            "label": "Overview",
+            "sections": [
+              {
+                "id": "identity",
+                "label": "Identity",
+                "columns": [
+                  {
+                    "id": "identity_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "title"
+                    ]
+                  },
+                  {
+                    "id": "identity_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "reference_no"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "status",
+                "label": "Workflow",
+                "columns": [
+                  {
+                    "id": "status_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "workflow_state"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "details",
+            "label": "Details",
+            "sections": [
+              {
+                "id": "content",
+                "label": "Details",
+                "columns": [
+                  {
+                    "id": "content_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "plan_number",
+                      "actions",
+                      "completion_note"
+                    ]
+                  },
+                  {
+                    "id": "content_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "issue_summary",
+                      "review_dates"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "content_details",
+                "label": "Description",
+                "columns": [
+                  {
+                    "id": "content_details_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "description"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "related",
+            "label": "Related",
+            "sections": [
+              {
+                "id": "relations",
+                "label": "Related Records",
+                "columns": [
+                  {
+                    "id": "relations_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "appraisal"
+                    ]
+                  },
+                  {
+                    "id": "relations_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "owner"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     "related_docs": [
       {
@@ -553,7 +918,11 @@
       "show_activity_log": true,
       "show_comments": true,
       "show_assignments": true,
-      "show_related_docs": true
+      "show_related_docs": true,
+      "show_kpis": true,
+      "show_summaries": true,
+      "show_charts": true,
+      "show_reports": true
     },
     "integration": {
       "external_refs": [],
@@ -602,6 +971,17 @@
         }
       },
       "action_side_effects_file": "side_effects.json"
+    },
+    "dashboard": {
+      "metric_blocks": [
+        "kpis",
+        "summaries",
+        "charts",
+        "reports",
+        "records"
+      ],
+      "default_view": "list",
+      "reporting_surface": "doc"
     }
   },
   "classification": {
@@ -701,6 +1081,12 @@
     "api_base_path": "/apis/human_resource_administration/performance_appraisal/improvement_plans/improvement_plan/",
     "status_field": "workflow_state",
     "initial_state": "open",
+    "actions": [
+      "create",
+      "assign",
+      "track",
+      "close"
+    ],
     "required_fields": [
       "title",
       "workflow_state"
@@ -725,6 +1111,53 @@
     ],
     "downstream_effects": [
       "supports employee growth and performance management"
+    ],
+    "role_action_matrix": [
+      {
+        "role_id": "System Manager",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "assign",
+          "track",
+          "close"
+        ],
+        "scope": "system",
+        "ownership": "platform"
+      },
+      {
+        "role_id": "supervisor",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "update",
+          "assign",
+          "track",
+          "close"
+        ],
+        "scope": "approval",
+        "ownership": "managerial"
+      },
+      {
+        "role_id": "employee",
+        "actions": [
+          "view",
+          "list"
+        ],
+        "scope": "document",
+        "ownership": "functional"
+      },
+      {
+        "role_id": "HR reviewer",
+        "actions": [
+          "view",
+          "list"
+        ],
+        "scope": "review",
+        "ownership": "oversight"
+      }
     ],
     "action_side_effects_file": "side_effects.json"
   },

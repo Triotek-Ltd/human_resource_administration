@@ -37,6 +37,18 @@
       "fields": {
         "workflow_state": "active"
       }
+    },
+    {
+      "type": "create_record",
+      "target_doc": "access_assignment",
+      "values": {
+        "title": {
+          "$template": "Access Assignment for {title|reference_no|id}"
+        },
+        "reference_no": {
+          "$template": "ACCESS_ASSIGNMENT-{reference_no|id}"
+        }
+      }
     }
   ],
   "record": [
@@ -44,6 +56,20 @@
       "type": "update_current",
       "fields": {
         "workflow_state": "draft"
+      }
+    }
+  ],
+  "assign": [
+    {
+      "type": "create_record",
+      "target_doc": "access_assignment",
+      "values": {
+        "title": {
+          "$template": "Access Assignment for {title|reference_no|id}"
+        },
+        "reference_no": {
+          "$template": "ACCESS_ASSIGNMENT-{reference_no|id}"
+        }
       }
     }
   ]

@@ -15,6 +15,244 @@
   },
   "doc_key": "access_assignment",
   "doc_title": "Access Assignment",
+  "ui": {
+    "icon_key": "receipt",
+    "accent": "#1f7a8c",
+    "logo_image": null,
+    "cover_image": null,
+    "preferred_views": [
+      "list",
+      "table",
+      "detail",
+      "report"
+    ],
+    "default_density": "comfortable"
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "doc",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "records",
+      "flatten_submodules_in_ui": false,
+      "views": [
+        "list",
+        "table",
+        "detail",
+        "report"
+      ]
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "Access Assignment KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "access_assignment",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "Access Assignment summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "access_assignment",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "Access Assignment charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "access_assignment",
+          "metric_family": "trend"
+        }
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "Access Assignment reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "access_assignment",
+          "metric_family": "reporting"
+        }
+      },
+      {
+        "id": "records",
+        "type": "record_table",
+        "title": "Access Assignment records",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "access_assignment",
+          "metric_family": "records"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "access_assignment",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "access_assignment",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "access_assignment",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "access_assignment",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "overview_report",
+        "label": "Access Assignment Overview",
+        "report_type": "dashboard_summary",
+        "surface": "doc"
+      },
+      {
+        "id": "trend_report",
+        "label": "Access Assignment Trends",
+        "report_type": "trend_analysis",
+        "surface": "doc"
+      },
+      {
+        "id": "summary_report",
+        "label": "Access Assignment Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Access Assignment Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "supports_outputs": true,
+    "supports_print_formats": true,
+    "default_views": [
+      "summary",
+      "trend",
+      "report_table"
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "access_assignment_trend_line",
+        "label": "Access Assignment trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "access_assignment_volume_column",
+        "label": "Access Assignment volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "access_assignment_distribution_donut",
+        "label": "Access Assignment distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "employee_record"
+    ],
+    "upstream_docs": [
+      "employee_record"
+    ],
+    "downstream_docs": [
+      "employee_record"
+    ],
+    "borrowed_fields": [
+      "employee",
+      "department",
+      "supervisor data from employee_record"
+    ],
+    "emits_records": [
+      {
+        "action_id": "approve",
+        "target_doc": "employee_record",
+        "effect_type": "create_record"
+      }
+    ],
+    "downstream_effects": [],
+    "actors": [
+      "hr officer"
+    ],
+    "handoff_targets": [
+      "employee_record"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "access_assignment",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "access_assignment",
+        "target_doc": "employee_record",
+        "relation": "create_record",
+        "action_id": "approve"
+      }
+    ]
+  },
   "allowed_actions": [
     "create",
     "approve",
@@ -221,7 +459,7 @@
         "unique": false,
         "options": null,
         "purpose": "primary_party",
-        "linked_doc": null,
+        "linked_doc": "employee_record",
         "depends_on": null,
         "mandatory_depends_on": null,
         "read_only_depends_on": null,
@@ -238,12 +476,39 @@
       {
         "field_id": "currency",
         "label": "Currency",
-        "type": "Data",
+        "type": "Select",
         "required": false,
         "read_only": false,
         "default": null,
         "unique": false,
-        "options": null,
+        "options": {
+          "values": [
+            "USD",
+            "EUR",
+            "GBP",
+            "KES",
+            "UGX",
+            "TZS",
+            "RWF",
+            "NGN",
+            "GHS",
+            "ZAR",
+            "AED",
+            "SAR",
+            "INR",
+            "CNY",
+            "JPY",
+            "CAD",
+            "AUD",
+            "NZD",
+            "CHF",
+            "SEK",
+            "NOK",
+            "DKK",
+            "ZMW",
+            "BWP"
+          ]
+        },
         "purpose": "currency_code",
         "linked_doc": null,
         "depends_on": null,
@@ -382,7 +647,7 @@
       {
         "field_id": "approver",
         "label": "Approver",
-        "type": "Data",
+        "type": "Link",
         "required": false,
         "read_only": false,
         "default": null,
@@ -534,7 +799,9 @@
           "approve",
           "issue",
           "close"
-        ]
+        ],
+        "scope": "system",
+        "ownership": "platform"
       },
       {
         "role_id": "hr officer",
@@ -542,10 +809,13 @@
           "view",
           "list",
           "create",
+          "update",
           "approve",
           "issue",
           "close"
-        ]
+        ],
+        "scope": "document",
+        "ownership": "functional"
       }
     ],
     "transaction_behavior": {
@@ -609,7 +879,184 @@
         "workflow_state"
       ],
       "default_filters": [],
-      "quick_entry": false
+      "quick_entry": false,
+      "form_layout": {
+        "version": 1,
+        "tabs": [
+          {
+            "id": "overview",
+            "label": "Overview",
+            "sections": [
+              {
+                "id": "identity",
+                "label": "Identity",
+                "columns": [
+                  {
+                    "id": "identity_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "title"
+                    ]
+                  },
+                  {
+                    "id": "identity_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "reference_no"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "parties",
+                "label": "Parties",
+                "columns": [
+                  {
+                    "id": "parties_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "party"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "dates",
+                "label": "Dates",
+                "columns": [
+                  {
+                    "id": "dates_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "transaction_date",
+                      "closed_date"
+                    ]
+                  },
+                  {
+                    "id": "dates_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "provisioned_date"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "status",
+                "label": "Workflow",
+                "columns": [
+                  {
+                    "id": "status_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "workflow_state"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "details",
+            "label": "Details",
+            "sections": [
+              {
+                "id": "content",
+                "label": "Details",
+                "columns": [
+                  {
+                    "id": "content_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "assignment_number",
+                      "role"
+                    ]
+                  },
+                  {
+                    "id": "content_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "system_or_resource"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "content_details",
+                "label": "Description",
+                "columns": [
+                  {
+                    "id": "content_details_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "description"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "amounts",
+                "label": "Amounts",
+                "columns": [
+                  {
+                    "id": "amounts_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "currency"
+                    ]
+                  },
+                  {
+                    "id": "amounts_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "total_amount"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "related",
+            "label": "Related",
+            "sections": [
+              {
+                "id": "relations",
+                "label": "Related Records",
+                "columns": [
+                  {
+                    "id": "relations_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "employee"
+                    ]
+                  },
+                  {
+                    "id": "relations_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "approver"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     "related_docs": [
       {
@@ -667,7 +1114,11 @@
       "show_activity_log": true,
       "show_comments": true,
       "show_assignments": true,
-      "show_related_docs": true
+      "show_related_docs": true,
+      "show_kpis": true,
+      "show_summaries": true,
+      "show_charts": true,
+      "show_reports": true
     },
     "integration": {
       "external_refs": [],
@@ -710,6 +1161,17 @@
         }
       },
       "action_side_effects_file": "side_effects.json"
+    },
+    "dashboard": {
+      "metric_blocks": [
+        "kpis",
+        "summaries",
+        "charts",
+        "reports",
+        "records"
+      ],
+      "default_view": "list",
+      "reporting_surface": "doc"
     }
   },
   "classification": {
@@ -813,6 +1275,12 @@
     "api_base_path": "/apis/human_resource_administration/employee_onboarding/access_orientation/access_assignment/",
     "status_field": "workflow_state",
     "initial_state": "draft",
+    "actions": [
+      "create",
+      "approve",
+      "issue",
+      "close"
+    ],
     "required_fields": [
       "title",
       "workflow_state",
@@ -842,6 +1310,35 @@
       "employee_record"
     ],
     "downstream_effects": [],
+    "role_action_matrix": [
+      {
+        "role_id": "System Manager",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "approve",
+          "issue",
+          "close"
+        ],
+        "scope": "system",
+        "ownership": "platform"
+      },
+      {
+        "role_id": "hr officer",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "update",
+          "approve",
+          "issue",
+          "close"
+        ],
+        "scope": "document",
+        "ownership": "functional"
+      }
+    ],
     "action_side_effects_file": "side_effects.json"
   },
   "runtime": {

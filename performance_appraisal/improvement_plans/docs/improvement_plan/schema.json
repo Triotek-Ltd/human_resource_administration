@@ -145,7 +145,7 @@
     {
       "field_id": "appraisal",
       "label": "Appraisal",
-      "type": "Data",
+      "type": "Link",
       "required": false,
       "read_only": false,
       "default": null,
@@ -217,7 +217,7 @@
     {
       "field_id": "owner",
       "label": "Owner",
-      "type": "Data",
+      "type": "Link",
       "required": false,
       "read_only": false,
       "default": null,
@@ -393,7 +393,9 @@
         "assign",
         "track",
         "close"
-      ]
+      ],
+      "scope": "system",
+      "ownership": "platform"
     },
     {
       "role_id": "supervisor",
@@ -401,24 +403,31 @@
         "view",
         "list",
         "create",
+        "update",
         "assign",
         "track",
         "close"
-      ]
+      ],
+      "scope": "approval",
+      "ownership": "managerial"
     },
     {
       "role_id": "employee",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     },
     {
       "role_id": "HR reviewer",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "review",
+      "ownership": "oversight"
     }
   ],
   "transaction_behavior": {

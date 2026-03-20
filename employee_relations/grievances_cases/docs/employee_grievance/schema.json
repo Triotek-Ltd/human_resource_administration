@@ -266,7 +266,7 @@
     {
       "field_id": "owner",
       "label": "Owner",
-      "type": "Data",
+      "type": "Link",
       "required": false,
       "read_only": false,
       "default": null,
@@ -333,7 +333,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     }
   ],
   "field_groups": {
@@ -468,7 +469,9 @@
         "escalate",
         "close",
         "archive"
-      ]
+      ],
+      "scope": "system",
+      "ownership": "platform"
     },
     {
       "role_id": "employee-relations owner",
@@ -476,17 +479,22 @@
         "view",
         "list",
         "create",
+        "update",
         "assign",
         "close",
         "archive"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     },
     {
       "role_id": "manager",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "approval",
+      "ownership": "managerial"
     },
     {
       "role_id": "HR reviewer",
@@ -494,7 +502,9 @@
         "view",
         "list",
         "review"
-      ]
+      ],
+      "scope": "review",
+      "ownership": "oversight"
     }
   ],
   "transaction_behavior": {

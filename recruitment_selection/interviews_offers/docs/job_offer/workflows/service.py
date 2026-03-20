@@ -2,13 +2,15 @@
 
 from __future__ import annotations
 
+from typing import Any, cast
+
 
 DOC_ID = "job_offer"
 ARCHETYPE = "transaction"
 INITIAL_STATE = 'draft'
 STATES = ['draft', 'issued', 'accepted', 'declined', 'cancelled', 'archived']
 TERMINAL_STATES = ['archived']
-ACTION_RULES = {'create': {'allowed_in_states': ['draft', 'issued', 'accepted', 'declined', 'cancelled'], 'transitions_to': None}, 'issue': {'allowed_in_states': ['draft', 'issued', 'accepted', 'declined', 'cancelled'], 'transitions_to': 'issued'}, 'confirm': {'allowed_in_states': ['draft', 'issued', 'accepted', 'declined', 'cancelled'], 'transitions_to': None}, 'cancel': {'allowed_in_states': ['draft', 'issued', 'accepted', 'declined', 'cancelled'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['draft', 'issued', 'accepted', 'declined', 'cancelled'], 'transitions_to': 'archived'}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'create': {'allowed_in_states': ['draft', 'issued', 'accepted', 'declined', 'cancelled'], 'transitions_to': None}, 'issue': {'allowed_in_states': ['draft', 'issued', 'accepted', 'declined', 'cancelled'], 'transitions_to': 'issued'}, 'confirm': {'allowed_in_states': ['draft', 'issued', 'accepted', 'declined', 'cancelled'], 'transitions_to': None}, 'cancel': {'allowed_in_states': ['draft', 'issued', 'accepted', 'declined', 'cancelled'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['draft', 'issued', 'accepted', 'declined', 'cancelled'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
 WORKFLOW_HINTS = {'business_objective': 'define a staffing need, attract candidates, assess them, and issue an approved offer to the selected candidate', 'actors': ['hiring manager', 'recruiter', 'interviewer', 'approver'], 'start_condition': 'a staffing requirement is approved', 'ordered_steps': ['Select the candidate and issue the offer.'], 'primary_actions': ['create', 'approve', 'issue', 'close'], 'primary_transitions': ['job_offer: draft -> approved -> issued -> closed'], 'downstream_effects': ['feeds onboarding and employee master creation'], 'action_actors': {'create': ['hiring manager'], 'issue': ['hiring manager'], 'confirm': ['approver'], 'cancel': ['hiring manager'], 'archive': ['hiring manager']}}
@@ -29,7 +31,7 @@ class WorkflowService:
 
     def next_state_for(self, action_id: str) -> str | None:
         rule = ACTION_RULES.get(action_id, {})
-        return rule.get("transitions_to")
+        return cast(str | None, rule.get("transitions_to"))
 
     def apply_action(self, action_id: str, state: str | None) -> dict:
         if not self.is_action_allowed(action_id, state):

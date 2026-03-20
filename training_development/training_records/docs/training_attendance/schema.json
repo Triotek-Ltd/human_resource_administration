@@ -167,7 +167,7 @@
     {
       "field_id": "session",
       "label": "Session",
-      "type": "Data",
+      "type": "Link",
       "required": false,
       "read_only": false,
       "default": null,
@@ -270,7 +270,7 @@
     {
       "field_id": "score",
       "label": "Score",
-      "type": "Data",
+      "type": "Float",
       "required": false,
       "read_only": false,
       "default": null,
@@ -385,7 +385,9 @@
         "record",
         "review",
         "archive"
-      ]
+      ],
+      "scope": "system",
+      "ownership": "platform"
     },
     {
       "role_id": "HR development owner",
@@ -393,8 +395,12 @@
         "view",
         "list",
         "record",
-        "archive"
-      ]
+        "create",
+        "archive",
+        "update"
+      ],
+      "scope": "document",
+      "ownership": "functional"
     },
     {
       "role_id": "trainer",
@@ -402,14 +408,18 @@
         "view",
         "list",
         "review"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     },
     {
       "role_id": "participant manager",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "approval",
+      "ownership": "managerial"
     }
   ],
   "transaction_behavior": {

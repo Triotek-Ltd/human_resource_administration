@@ -10,7 +10,8 @@
   "doc_archetype": "workflow_case",
   "classification": {
     "archetype": "workflow_case",
-    "bundle": "administration"
+    "bundle": "administration",
+    "doc_kind": "workflow_case"
   },
   "planning_source": {
     "type": "reference_doc_generation_manifest",
@@ -23,5 +24,266 @@
       "mediation",
       "appeal stages"
     ]
-  }
+  },
+  "ui": {
+    "icon_key": "checklist",
+    "accent": "#2d6a4f",
+    "logo_image": null,
+    "cover_image": null,
+    "preferred_views": [
+      "list",
+      "table",
+      "detail",
+      "report"
+    ],
+    "default_density": "comfortable"
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "doc",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "records",
+      "flatten_submodules_in_ui": false,
+      "views": [
+        "list",
+        "table",
+        "detail",
+        "report"
+      ]
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "Employee Grievance KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "employee_grievance",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "Employee Grievance summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "employee_grievance",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "Employee Grievance charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "employee_grievance",
+          "metric_family": "trend"
+        }
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "Employee Grievance reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "employee_grievance",
+          "metric_family": "reporting"
+        }
+      },
+      {
+        "id": "records",
+        "type": "record_table",
+        "title": "Employee Grievance records",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "employee_grievance",
+          "metric_family": "records"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "employee_grievance",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "employee_grievance",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "employee_grievance",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "employee_grievance",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "overview_report",
+        "label": "Employee Grievance Overview",
+        "report_type": "dashboard_summary",
+        "surface": "doc"
+      },
+      {
+        "id": "trend_report",
+        "label": "Employee Grievance Trends",
+        "report_type": "trend_analysis",
+        "surface": "doc"
+      },
+      {
+        "id": "summary_report",
+        "label": "Employee Grievance Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Employee Grievance Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "supports_outputs": true,
+    "supports_print_formats": true,
+    "default_views": [
+      "summary",
+      "trend",
+      "report_table"
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "employee_grievance_trend_line",
+        "label": "Employee Grievance trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "employee_grievance_volume_column",
+        "label": "Employee Grievance volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "employee_grievance_distribution_donut",
+        "label": "Employee Grievance distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "employee_record",
+      "relations_case_note"
+    ],
+    "upstream_docs": [
+      "employee_record",
+      "relations_case_note"
+    ],
+    "downstream_docs": [
+      "relations_case_note"
+    ],
+    "borrowed_fields": [
+      "employee",
+      "department context from employee_record"
+    ],
+    "emits_records": [
+      {
+        "action_id": "close",
+        "target_doc": "relations_case_note",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "assign",
+        "target_doc": "relations_case_note",
+        "effect_type": "create_record"
+      }
+    ],
+    "downstream_effects": [
+      "supports HR compliance and risk management"
+    ],
+    "actors": [
+      "employee-relations owner",
+      "manager",
+      "HR reviewer"
+    ],
+    "handoff_targets": [
+      "employee_record",
+      "relations_case_note"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "employee_grievance",
+        "target_doc": "employee_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "employee_grievance",
+        "target_doc": "relations_case_note",
+        "relation": "references"
+      },
+      {
+        "source_doc": "employee_grievance",
+        "target_doc": "relations_case_note",
+        "relation": "create_record",
+        "action_id": "close"
+      },
+      {
+        "source_doc": "employee_grievance",
+        "target_doc": "relations_case_note",
+        "relation": "create_record",
+        "action_id": "assign"
+      }
+    ]
+  },
+  "contract_version": 1
 }

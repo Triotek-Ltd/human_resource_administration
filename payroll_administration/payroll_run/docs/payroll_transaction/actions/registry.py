@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 
 DOC_ID = "payroll_transaction"
 ALLOWED_ACTIONS = ['record', 'post', 'reconcile', 'archive']
-ACTION_RULES = {'record': {'allowed_in_states': ['draft', 'posted', 'reconciled'], 'transitions_to': None}, 'post': {'allowed_in_states': ['draft', 'posted', 'reconciled'], 'transitions_to': None}, 'reconcile': {'allowed_in_states': ['draft', 'posted', 'reconciled'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['draft', 'posted', 'reconciled'], 'transitions_to': 'archived'}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'record': {'allowed_in_states': ['draft', 'posted', 'reconciled'], 'transitions_to': None}, 'post': {'allowed_in_states': ['draft', 'posted', 'reconciled'], 'transitions_to': None}, 'reconcile': {'allowed_in_states': ['draft', 'posted', 'reconciled'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['draft', 'posted', 'reconciled'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
 

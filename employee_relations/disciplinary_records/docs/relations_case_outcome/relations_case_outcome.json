@@ -15,6 +15,230 @@
   },
   "doc_key": "relations_case_outcome",
   "doc_title": "Relations Case Outcome",
+  "ui": {
+    "icon_key": "receipt",
+    "accent": "#1f7a8c",
+    "logo_image": null,
+    "cover_image": null,
+    "preferred_views": [
+      "list",
+      "table",
+      "detail",
+      "report"
+    ],
+    "default_density": "comfortable"
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "doc",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "records",
+      "flatten_submodules_in_ui": false,
+      "views": [
+        "list",
+        "table",
+        "detail",
+        "report"
+      ]
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "Relations Case Outcome KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "relations_case_outcome",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "Relations Case Outcome summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "relations_case_outcome",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "Relations Case Outcome charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "relations_case_outcome",
+          "metric_family": "trend"
+        }
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "Relations Case Outcome reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "relations_case_outcome",
+          "metric_family": "reporting"
+        }
+      },
+      {
+        "id": "records",
+        "type": "record_table",
+        "title": "Relations Case Outcome records",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "relations_case_outcome",
+          "metric_family": "records"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "relations_case_outcome",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "relations_case_outcome",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "relations_case_outcome",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "relations_case_outcome",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "overview_report",
+        "label": "Relations Case Outcome Overview",
+        "report_type": "dashboard_summary",
+        "surface": "doc"
+      },
+      {
+        "id": "trend_report",
+        "label": "Relations Case Outcome Trends",
+        "report_type": "trend_analysis",
+        "surface": "doc"
+      },
+      {
+        "id": "summary_report",
+        "label": "Relations Case Outcome Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Relations Case Outcome Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "supports_outputs": true,
+    "supports_print_formats": true,
+    "default_views": [
+      "summary",
+      "trend",
+      "report_table"
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "relations_case_outcome_trend_line",
+        "label": "Relations Case Outcome trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "relations_case_outcome_volume_column",
+        "label": "Relations Case Outcome volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "relations_case_outcome_distribution_donut",
+        "label": "Relations Case Outcome distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "employee_grievance"
+    ],
+    "upstream_docs": [
+      "employee_grievance"
+    ],
+    "downstream_docs": [],
+    "borrowed_fields": [
+      "issue summary",
+      "parties from employee_grievance"
+    ],
+    "emits_records": [],
+    "downstream_effects": [],
+    "actors": [
+      "hr officer",
+      "case owner"
+    ],
+    "handoff_targets": [
+      "employee_grievance"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "relations_case_outcome",
+        "target_doc": "employee_grievance",
+        "relation": "references"
+      }
+    ]
+  },
   "allowed_actions": [
     "create",
     "confirm",
@@ -217,7 +441,7 @@
         "unique": false,
         "options": null,
         "purpose": "primary_party",
-        "linked_doc": null,
+        "linked_doc": "employee_grievance",
         "depends_on": null,
         "mandatory_depends_on": null,
         "read_only_depends_on": null,
@@ -234,12 +458,39 @@
       {
         "field_id": "currency",
         "label": "Currency",
-        "type": "Data",
+        "type": "Select",
         "required": false,
         "read_only": false,
         "default": null,
         "unique": false,
-        "options": null,
+        "options": {
+          "values": [
+            "USD",
+            "EUR",
+            "GBP",
+            "KES",
+            "UGX",
+            "TZS",
+            "RWF",
+            "NGN",
+            "GHS",
+            "ZAR",
+            "AED",
+            "SAR",
+            "INR",
+            "CNY",
+            "JPY",
+            "CAD",
+            "AUD",
+            "NZD",
+            "CHF",
+            "SEK",
+            "NOK",
+            "DKK",
+            "ZMW",
+            "BWP"
+          ]
+        },
         "purpose": "currency_code",
         "linked_doc": null,
         "depends_on": null,
@@ -306,7 +557,7 @@
       {
         "field_id": "grievance",
         "label": "Grievance",
-        "type": "Data",
+        "type": "Link",
         "required": false,
         "read_only": false,
         "default": null,
@@ -502,15 +753,20 @@
           "create",
           "confirm",
           "archive"
-        ]
+        ],
+        "scope": "system",
+        "ownership": "platform"
       },
       {
         "role_id": "hr officer",
         "actions": [
           "view",
           "list",
-          "create"
-        ]
+          "create",
+          "update"
+        ],
+        "scope": "document",
+        "ownership": "functional"
       },
       {
         "role_id": "case owner",
@@ -518,8 +774,11 @@
           "view",
           "list",
           "confirm",
-          "archive"
-        ]
+          "archive",
+          "update"
+        ],
+        "scope": "document",
+        "ownership": "functional"
       }
     ],
     "transaction_behavior": {
@@ -583,7 +842,183 @@
         "workflow_state"
       ],
       "default_filters": [],
-      "quick_entry": false
+      "quick_entry": false,
+      "form_layout": {
+        "version": 1,
+        "tabs": [
+          {
+            "id": "overview",
+            "label": "Overview",
+            "sections": [
+              {
+                "id": "identity",
+                "label": "Identity",
+                "columns": [
+                  {
+                    "id": "identity_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "title"
+                    ]
+                  },
+                  {
+                    "id": "identity_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "reference_no"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "parties",
+                "label": "Parties",
+                "columns": [
+                  {
+                    "id": "parties_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "party"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "dates",
+                "label": "Dates",
+                "columns": [
+                  {
+                    "id": "dates_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "transaction_date"
+                    ]
+                  },
+                  {
+                    "id": "dates_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "closure_date"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "status",
+                "label": "Workflow",
+                "columns": [
+                  {
+                    "id": "status_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "workflow_state"
+                    ]
+                  },
+                  {
+                    "id": "status_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "archive_status"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "details",
+            "label": "Details",
+            "sections": [
+              {
+                "id": "content",
+                "label": "Details",
+                "columns": [
+                  {
+                    "id": "content_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "outcome_number",
+                      "corrective_action"
+                    ]
+                  },
+                  {
+                    "id": "content_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "decision_summary"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "content_details",
+                "label": "Description",
+                "columns": [
+                  {
+                    "id": "content_details_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "description"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "amounts",
+                "label": "Amounts",
+                "columns": [
+                  {
+                    "id": "amounts_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "currency"
+                    ]
+                  },
+                  {
+                    "id": "amounts_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "total_amount"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "related",
+            "label": "Related",
+            "sections": [
+              {
+                "id": "relations",
+                "label": "Related Records",
+                "columns": [
+                  {
+                    "id": "relations_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "grievance"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     "related_docs": [
       {
@@ -615,7 +1050,11 @@
       "show_activity_log": true,
       "show_comments": true,
       "show_assignments": true,
-      "show_related_docs": true
+      "show_related_docs": true,
+      "show_kpis": true,
+      "show_summaries": true,
+      "show_charts": true,
+      "show_reports": true
     },
     "integration": {
       "external_refs": [],
@@ -656,6 +1095,17 @@
         }
       },
       "action_side_effects_file": "side_effects.json"
+    },
+    "dashboard": {
+      "metric_blocks": [
+        "kpis",
+        "summaries",
+        "charts",
+        "reports",
+        "records"
+      ],
+      "default_view": "list",
+      "reporting_surface": "doc"
     }
   },
   "classification": {
@@ -758,6 +1208,11 @@
     "api_base_path": "/apis/human_resource_administration/employee_relations/disciplinary_records/relations_case_outcome/",
     "status_field": "workflow_state",
     "initial_state": "draft",
+    "actions": [
+      "create",
+      "confirm",
+      "archive"
+    ],
     "required_fields": [
       "title",
       "workflow_state",
@@ -781,6 +1236,43 @@
       "employee_grievance"
     ],
     "downstream_effects": [],
+    "role_action_matrix": [
+      {
+        "role_id": "System Manager",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "confirm",
+          "archive"
+        ],
+        "scope": "system",
+        "ownership": "platform"
+      },
+      {
+        "role_id": "hr officer",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "update"
+        ],
+        "scope": "document",
+        "ownership": "functional"
+      },
+      {
+        "role_id": "case owner",
+        "actions": [
+          "view",
+          "list",
+          "confirm",
+          "archive",
+          "update"
+        ],
+        "scope": "document",
+        "ownership": "functional"
+      }
+    ],
     "action_side_effects_file": "side_effects.json"
   },
   "runtime": {
